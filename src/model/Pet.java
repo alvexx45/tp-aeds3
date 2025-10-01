@@ -15,12 +15,12 @@ public class Pet {
     }
 
     public Pet(int id, String nome, String especie, String raca, float peso, Cliente dono) {
-        this.id = id;
-        this.nome = nome;
-        this.especie = especie;
-        this.raca = raca;
-        this.peso = peso;
-        this.dono = dono;
+        setId(id);
+        setNome(nome);
+        setEspecie(especie);
+        setRaca(raca);
+        setPeso(peso);
+        setDono(dono);
     }
 
     public void setId(int id) { this.id = id; }
@@ -40,6 +40,7 @@ public class Pet {
     public byte[] toByteArray() throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(baos);
+
         dos.writeInt(getId());
         dos.writeUTF(getNome());
         dos.writeUTF(getEspecie());
@@ -53,11 +54,13 @@ public class Pet {
     public void fromByteArray(byte[] b) throws IOException {
         ByteArrayInputStream bais = new ByteArrayInputStream(b);
         DataInputStream dis = new DataInputStream(bais);
+
         setId(dis.readInt());
         setNome(dis.readUTF());
         setEspecie(dis.readUTF());
         setRaca(dis.readUTF());
         setPeso(dis.readFloat());
+
         String cpf = dis.readUTF();
         Cliente dono = new Cliente();
         dono.setCpf(cpf);

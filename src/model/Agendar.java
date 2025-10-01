@@ -13,9 +13,9 @@ public class Agendar {
     }
 
     public Agendar(LocalDate data, Cliente cliente, Servico servico) {
-        this.data = data;
-        this.cliente = cliente;
-        this.servico = servico;
+        setData(data);
+        setCliente(cliente);
+        setServico(servico);
     }
 
     public void setData(LocalDate data) { this.data = data; }

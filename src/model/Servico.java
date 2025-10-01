@@ -28,6 +28,7 @@ public class Servico {
     public byte[] toByteArray() throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(baos);
+        
         dos.writeInt(getId());
         dos.writeUTF(getNome());
         dos.writeInt(getValor());

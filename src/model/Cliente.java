@@ -13,10 +13,10 @@ public class Cliente {
     }
 
     public Cliente(String cpf, String nome, String email, String[] telefones) {
-        this.cpf = cpf;
-        this.nome = nome;
-        this.email = email;
-        this.telefones = telefones;
+        setCpf(cpf);
+        setNome(nome);
+        setEmail(email);
+        setTelefones(telefones);
     }
 
     public void setCpf(String cpf) { this.cpf = cpf; }
@@ -32,9 +32,11 @@ public class Cliente {
     public byte[] toByteArray() throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(baos);
+        
         dos.writeUTF(getCpf());
         dos.writeUTF(getNome());
         dos.writeUTF(getEmail());
+
         dos.writeInt(getTelefones().length);
         for (String telefone : this.telefones) {
             dos.writeUTF(telefone);
@@ -46,9 +48,11 @@ public class Cliente {
     public void fromByteArray(byte[] b) throws IOException {
         ByteArrayInputStream bais = new ByteArrayInputStream(b);
         DataInputStream dis = new DataInputStream(bais);
+        
         setCpf(dis.readUTF());
         setNome(dis.readUTF());
         setEmail(dis.readUTF());
+
         int telefonesLength = dis.readInt();
         String[] telefones = new String[telefonesLength];
         for (int i = 0; i < telefonesLength; i++) {
