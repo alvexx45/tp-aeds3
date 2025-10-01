@@ -32,27 +32,28 @@ public class Cliente {
     public byte[] toByteArray() throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(baos);
-        dos.writeUTF(this.cpf);
-        dos.writeUTF(this.nome);
-        dos.writeUTF(this.email);
-        dos.writeInt(this.telefones.length);
+        dos.writeUTF(getCpf());
+        dos.writeUTF(getNome());
+        dos.writeUTF(getEmail());
+        dos.writeInt(getTelefones().length);
         for (String telefone : this.telefones) {
             dos.writeUTF(telefone);
         }
-        
+
         return baos.toByteArray();
     }
 
     public void fromByteArray(byte[] b) throws IOException {
         ByteArrayInputStream bais = new ByteArrayInputStream(b);
         DataInputStream dis = new DataInputStream(bais);
-        this.cpf = dis.readUTF();
-        this.nome = dis.readUTF();
-        this.email = dis.readUTF();
+        setCpf(dis.readUTF());
+        setNome(dis.readUTF());
+        setEmail(dis.readUTF());
         int telefonesLength = dis.readInt();
-        this.telefones = new String[telefonesLength];
+        String[] telefones = new String[telefonesLength];
         for (int i = 0; i < telefonesLength; i++) {
-            this.telefones[i] = dis.readUTF();
+            telefones[i] = dis.readUTF();
         }
+        setTelefones(telefones);
     }
 }
