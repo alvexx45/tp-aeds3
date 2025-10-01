@@ -25,4 +25,32 @@ public class Agendar {
     public LocalDate getData() { return data; }
     public Cliente getCliente() { return cliente; }
     public Servico getServico() { return servico; }
+
+    public byte[] toByteArray() throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        DataOutputStream dos = new DataOutputStream(baos);
+        dos.writeInt(getId());
+        dos.writeUTF(getNome());
+        dos.writeUTF(getEspecie());
+        dos.writeUTF(getRaca());
+        dos.writeFloat(getPeso());
+        dos.writeUTF(getDono().getCpf());
+        
+        return baos.toByteArray();
+    }
+
+    public void fromByteArray(byte[] b) throws IOException {
+        ByteArrayInputStream bais = new ByteArrayInputStream(b);
+        DataInputStream dis = new DataInputStream(bais);
+        setId(dis.readInt());
+        setNome(dis.readUTF());
+        setEspecie(dis.readUTF());
+        setRaca(dis.readUTF());
+        setPeso(dis.readFloat());
+        String cpf = dis.readUTF();
+        Cliente dono = new Cliente();
+        dono.setCpf(cpf);
+        setDono(dono);
+    }
+
 }
