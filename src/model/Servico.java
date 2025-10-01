@@ -12,9 +12,9 @@ public class Servico {
     }
 
     public Servico(int id, String nome, int valor) {
-        this.id = id;
-        this.nome = nome;
-        this.valor = valor;
+        setId(id);
+        setNome(nome);
+        setValor(valor);
     }
 
     public void setId(int id) { this.id = id; }
@@ -24,4 +24,23 @@ public class Servico {
     public int getId() { return id; }
     public String getNome() { return nome; }
     public int getValor() { return valor; }
+
+    public byte[] toByteArray() throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        DataOutputStream dos = new DataOutputStream(baos);
+        dos.writeInt(getId());
+        dos.writeUTF(getNome());
+        dos.writeInt(getValor());
+        
+        return baos.toByteArray();
+    }
+
+    public void fromByteArray(byte[] b) throws IOException {
+        ByteArrayInputStream bais = new ByteArrayInputStream(b);
+        DataInputStream dis = new DataInputStream(bais);
+        setId(dis.readInt());
+        setNome(dis.readUTF());
+        setValor(dis.readInt());
+    }
+
 }
