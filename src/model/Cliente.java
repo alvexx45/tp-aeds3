@@ -3,27 +3,31 @@ package model;
 import java.io.*;
 
 public class Cliente {
+    private int id;
     private String cpf;
     private String nome;
     private String email;
     private String[] telefones;
 
     public Cliente() {
-        this("", "", "", new String[0]);
+        this(-1, "", "", "", new String[0]);
     }
 
-    public Cliente(String cpf, String nome, String email, String[] telefones) {
+    public Cliente(int id, String cpf, String nome, String email, String[] telefones) {
+        setId(id);
         setCpf(cpf);
         setNome(nome);
         setEmail(email);
         setTelefones(telefones);
     }
 
+    public void setId(int id) { this.id = id; }
     public void setCpf(String cpf) { this.cpf = cpf; }
     public void setNome(String nome) { this.nome = nome; }
     public void setEmail(String email) { this.email = email; }
     public void setTelefones(String[] telefones) { this.telefones = telefones; }
 
+    public int getId() { return id; }
     public String getCpf() { return cpf; }
     public String getNome() { return nome; }
     public String getEmail() { return email; }
@@ -33,6 +37,7 @@ public class Cliente {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(baos);
         
+        dos.writeInt(getId());
         dos.writeUTF(getCpf());
         dos.writeUTF(getNome());
         dos.writeUTF(getEmail());
@@ -49,6 +54,7 @@ public class Cliente {
         ByteArrayInputStream bais = new ByteArrayInputStream(b);
         DataInputStream dis = new DataInputStream(bais);
         
+        setId(dis.readInt());
         setCpf(dis.readUTF());
         setNome(dis.readUTF());
         setEmail(dis.readUTF());

@@ -31,7 +31,7 @@ public class Agendar {
         DataOutputStream dos = new DataOutputStream(baos);
         
         dos.writeLong(getData().toEpochDay());
-        dos.writeUTF(getCliente().getCpf());
+        dos.writeInt(getCliente().getId());
         dos.writeInt(getServico().getId());
         
         return baos.toByteArray();
@@ -43,14 +43,14 @@ public class Agendar {
         
         setData(LocalDate.ofEpochDay(dis.readLong()));
 
-        String cpf = dis.readUTF();
+        int idCliente = dis.readInt();
         Cliente cliente = new Cliente();
-        cliente.setCpf(cpf);
+        cliente.setId(idCliente);
         setCliente(cliente);
     
-        int id = dis.readInt();
+        int idServ = dis.readInt();
         Servico servico = new Servico();
-        servico.setId(id);
+        servico.setId(idServ);
         setServico(servico);
     }
 }

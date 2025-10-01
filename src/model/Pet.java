@@ -46,7 +46,7 @@ public class Pet {
         dos.writeUTF(getEspecie());
         dos.writeUTF(getRaca());
         dos.writeFloat(getPeso());
-        dos.writeUTF(getDono().getCpf());
+        dos.writeInt(getDono().getId());
         
         return baos.toByteArray();
     }
@@ -61,9 +61,9 @@ public class Pet {
         setRaca(dis.readUTF());
         setPeso(dis.readFloat());
 
-        String cpf = dis.readUTF();
+        int id = dis.readInt();
         Cliente dono = new Cliente();
-        dono.setCpf(cpf);
+        dono.setId(id);
         setDono(dono);
     }
 }
