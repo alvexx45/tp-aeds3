@@ -1,5 +1,7 @@
 package model;
 
+import java.io.*;
+
 public class Servico {
     private int id;
     private String nome;
@@ -18,7 +20,7 @@ public class Servico {
     public void setId(int id) { this.id = id; }
     public void setNome(String nome) { this.nome = nome; }
     public void setValor(int valor) { this.valor = valor; }
-    
+
     public int getId() { return id; }
     public String getNome() { return nome; }
     public int getValor() { return valor; }

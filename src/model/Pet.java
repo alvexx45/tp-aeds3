@@ -1,5 +1,7 @@
 package model;
 
+import java.io.*;
+
 public class Pet {
     private int id;
     private String nome;
@@ -34,4 +36,28 @@ public class Pet {
     public String getRaca() { return raca; }
     public float getPeso() { return peso; }
     public Cliente getDono() { return dono; }
+
+    public byte[] toByteArray() throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        DataOutputStream dos = new DataOutputStream(baos);
+        dos.writeInt(this.id);
+        dos.writeUTF(this.nome);
+        dos.writeUTF(this.especie);
+        dos.writeUTF(this.raca);
+        dos.writeFloat(this.peso);
+        dos.writeUTF(this.dono.getCpf());
+        
+        return baos.toByteArray();
+    }
+
+    public void fromByteArray(byte[] b) throws IOException {
+        ByteArrayInputStream bais = new ByteArrayInputStream(b);
+        DataInputStream dis = new DataInputStream(bais);
+        this.id = dis.readInt();
+        this.nome = dis.readUTF();
+        this.especie = dis.readUTF();
+        this.raca = dis.readUTF();
+        this.peso = dis.readFloat();
+        this.dono.setCpf(dis.readUTF());
+    }
 }

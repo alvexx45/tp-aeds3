@@ -39,6 +39,7 @@ public class Cliente {
         for (String telefone : this.telefones) {
             dos.writeUTF(telefone);
         }
+        
         return baos.toByteArray();
     }
 

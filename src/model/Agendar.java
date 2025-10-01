@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.io.*;
 
 public class Agendar {
     private LocalDate data;
