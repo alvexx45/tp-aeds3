@@ -1,16 +1,16 @@
 package model;
 
-class Cliente {
-    String cpf;
-    String nome;
-    String email;
-    String[] telefones;
+public class Cliente {
+    private String cpf;
+    private String nome;
+    private String email;
+    private String[] telefones;
 
-    Cliente() {
+    public Cliente() {
         this("", "", "", new String[0]);
     }
 
-    Cliente(String cpf, String nome, String email, String[] telefones) {
+    public Cliente(String cpf, String nome, String email, String[] telefones) {
         this.cpf = cpf;
         this.nome = nome;
         this.email = email;
