@@ -1,8 +1,9 @@
 package model;
 
 import java.io.*;
+import dao.Registro;
 
-public class Servico {
+public class Servico implements Registro {
     private int id;
     private String nome;
     private int valor;

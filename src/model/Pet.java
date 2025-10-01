@@ -1,8 +1,9 @@
 package model;
 
 import java.io.*;
+import dao.Registro;
 
-public class Pet {
+public class Pet implements Registro {
     private int id;
     private String nome;
     private String especie;
