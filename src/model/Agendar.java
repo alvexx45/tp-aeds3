@@ -29,12 +29,10 @@ public class Agendar {
     public byte[] toByteArray() throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(baos);
-        dos.writeInt(getId());
-        dos.writeUTF(getNome());
-        dos.writeUTF(getEspecie());
-        dos.writeUTF(getRaca());
-        dos.writeFloat(getPeso());
-        dos.writeUTF(getDono().getCpf());
+        
+        dos.writeLong(getData().toEpochDay());
+        dos.writeUTF(getCliente().getCpf());
+        dos.writeInt(getServico().getId());
         
         return baos.toByteArray();
     }
@@ -42,15 +40,17 @@ public class Agendar {
     public void fromByteArray(byte[] b) throws IOException {
         ByteArrayInputStream bais = new ByteArrayInputStream(b);
         DataInputStream dis = new DataInputStream(bais);
-        setId(dis.readInt());
-        setNome(dis.readUTF());
-        setEspecie(dis.readUTF());
-        setRaca(dis.readUTF());
-        setPeso(dis.readFloat());
-        String cpf = dis.readUTF();
-        Cliente dono = new Cliente();
-        dono.setCpf(cpf);
-        setDono(dono);
-    }
+        
+        setData(LocalDate.ofEpochDay(dis.readLong()));
 
+        String cpf = dis.readUTF();
+        Cliente cliente = new Cliente();
+        cliente.setCpf(cpf);
+        setCliente(cliente);
+    
+        int id = dis.readInt();
+        Servico servico = new Servico();
+        servico.setId(id);
+        setServico(servico);
+    }
 }

@@ -38,6 +38,7 @@ public class Servico {
     public void fromByteArray(byte[] b) throws IOException {
         ByteArrayInputStream bais = new ByteArrayInputStream(b);
         DataInputStream dis = new DataInputStream(bais);
+        
         setId(dis.readInt());
         setNome(dis.readUTF());
         setValor(dis.readInt());
