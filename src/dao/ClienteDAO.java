@@ -23,4 +23,8 @@ public class ClienteDAO {
     public Cliente buscarCliente(int id) throws Exception {
         return arqClientes.read(id);
     }
+
+    public Cliente buscarClientePorCPF(String cpf) throws Exception {
+        return arqClientes.findBy(cliente -> cliente.getCpf().equals(cpf));
+    }
 }

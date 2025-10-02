@@ -47,7 +47,7 @@ public class Pet implements Registro {
         dos.writeUTF(getEspecie());
         dos.writeUTF(getRaca());
         dos.writeFloat(getPeso());
-        dos.writeInt(getDono().getId());
+        dos.writeUTF(getDono() != null ? getDono().getCpf() : "");
         
         return baos.toByteArray();
     }
@@ -62,9 +62,11 @@ public class Pet implements Registro {
         setRaca(dis.readUTF());
         setPeso(dis.readFloat());
 
-        int id = dis.readInt();
-        Cliente dono = new Cliente();
-        dono.setId(id);
-        setDono(dono);
+        String cpfDono = dis.readUTF();
+        if (!cpfDono.isEmpty()) {
+            Cliente dono = new Cliente();
+            dono.setCpf(cpfDono);
+            setDono(dono);
+        }
     }
 }
