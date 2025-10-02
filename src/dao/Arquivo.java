@@ -5,7 +5,7 @@ import java.io.RandomAccessFile;
 import java.lang.reflect.Constructor;
 
 public class Arquivo<T extends Registro> {
-    private static final int TAM_CABECALHO = 4;
+    private static final int TAM_CABECALHO = 12;
     private RandomAccessFile arquivo;
     private String nomeArquivo;
     private Constructor<T> construtor;
@@ -140,13 +140,13 @@ public class Arquivo<T extends Registro> {
     }
 
     private void addDeleted(int tamanhoEspaco, long enderecoEspaco) throws Exception {
-        long posicao = 4;
+        long posicao = 4; // Posição após o int do último ID
         arquivo.seek(posicao);
         long endereco = arquivo.readLong();
         long proximo;
 
         if (endereco == -1) {
-            arquivo.seek(4);
+            arquivo.seek(4); // Posição do ponteiro para lista de excluídos
             arquivo.writeLong(enderecoEspaco);
             arquivo.seek(enderecoEspaco + 3);
             arquivo.writeLong(-1);
@@ -157,7 +157,7 @@ public class Arquivo<T extends Registro> {
                 proximo = arquivo.readLong();
 
                 if (tamanho > tamanhoEspaco) {
-                    if (posicao == 4)
+                    if (posicao == 4) // Se estamos no início da lista de excluídos
                         arquivo.seek(posicao);
                     else
                         arquivo.seek(posicao + 3);
@@ -182,7 +182,7 @@ public class Arquivo<T extends Registro> {
     }
 
     private long getDeleted(int tamanhoNecessario) throws Exception {
-        long posicao = 4;
+        long posicao = 4; // Posição após o int do último ID
         arquivo.seek(posicao);
         long endereco = arquivo.readLong();
         long proximo;
@@ -194,7 +194,7 @@ public class Arquivo<T extends Registro> {
             proximo = arquivo.readLong();
 
             if (tamanho > tamanhoNecessario) {
-                if (posicao == 4)
+                if (posicao == 4) // Se estamos no início da lista de excluídos
                     arquivo.seek(posicao);
                 else
                     arquivo.seek(posicao + 3);
