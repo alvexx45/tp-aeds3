@@ -12,13 +12,13 @@ public class Arquivo<T extends Registro> {
     private IndiceSequencial indice;
 
     public Arquivo(String nomeArquivo, Constructor<T> construtor) throws Exception {
-        File diretorio = new File("./dados");
+        File diretorio = new File("src/dados");
+        if (!diretorio.exists()) diretorio.mkdirs();
+
+        diretorio = new File("src/dados/" + nomeArquivo);
         if (!diretorio.exists()) diretorio.mkdir();
 
-        diretorio = new File("./dados/" + nomeArquivo);
-        if (!diretorio.exists()) diretorio.mkdir();
-
-        this.nomeArquivo = "./dados/" + nomeArquivo + "/" + nomeArquivo + ".db";
+        this.nomeArquivo = "src/dados/" + nomeArquivo + "/" + nomeArquivo + ".db";
         this.construtor = construtor;
         this.arquivo = new RandomAccessFile(this.nomeArquivo, "rw");
         this.indice = new IndiceSequencial(nomeArquivo);

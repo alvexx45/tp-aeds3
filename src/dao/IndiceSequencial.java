@@ -27,7 +27,7 @@ public class IndiceSequencial {
     }
     
     public IndiceSequencial(String nomeEntidade) throws Exception {
-        String caminhoIndice = "./dados/" + nomeEntidade + "/" + nomeEntidade + ".idx";
+        String caminhoIndice = "src/dados/" + nomeEntidade + "/" + nomeEntidade + ".idx";
         this.arquivo = new RandomAccessFile(caminhoIndice, "rw");
         this.indices = new ArrayList<>();
         

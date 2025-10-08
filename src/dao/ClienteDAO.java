@@ -3,9 +3,12 @@ import model.Cliente;
 
 public class ClienteDAO {
     private Arquivo<Cliente> arqClientes;
+    private IndiceHashExtensivel indiceHash;
 
     public ClienteDAO() throws Exception {
         arqClientes = new Arquivo<>("clientes", Cliente.class.getConstructor());
+        // Usar o mesmo índice hash que o PetDAO para manter consistência
+        indiceHash = new IndiceHashExtensivel("pets");
     }
 
     public boolean incluirCliente(Cliente cliente) throws Exception {
@@ -17,7 +20,21 @@ public class ClienteDAO {
     }
 
     public boolean excluirCliente(int id) throws Exception {
-        return arqClientes.delete(id);
+        // Buscar o cliente para obter o CPF antes de excluir
+        Cliente cliente = arqClientes.read(id);
+        if (cliente == null) {
+            return false;
+        }
+        
+        // Excluir o cliente do arquivo
+        boolean excluido = arqClientes.delete(id);
+        
+        if (excluido) {
+            // Remover todos os relacionamentos Pet-Dono da hash extensível
+            indiceHash.removerTodosPorCpf(cliente.getCpf());
+        }
+        
+        return excluido;
     }
 
     public Cliente buscarCliente(int id) throws Exception {
@@ -49,6 +66,9 @@ public class ClienteDAO {
         if (cliente == null) {
             return false; // Cliente não encontrado
         }
+        
+        // Remover todos os relacionamentos Pet-Dono da hash extensível
+        indiceHash.removerTodosPorCpf(cpf);
         
         // Usar o método de exclusão por ID
         return arqClientes.delete(cliente.getId());

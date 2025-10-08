@@ -15,6 +15,7 @@ public class Main {
             System.out.println("1 - Gerenciar Clientes");
             System.out.println("2 - Gerenciar Pets");
             System.out.println("3 - Gerenciar Serviços");
+            System.out.println("4 - Executar Bateria de Testes");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
             
@@ -33,6 +34,10 @@ public class Main {
                     case 3:
                         MenuServico menuServico = new MenuServico();
                         menuServico.exibirMenu();
+                        break;
+                    case 4:
+                        BateriaTestes bateria = new BateriaTestes();
+                        bateria.executar();
                         break;
                     case 0:
                         System.out.println("Encerrando o sistema...");
