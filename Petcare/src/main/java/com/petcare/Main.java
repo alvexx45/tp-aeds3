@@ -27,6 +27,9 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("view.fxml"));
         Scene scene = new Scene(root,400,400,Color.DARKRED);
+        //scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());  <- quando usando so uma scene
+        String css = this.getClass().getResource("Style.css").toExternalForm();
+        scene.getStylesheets().add(css);
         stage.setTitle("Petcare Manager");
         //scene.setFill(Color.TRANSPARENT); <- cor do scenario
 
