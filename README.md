@@ -154,8 +154,9 @@ A **Bateria de Testes** (opção 4 do menu) insere dados de exemplo e demonstra:
 
 ## 👥 Autores
 
-Trabalho Prático - AEDS III
-PUC Minas
+- Bernardo Bicalho
+- Bernardo Pires
+- Eduardo Luttembarck
 
 ## 📝 Notas
 
