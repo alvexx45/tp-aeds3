@@ -1,47 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.petcare.Controller">
+<AnchorPane fx:id = "rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.petcare.Controller">
    <children>
-      <MenuBar minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="600.0">
-        <menus>
-          <Menu fx:id="File" mnemonicParsing="false" text="Clientes">
-            <items>
-              <MenuItem fx:id="Close" mnemonicParsing="false" text="Incluir Cliente" />
-                  <MenuItem mnemonicParsing="false" text="Buscar Cliente por ID" />
-                  <MenuItem mnemonicParsing="false" text="Alterar Cliente por ID" />
-                  <MenuItem mnemonicParsing="false" text="Excluir cliente por ID" />
-                  <MenuItem mnemonicParsing="false" text="Buscar Cliente por CPF" />
-                  <MenuItem mnemonicParsing="false" text="Alterar Cliente por CPF" />
-                  <MenuItem mnemonicParsing="false" text="Excluir Cliente por CPF" />
-                  <MenuItem mnemonicParsing="false" text="Buscar Cliente por Email" />
-                  <MenuItem mnemonicParsing="false" text="Buscar Cliente por Nome" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Pets">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Incluir Pet" />
-                  <MenuItem mnemonicParsing="false" text="Buscar Pet" />
-                  <MenuItem mnemonicParsing="false" text="Alterar Pet" />
-                  <MenuItem mnemonicParsing="false" text="Excluir Pet" />
-                  <MenuItem mnemonicParsing="false" text="Listar Pets de um Cliente" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Serviços">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Incluir Serviço" />
-                  <MenuItem mnemonicParsing="false" text="Buscar Serviço" />
-                  <MenuItem mnemonicParsing="false" text="Alterar Serviço" />
-                  <MenuItem mnemonicParsing="false" text="Excluir Serviço" />
-                  <MenuItem mnemonicParsing="false" text="Buscar Serviço por Nome" />
-                  <MenuItem mnemonicParsing="false" text="Buscar Serviços por Faixa De Preço" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
+      <MenuButton layoutX="247.0" layoutY="14.0" mnemonicParsing="false" text="Gerenciar">
+        <items>
+          <MenuItem mnemonicParsing="false" onAction="#switchtoGerenciarClientes" text="Clientes" />
+          <MenuItem mnemonicParsing="false" onAction="#switchtoGerenciarPets" text="Pets" />
+            <MenuItem mnemonicParsing="false" onAction="#switchtoGerenciarServicos" text="Servicos" />
+        </items>
+      </MenuButton>
    </children>
 </AnchorPane>
