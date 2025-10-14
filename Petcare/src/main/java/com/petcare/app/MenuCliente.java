@@ -1,7 +1,7 @@
-package app;
+package main.java.com.petcare.app;
 
-import dao.ClienteDAO;
-import model.Cliente;
+import main.java.com.petcare.dao.ClienteDAO;
+import main.java.com.petcare.model.Cliente;
 import java.util.Scanner;
 
 public class MenuCliente {

@@ -1,4 +1,4 @@
-package dao;
+package main.java.com.petcare.dao;
 
 import java.io.IOException;
 

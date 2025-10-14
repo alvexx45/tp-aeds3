@@ -1,5 +1,5 @@
-package dao;
-import model.Cliente;
+package main.java.com.petcare.dao;
+import main.java.com.petcare.model.Cliente;
 
 public class ClienteDAO {
     private Arquivo<Cliente> arqClientes;

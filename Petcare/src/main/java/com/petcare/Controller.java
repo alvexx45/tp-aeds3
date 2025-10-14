@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,6 +20,8 @@ public class Controller {
     @FXML
     private AnchorPane rootPane;
 
+    @FXML
+    private Pane AdicionarCliente;
 
 
     public void switchtoGerenciarMenu(ActionEvent event) throws IOException {
@@ -52,6 +55,14 @@ public class Controller {
         stage.setScene(scene);
         stage.show();
     }
+
+
+    @FXML
+    private void MostrarPainelAdicionar()
+    {
+        AdicionarCliente.setVisible(!AdicionarCliente.isVisible());
+    }
+
 
 
 

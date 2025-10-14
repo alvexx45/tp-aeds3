@@ -1,4 +1,4 @@
-package model;
+package main.java.com.petcare.model;
 
 import java.time.LocalDate;
 import java.io.*;

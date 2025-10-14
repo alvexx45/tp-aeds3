@@ -1,5 +1,5 @@
-package dao;
-import model.Servico;
+package main.java.com.petcare.dao;
+import main.java.com.petcare.model.Servico;
 
 public class ServicoDAO {
     private Arquivo<Servico> arqServicos;

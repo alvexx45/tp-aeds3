@@ -1,4 +1,4 @@
-package app;
+package main.java.com.petcare.app;
 
 import java.util.Scanner;
 

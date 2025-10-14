@@ -1,7 +1,7 @@
-package app;
+package main.java.com.petcare.app;
 
-import dao.ServicoDAO;
-import model.Servico;
+import main.java.com.petcare.dao.ServicoDAO;
+import main.java.com.petcare.model.Servico;
 import java.util.Scanner;
 
 public class MenuServico {

@@ -1,7 +1,7 @@
-package model;
+package main.java.com.petcare.model;
 
 import java.io.*;
-import dao.Registro;
+import main.java.com.petcare.dao.Registro;
 
 public class Servico implements Registro {
     private int id;
