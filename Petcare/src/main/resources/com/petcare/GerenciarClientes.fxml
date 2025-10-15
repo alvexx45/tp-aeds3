@@ -4,58 +4,65 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.petcare.Controller">
+<AnchorPane fx:id="rootPane" prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.petcare.ClientesController">
     <children>
-      <Label layoutX="194.0" prefHeight="84.0" prefWidth="220.0" text="Clientes">
-         <font>
-            <Font size="60.0" />
-         </font>
-      </Label>
-      <Button layoutX="90.0" layoutY="73.0" mnemonicParsing="false"  onAction="#MostrarPainelAdicionar"    text="Adicionar" />
-      <MenuButton layoutX="183.0" layoutY="73.0" mnemonicParsing="false" text="ID">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Alterar Cliente por ID" />
-          <MenuItem mnemonicParsing="false" text="Buscar Cliente por ID" />
-          <MenuItem mnemonicParsing="false" text="Excluir cliente por ID" />
-        </items>
-      </MenuButton>
-      <MenuButton layoutX="256.0" layoutY="73.0" mnemonicParsing="false" text="CPF">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Buscar Cliente por CPF" />
-          <MenuItem mnemonicParsing="false" text="Alterar Cliente por CPF" />
-          <MenuItem mnemonicParsing="false" text="Excluir Cliente por CPF" />
-        </items>
-      </MenuButton>
-      <Button layoutX="340.0" layoutY="73.0" mnemonicParsing="false" text="Buscar Email" />
-      <Button layoutX="461.0" layoutY="73.0" mnemonicParsing="false" text="Buscar Nome" />
+        <Label layoutX="194.0" prefHeight="84.0" prefWidth="220.0" text="Clientes">
+            <font>
+                <Font size="60.0" />
+            </font>
+        </Label>
+        <Button layoutX="90.0" layoutY="73.0" mnemonicParsing="false" onAction="#MostrarPainelAdicionar" text="Adicionar" />
+        <MenuButton layoutX="183.0" layoutY="73.0" mnemonicParsing="false" text="ID">
+            <items>
+                <MenuItem mnemonicParsing="false" text="Alterar Cliente por ID" />
+                <MenuItem mnemonicParsing="false" text="Buscar Cliente por ID" />
+                <MenuItem mnemonicParsing="false" text="Excluir cliente por ID" />
+            </items>
+        </MenuButton>
+        <MenuButton layoutX="256.0" layoutY="73.0" mnemonicParsing="false" text="CPF">
+            <items>
+                <MenuItem mnemonicParsing="false" text="Buscar Cliente por CPF" />
+                <MenuItem mnemonicParsing="false" text="Alterar Cliente por CPF" />
+                <MenuItem mnemonicParsing="false" text="Excluir Cliente por CPF" />
+            </items>
+        </MenuButton>
+        <Button layoutX="340.0" layoutY="73.0" mnemonicParsing="false" text="Buscar Email" />
+        <Button layoutX="461.0" layoutY="73.0" mnemonicParsing="false" text="Buscar Nome" />
         <Button fx:id="teste" layoutX="14.0" layoutY="73.0" mnemonicParsing="false" onAction="#switchtoGerenciarMenu" text="Menu" />
-      <Pane fx:id="AdicionarCliente" layoutX="4.0" layoutY="115.0" prefHeight="239.0" prefWidth="589.0"  visible="false">
-         <children>
-            <TextField layoutX="213.0" layoutY="23.0" />
-            <TextField layoutX="213.0" layoutY="56.0" />
-            <TextField layoutX="213.0" layoutY="97.0" />
-            <Label layoutX="142.0" layoutY="21.0" prefHeight="27.0" prefWidth="62.0" text="CPF:">
+        <Pane fx:id="AdicionarCliente" layoutY="100.0" prefHeight="450.0" prefWidth="600.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+            <children>
+                <TextField fx:id="cpfField" layoutX="256.0" layoutY="29.0" />
+                <TextField fx:id="nomeField" layoutX="256.0" layoutY="62.0" />
+                <TextField fx:id="emailField" layoutX="256.0" layoutY="103.0" />
+                <Label layoutX="185.0" layoutY="27.0" prefHeight="27.0" prefWidth="62.0" text="CPF:">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <Label layoutX="184.0" layoutY="60.0" text="Nome:">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <Label layoutX="183.0" layoutY="101.0" text="Email:">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <Label layoutX="147.0" layoutY="140.0" prefHeight="27.0" prefWidth="272.0" text="Telefones (um por linha):">
                <font>
                   <Font size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="141.0" layoutY="54.0" text="Nome:">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="140.0" layoutY="95.0" text="Email:">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Button layoutX="267.0" layoutY="156.0" mnemonicParsing="false" text="Salvar" />
-         </children>
-      </Pane>
+               </font></Label>
+                <TextArea fx:id="telefonesArea" layoutX="207.0" layoutY="174.0" prefHeight="200.0" prefWidth="200.0" />
+                <Label fx:id="feedback" layoutX="206.0" layoutY="380.0" prefHeight="15.0" prefWidth="200.0" textFill="GREEN" />
+                <Button layoutX="271.0" layoutY="401.0" mnemonicParsing="false" onAction="#SalvarCliente" text="Adicionar" />
+            </children>
+        </Pane>
     </children>
 </AnchorPane>
