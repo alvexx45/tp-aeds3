@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,8 +21,8 @@
         <Button layoutX="90.0" layoutY="73.0" mnemonicParsing="false" onAction="#MostrarPainelAdicionar" text="Adicionar" />
         <MenuButton layoutX="183.0" layoutY="73.0" mnemonicParsing="false" text="ID">
             <items>
+                <MenuItem mnemonicParsing="false" text="BuscarCliente por ID" />
                 <MenuItem mnemonicParsing="false" text="Alterar Cliente por ID" />
-                <MenuItem mnemonicParsing="false" text="Buscar Cliente por ID" />
                 <MenuItem mnemonicParsing="false" text="Excluir cliente por ID" />
             </items>
         </MenuButton>
@@ -32,8 +33,8 @@
                 <MenuItem mnemonicParsing="false" text="Excluir Cliente por CPF" />
             </items>
         </MenuButton>
-        <Button layoutX="340.0" layoutY="73.0" mnemonicParsing="false" text="Buscar Email" />
-        <Button layoutX="461.0" layoutY="73.0" mnemonicParsing="false" text="Buscar Nome" />
+        <Button layoutX="340.0" layoutY="73.0" mnemonicParsing="false" onAction="#MostrarPainelBuscarPorEmail" text="Buscar Email" />
+        <Button layoutX="461.0" layoutY="73.0" mnemonicParsing="false" onAction="#MostrarPainelBuscarPorNome" text="Buscar Nome" />
         <Button fx:id="teste" layoutX="14.0" layoutY="73.0" mnemonicParsing="false" onAction="#switchtoGerenciarMenu" text="Menu" />
         <Pane fx:id="AdicionarCliente" layoutY="100.0" prefHeight="450.0" prefWidth="600.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
             <children>
@@ -64,5 +65,33 @@
                 <Button layoutX="271.0" layoutY="401.0" mnemonicParsing="false" onAction="#SalvarCliente" text="Adicionar" />
             </children>
         </Pane>
+      <Pane fx:id="BuscarPorNomePane" layoutX="4.0" layoutY="104.0" prefHeight="442.0" prefWidth="600.0" visible="false">
+         <children>
+            <Label layoutX="139.0" layoutY="55.0" text="Nome:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="BuscarPorNome_Nome" layoutX="218.0" layoutY="57.0" />
+            <Button layoutX="272.0" layoutY="120.0" mnemonicParsing="false" onAction="#BuscarClientePorNome" text="Buscar" />
+            <ScrollPane fitToWidth="true" layoutX="150.0" layoutY="176.0" prefHeight="200.0" prefWidth="300.0">
+               <content>
+                  <Label fx:id="BudscarPorNome_Label" wrapText="true" />
+               </content>
+            </ScrollPane>
+         </children>
+      </Pane>
+      <Pane fx:id="BuscarPorEmailPane" layoutX="2.0" layoutY="58.0" prefHeight="489.0" prefWidth="604.0" visible="false">
+         <children>
+            <Label   layoutX="138.0" layoutY="95.0" text="Email:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="BuscarPorEmail_Email" layoutX="220.0" layoutY="97.0" />
+            <Button layoutX="273.0" layoutY="166.0" mnemonicParsing="false" onAction="#BuscarClientePorEmail" text="Buscar" />
+            <Label fx:id="BuscarPorEmail_Label" layoutX="152.0" layoutY="236.0" prefHeight="200.0" prefWidth="300.0" />
+         </children>
+      </Pane>
     </children>
 </AnchorPane>

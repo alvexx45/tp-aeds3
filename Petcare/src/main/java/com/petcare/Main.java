@@ -26,29 +26,12 @@ public class Main extends Application {
 
 
         Parent root = FXMLLoader.load(getClass().getResource("view.fxml"));
-        Scene scene = new Scene(root,400,400,Color.DARKRED);
+        Scene scene = new Scene(root,550,600);
         //scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());  <- quando usando so uma scene
         String css = this.getClass().getResource("Style.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setTitle("Petcare Manager");
         //scene.setFill(Color.TRANSPARENT); <- cor do scenario
-
-        //Textos
-
-
-        Text texto = new  Text();
-        texto.setText("Bem vindo ao sistema de gerenciamento de Pets!");
-        texto.setX(200);
-        texto.setY(200);
-        texto.setFill(Color.WHITE);
-        texto.setFont(Font.font("Arial",20));
-        texto.setStrokeWidth(0.3);
-        texto.setStroke(Color.BLACK);
-
-        // root.getChildren().add(texto);  <- chama pro root principal, tem que ficar depois de tudo, so usar getchildren quando nao usando scenebuilder ou fxml file
-
-        // *;
-
 
 
         //Criação do icone
@@ -59,26 +42,7 @@ public class Main extends Application {
         // *;
 
 
-        //Adiciona imagems na cena
-        Image PetCachorro = new Image(getClass().getResourceAsStream("/com/petcare/Cachorro.png"));
-        ImageView CachorroView = new ImageView(PetCachorro);
-        CachorroView.setFitWidth(200);
 
-
-        // root.getChildren().add(CachorroView);
-
-        // *;
-
-
-
-        //Controles de Resolução
-
-        stage.setWidth(400);
-        stage.setHeight(400);
-        //stage.setFullScreen(true);
-
-
-        // *;
 
         stage.setScene(scene);
         stage.show();

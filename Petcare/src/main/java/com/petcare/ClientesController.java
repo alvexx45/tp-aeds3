@@ -1,5 +1,6 @@
 package com.petcare;
 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,10 @@ public class ClientesController implements Initializable {
 
     @FXML
     private AnchorPane rootPane;
+
+
+    //Adicionar cliente
+
     @FXML
     private Pane AdicionarCliente;
     @FXML
@@ -39,6 +44,35 @@ public class ClientesController implements Initializable {
     @FXML
     private Label feedback;
 
+    // *
+
+
+
+    // Buscar Por Email
+
+    @FXML
+    private Pane BuscarPorEmailPane;
+
+    @FXML
+    private TextField BuscarPorEmail_Email;
+
+    @FXML
+    private Label BuscarPorEmail_Label;
+
+
+    // Buscar por nome
+
+    @FXML
+    private Pane BuscarPorNomePane;
+
+    @FXML
+    private TextField BuscarPorNome_Nome;
+
+    @FXML
+    private Label BuscarPorNome_Label;
+
+
+    // *
 
     private ClienteDAO clienteDAO;
 
@@ -66,6 +100,18 @@ public class ClientesController implements Initializable {
     private void MostrarPainelAdicionar() {
         AdicionarCliente.setVisible(!AdicionarCliente.isVisible());
     }
+
+    @FXML
+    private void MostrarPainelBuscarPorNome() {
+        BuscarPorNomePane.setVisible(!BuscarPorNomePane.isVisible());
+    }
+
+    @FXML
+    private void MostrarPainelBuscarPorEmail() {
+        BuscarPorEmailPane.setVisible(!BuscarPorEmailPane.isVisible());
+    }
+
+
 
 
     @FXML
@@ -99,5 +145,71 @@ public class ClientesController implements Initializable {
             feedback.setText("Ocorreu um erro no banco de dados. Tente novamente.");
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void BuscarClientePorEmail() throws Exception {
+
+        String email = BuscarPorEmail_Email.getText();
+
+        Cliente cliente = clienteDAO.buscarClientePorEmail(email);
+
+        StringBuilder textoCompleto = new StringBuilder();
+
+        if (cliente != null) {
+
+            textoCompleto.append(" cliente(s) encontrado(s):\n\n");
+
+            textoCompleto.append(exibirCliente(cliente));
+            textoCompleto.append("--------------------\n");
+        } else {
+          textoCompleto.append("Cliente com email " + email + " não encontrado!");
+        }
+
+        BuscarPorEmail_Label.setText(textoCompleto.toString());
+    }
+
+
+    @FXML
+    private void BuscarClientePorNome() throws Exception {
+        String nome = BuscarPorNome_Nome.getText();
+
+        java.util.List<Cliente> clientes = clienteDAO.buscarClientesPorNome(nome);
+        StringBuilder textoCompleto = new StringBuilder();
+        textoCompleto.append(clientes.size()).append(" cliente(s) encontrado(s):\n\n");
+
+
+        for (Cliente cliente : clientes) {
+
+            textoCompleto.append(exibirCliente(cliente));
+            textoCompleto.append("--------------------\n");
+        }
+
+        BuscarPorNome_Label.setText(textoCompleto.toString());
+    }
+
+
+
+
+    private String exibirCliente(Cliente cliente) {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("ID: ").append(cliente.getId()).append("\n");
+        sb.append("CPF: ").append(cliente.getCpf()).append("\n");
+        sb.append("Nome: ").append(cliente.getNome()).append("\n");
+        sb.append("Email: ").append(cliente.getEmail()).append("\n");
+
+
+        String[] telefones = cliente.getTelefones();
+        if (telefones != null && telefones.length > 0) {
+
+            String telefonesFormatados = String.join(", ", telefones);
+            sb.append("Telefones: ").append(telefonesFormatados).append("\n");
+        } else {
+            sb.append("Telefones: (Nenhum telefone cadastrado)\n");
+        }
+
+        return sb.toString();
+
     }
 }
