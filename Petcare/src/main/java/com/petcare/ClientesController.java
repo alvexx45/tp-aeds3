@@ -46,7 +46,18 @@ public class ClientesController implements Initializable {
 
     // *
 
+    // Buscar Por ID
 
+    @FXML
+    private Pane BuscarPorIDPane;
+
+    @FXML
+    private TextField BuscarPorID_ID;
+
+    @FXML
+    private Label BuscarPorID_Label;
+
+    //*
 
     // Buscar Por Email
 
@@ -102,6 +113,13 @@ public class ClientesController implements Initializable {
     }
 
     @FXML
+    private void MostrarPainelBuscarPorID(){
+        BuscarPorIDPane.setVisible(!BuscarPorIDPane.isVisible());
+    }
+
+
+
+    @FXML
     private void MostrarPainelBuscarPorNome() {
         BuscarPorNomePane.setVisible(!BuscarPorNomePane.isVisible());
     }
@@ -148,6 +166,33 @@ public class ClientesController implements Initializable {
     }
 
     @FXML
+    private void BuscarClientePorId() throws Exception {
+
+        int id = Integer.parseInt(BuscarPorID_ID.getText());
+
+        Cliente cliente = clienteDAO.buscarCliente(id);
+
+        StringBuilder textoCompleto = new StringBuilder();
+
+        if (cliente != null) {
+            textoCompleto.append(" cliente encontrado:\n\n");
+
+            textoCompleto.append(exibirCliente(cliente));
+
+
+        } else {
+            textoCompleto.append("Cliente com Id: " +id + " não encontrado!");
+        }
+
+        BuscarPorID_Label.setText(textoCompleto.toString());
+    }
+
+
+
+
+
+
+    @FXML
     private void BuscarClientePorEmail() throws Exception {
 
         String email = BuscarPorEmail_Email.getText();
@@ -161,7 +206,7 @@ public class ClientesController implements Initializable {
             textoCompleto.append(" cliente(s) encontrado(s):\n\n");
 
             textoCompleto.append(exibirCliente(cliente));
-            textoCompleto.append("--------------------\n");
+       
         } else {
           textoCompleto.append("Cliente com email " + email + " não encontrado!");
         }

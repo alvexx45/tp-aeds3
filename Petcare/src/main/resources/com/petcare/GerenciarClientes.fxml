@@ -21,7 +21,7 @@
         <Button layoutX="90.0" layoutY="73.0" mnemonicParsing="false" onAction="#MostrarPainelAdicionar" text="Adicionar" />
         <MenuButton layoutX="183.0" layoutY="73.0" mnemonicParsing="false" text="ID">
             <items>
-                <MenuItem mnemonicParsing="false" text="BuscarCliente por ID" />
+                <MenuItem mnemonicParsing="false"   onAction="#MostrarPainelBuscarPorID"   text="Buscar Cliente por ID" />
                 <MenuItem mnemonicParsing="false" text="Alterar Cliente por ID" />
                 <MenuItem mnemonicParsing="false" text="Excluir cliente por ID" />
             </items>
@@ -65,6 +65,90 @@
                 <Button layoutX="271.0" layoutY="401.0" mnemonicParsing="false" onAction="#SalvarCliente" text="Adicionar" />
             </children>
         </Pane>
+      <Pane fx:id="BuscarPorIDPane" layoutX="1.0" layoutY="112.0" prefHeight="427.0" prefWidth="606.0" visible="false">
+         <children>
+            <Label layoutX="181.0" layoutY="84.0" text="ID:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="BuscarPorID_ID" layoutX="221.0" layoutY="86.0" />
+            <Button layoutX="275.0" layoutY="151.0" mnemonicParsing="false" onAction="#BuscarClientePorId" text="Buscar" />
+            <Label fx:id="BuscarPorID_Label" layoutX="192.0" layoutY="194.0" prefHeight="200.0" prefWidth="220.0" />
+         </children>
+      </Pane>
+      <Pane fx:id="AlterarPorIDPane" layoutX="11.0" layoutY="122.0" prefHeight="427.0" prefWidth="606.0" visible="false">
+         <children>
+            <Label layoutX="181.0" layoutY="84.0" text="ID:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField layoutX="221.0" layoutY="86.0" />
+            <Button layoutX="275.0" layoutY="151.0" mnemonicParsing="false" text="Alterar" />
+            <Label layoutX="192.0" layoutY="194.0" prefHeight="200.0" prefWidth="220.0" />
+         </children>
+      </Pane>
+      <Pane fx:id="ExcluirPorIDPane" prefHeight="427.0" prefWidth="606.0" visible="false">
+         <children>
+            <Label layoutX="181.0" layoutY="84.0" text="ID:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField layoutX="221.0" layoutY="86.0" />
+            <Button layoutX="275.0" layoutY="151.0" mnemonicParsing="false" text="Excluir" />
+            <Label layoutX="192.0" layoutY="194.0" prefHeight="200.0" prefWidth="220.0" />
+         </children>
+      </Pane>
+      <Pane fx:id="BuscarPorCPFPane" prefHeight="427.0" prefWidth="606.0" visible="false">
+         <children>
+            <Label layoutX="158.0" layoutY="84.0" text="CPF:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField layoutX="221.0" layoutY="86.0" />
+            <Button layoutX="275.0" layoutY="151.0" mnemonicParsing="false" text="Buscar" />
+            <Label layoutX="192.0" layoutY="194.0" prefHeight="200.0" prefWidth="220.0" />
+         </children>
+      </Pane>
+      <Pane fx:id="AlterarPorCPFPane" layoutX="21.0" layoutY="132.0" prefHeight="427.0" prefWidth="606.0" visible="false">
+         <children>
+            <Label layoutX="158.0" layoutY="84.0" text="CPF:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField layoutX="221.0" layoutY="86.0" />
+            <Button layoutX="275.0" layoutY="151.0" mnemonicParsing="false" text="Alterar" />
+            <Label layoutX="192.0" layoutY="194.0" prefHeight="200.0" prefWidth="220.0" />
+         </children>
+      </Pane>
+      <Pane fx:id="ExcluirPorCPFPane" layoutX="21.0" layoutY="132.0" prefHeight="427.0" prefWidth="606.0" visible="false">
+         <children>
+            <Label layoutX="158.0" layoutY="84.0" text="CPF:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField layoutX="221.0" layoutY="86.0" />
+            <Button layoutX="275.0" layoutY="151.0" mnemonicParsing="false" text="Excluir" />
+            <Label layoutX="192.0" layoutY="194.0" prefHeight="200.0" prefWidth="220.0" />
+         </children>
+      </Pane>
+        <Pane fx:id="BuscarPorEmailPane" layoutX="2.0" layoutY="58.0" prefHeight="489.0" prefWidth="604.0" visible="false">
+            <children>
+                <Label layoutX="138.0" layoutY="95.0" text="Email:">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="BuscarPorEmail_Email" layoutX="220.0" layoutY="97.0" />
+                <Button layoutX="273.0" layoutY="166.0" mnemonicParsing="false" onAction="#BuscarClientePorEmail" text="Buscar" />
+                <Label fx:id="BuscarPorEmail_Label" layoutX="152.0" layoutY="236.0" prefHeight="200.0" prefWidth="300.0" />
+            </children>
+        </Pane>
       <Pane fx:id="BuscarPorNomePane" layoutX="4.0" layoutY="104.0" prefHeight="442.0" prefWidth="600.0" visible="false">
          <children>
             <Label layoutX="139.0" layoutY="55.0" text="Nome:">
@@ -81,17 +165,6 @@
             </ScrollPane>
          </children>
       </Pane>
-      <Pane fx:id="BuscarPorEmailPane" layoutX="2.0" layoutY="58.0" prefHeight="489.0" prefWidth="604.0" visible="false">
-         <children>
-            <Label   layoutX="138.0" layoutY="95.0" text="Email:">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <TextField fx:id="BuscarPorEmail_Email" layoutX="220.0" layoutY="97.0" />
-            <Button layoutX="273.0" layoutY="166.0" mnemonicParsing="false" onAction="#BuscarClientePorEmail" text="Buscar" />
-            <Label fx:id="BuscarPorEmail_Label" layoutX="152.0" layoutY="236.0" prefHeight="200.0" prefWidth="300.0" />
-         </children>
-      </Pane>
+
     </children>
 </AnchorPane>
