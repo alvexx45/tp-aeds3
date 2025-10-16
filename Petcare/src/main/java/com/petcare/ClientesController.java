@@ -59,6 +59,52 @@ public class ClientesController implements Initializable {
 
     //*
 
+
+
+    // Alterar por ID
+
+    @FXML
+    private Pane AlterarPorIDPane;
+
+    @FXML
+    private TextField AlterarPorID_ID;
+
+    @FXML
+    private Label FeedbackAlterarPorID;
+
+    private int idClienteparaAlterar;
+
+
+    //Alterando por ID
+
+    @FXML
+    private Pane AlterandoClientePorIDPane;
+
+    @FXML
+    private TextField AlterandoCPFPorID;
+
+    @FXML
+    private TextField AlterandoNomePorID;
+
+    @FXML
+    private TextField AlterandoEmailPorID;
+
+    @FXML
+    private TextArea AlterandoTelefonesPorID;
+
+    @FXML
+    private Label ClienteParaAlterar_Label;
+
+    @FXML
+    private Label feedbackAlterandoPorID;
+
+
+    //*
+
+
+
+    // *
+
     // Buscar Por Email
 
     @FXML
@@ -117,6 +163,16 @@ public class ClientesController implements Initializable {
         BuscarPorIDPane.setVisible(!BuscarPorIDPane.isVisible());
     }
 
+
+    @FXML
+    private void MostrarPainelAlterarPorID(){
+        AlterarPorIDPane.setVisible(!AlterarPorIDPane.isVisible());
+    }
+
+
+    private void MostrarPainelAlterandoPorID(){
+        AlterandoClientePorIDPane.setVisible(!AlterandoClientePorIDPane.isVisible());
+    }
 
 
     @FXML
@@ -188,6 +244,67 @@ public class ClientesController implements Initializable {
     }
 
 
+    @FXML
+    private void AlterarClientePorId() throws Exception {
+
+
+
+        int id = Integer.parseInt(AlterarPorID_ID.getText());
+
+        Cliente clienteExistente = clienteDAO.buscarCliente(id);
+
+        if (clienteExistente == null) {
+            FeedbackAlterarPorID.setText("Cliente nâo encontrado!");
+            return;
+        }
+
+
+        AlterandoCPFPorID.setText(clienteExistente.getCpf());
+        AlterandoNomePorID.setText(clienteExistente.getNome());
+        AlterandoEmailPorID.setText(clienteExistente.getEmail());
+        String[] telefones = clienteExistente.getTelefones();
+        
+        if (telefones != null && telefones.length > 0) {
+            AlterandoTelefonesPorID.setText(String.join("\n", telefones));
+        } else {
+            AlterandoTelefonesPorID.clear();
+        }
+
+        this.idClienteparaAlterar = id;
+
+        MostrarPainelAlterarPorID();
+        MostrarPainelAlterandoPorID();
+
+
+
+    }
+
+    @FXML
+    private void AlterandoClientePorID() throws Exception {
+
+        String cpf = AlterandoCPFPorID.getText();
+
+        String nome = AlterandoNomePorID.getText();
+
+        String email = AlterandoEmailPorID.getText();
+
+
+        String[] telefones = AlterandoTelefonesPorID.getText().split("\\r?\\n");
+
+
+        Cliente clienteAlterado = new Cliente(this.idClienteparaAlterar, cpf, nome, email, telefones);
+
+        if (clienteDAO.alterarCliente(clienteAlterado))  {
+            MostrarPainelAlterandoPorID();
+            MostrarPainelAlterarPorID();
+            FeedbackAlterarPorID.setText("Cliente alterado com sucesso!");
+        } else {
+            feedbackAlterandoPorID.setText("Erro ao alterar cliente!");
+        }
+    }
+
+
+
 
 
 
@@ -206,7 +323,7 @@ public class ClientesController implements Initializable {
             textoCompleto.append(" cliente(s) encontrado(s):\n\n");
 
             textoCompleto.append(exibirCliente(cliente));
-       
+
         } else {
           textoCompleto.append("Cliente com email " + email + " não encontrado!");
         }
