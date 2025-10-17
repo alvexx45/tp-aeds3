@@ -23,14 +23,14 @@
             <items>
                 <MenuItem mnemonicParsing="false" onAction="#MostrarPainelBuscarPorID" text="Buscar Cliente por ID" />
                 <MenuItem mnemonicParsing="false" onAction="#MostrarPainelAlterarPorID" text="Alterar Cliente por ID" />
-                <MenuItem mnemonicParsing="false" text="Excluir cliente por ID" />
+                <MenuItem mnemonicParsing="false" onAction="#MostrarPainelExcluirPorID" text="Excluir cliente por ID" />
             </items>
         </MenuButton>
         <MenuButton layoutX="256.0" layoutY="73.0" mnemonicParsing="false" text="CPF">
             <items>
-                <MenuItem mnemonicParsing="false" text="Buscar Cliente por CPF" />
-                <MenuItem mnemonicParsing="false" text="Alterar Cliente por CPF" />
-                <MenuItem mnemonicParsing="false" text="Excluir Cliente por CPF" />
+                <MenuItem mnemonicParsing="false" onAction="#MostrarPainelBuscarPorCPF" text="Buscar Cliente por CPF" />
+                <MenuItem mnemonicParsing="false"  onAction="#MostrarPainelAlterarPorCPF" text="Alterar Cliente por CPF" />
+                <MenuItem mnemonicParsing="false" onAction="#MostrarPainelExcluirPorCpf" text="Excluir Cliente por CPF" />
             </items>
         </MenuButton>
         <Button layoutX="340.0" layoutY="73.0" mnemonicParsing="false" onAction="#MostrarPainelBuscarPorEmail" text="Buscar Email" />
@@ -65,7 +65,7 @@
                 <Button layoutX="271.0" layoutY="401.0" mnemonicParsing="false" onAction="#SalvarCliente" text="Adicionar" />
             </children>
         </Pane>
-      <Pane fx:id="BuscarPorIDPane" layoutX="1.0" layoutY="112.0" prefHeight="427.0" prefWidth="606.0" visible="false">
+        <Pane fx:id="BuscarPorIDPane" layoutX="1.0" layoutY="112.0" prefHeight="427.0" prefWidth="606.0" visible="false">
          <children>
             <Label layoutX="181.0" layoutY="84.0" text="ID:">
                <font>
@@ -77,7 +77,7 @@
             <Label fx:id="BuscarPorID_Label" layoutX="192.0" layoutY="194.0" prefHeight="200.0" prefWidth="220.0" />
          </children>
       </Pane>
-      <Pane fx:id="AlterarPorIDPane" layoutX="11.0" layoutY="122.0" prefHeight="427.0" prefWidth="606.0" visible="false">
+        <Pane fx:id="AlterarPorIDPane" layoutX="5.0" layoutY="107.0" prefHeight="442.0" prefWidth="612.0" visible="false">
          <children>
             <Label layoutX="181.0" layoutY="84.0" text="ID:">
                <font>
@@ -89,7 +89,7 @@
             <Label fx:id="FeedbackAlterarPorID" layoutX="192.0" layoutY="194.0" prefHeight="200.0" prefWidth="220.0" />
          </children>
       </Pane>
-        <Pane fx:id="AlterandoClientePorIDPane" layoutX="14.0" layoutY="111.0" prefHeight="450.0" prefWidth="600.0" visible="false">
+        <Pane fx:id="AlterandoClientePorIDPane" layoutX="8.0" layoutY="111.0" prefHeight="450.0" prefWidth="606.0" visible="false">
             <children>
                 <TextField fx:id="AlterandoCPFPorID" layoutX="216.0" layoutY="132.0" />
                 <TextField fx:id="AlterandoNomePorID" layoutX="216.0" layoutY="165.0" />
@@ -117,58 +117,87 @@
                 <TextArea fx:id="AlterandoTelefonesPorID" layoutX="198.0" layoutY="270.0" prefHeight="84.0" prefWidth="200.0" />
                 <Label fx:id="feedbackAlterandoPorID" layoutX="198.0" layoutY="379.0" prefHeight="15.0" prefWidth="200.0" textFill="GREEN" />
                 <Button layoutX="262.0" layoutY="413.0" mnemonicParsing="false" onAction="#AlterandoClientePorID" text="Alterar" />
-                <Label fx:id="ClienteParaAlterar_Label" layoutX="207.0" layoutY="14.0" prefHeight="105.0" prefWidth="181.0" />
             </children>
         </Pane>
-      <Pane fx:id="ExcluirPorIDPane" prefHeight="427.0" prefWidth="606.0" visible="false">
+        <Pane fx:id="ExcluirPorIDPane" layoutX="-3.0" layoutY="108.0" prefHeight="442.0" prefWidth="620.0" visible="false">
          <children>
             <Label layoutX="181.0" layoutY="84.0" text="ID:">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField layoutX="221.0" layoutY="86.0" />
-            <Button layoutX="275.0" layoutY="151.0" mnemonicParsing="false" text="Excluir" />
-            <Label layoutX="192.0" layoutY="194.0" prefHeight="200.0" prefWidth="220.0" />
+            <TextField fx:id="ExcluirPorID_ID" layoutX="221.0" layoutY="86.0" />
+            <Button layoutX="275.0" layoutY="151.0" mnemonicParsing="false" onAction="#ExcluirClientePorId"  text="Excluir" />
+            <Label fx:id="FeedbackExcluirPorID" layoutX="192.0" layoutY="194.0" prefHeight="200.0" prefWidth="220.0" />
          </children>
       </Pane>
-      <Pane fx:id="BuscarPorCPFPane" prefHeight="427.0" prefWidth="606.0" visible="false">
+        <Pane fx:id="BuscarPorCPFPane" layoutX="-3.0" layoutY="102.0" prefHeight="450.0" prefWidth="620.0" visible="false">
          <children>
             <Label layoutX="158.0" layoutY="84.0" text="CPF:">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField layoutX="221.0" layoutY="86.0" />
-            <Button layoutX="275.0" layoutY="151.0" mnemonicParsing="false" text="Buscar" />
-            <Label layoutX="192.0" layoutY="194.0" prefHeight="200.0" prefWidth="220.0" />
+            <TextField fx:id="BuscarPorCPF_CPF" layoutX="221.0" layoutY="86.0" />
+            <Button layoutX="275.0" layoutY="151.0" mnemonicParsing="false" onAction="#BuscarClientePorCPF" text="Buscar" />
+            <Label fx:id="BuscarPorCPF_Label" layoutX="192.0" layoutY="194.0" prefHeight="200.0" prefWidth="220.0" />
          </children>
       </Pane>
-      <Pane fx:id="AlterarPorCPFPane" layoutX="21.0" layoutY="132.0" prefHeight="427.0" prefWidth="606.0" visible="false">
+        <Pane fx:id="AlterarPorCPFPane" layoutY="98.0" prefHeight="461.0" prefWidth="627.0" visible="false">
          <children>
             <Label layoutX="158.0" layoutY="84.0" text="CPF:">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField layoutX="221.0" layoutY="86.0" />
-            <Button layoutX="275.0" layoutY="151.0" mnemonicParsing="false" text="Alterar" />
-            <Label layoutX="192.0" layoutY="194.0" prefHeight="200.0" prefWidth="220.0" />
+            <TextField fx:id="AlterarPorCPF_CPF" layoutX="221.0" layoutY="86.0" />
+            <Button layoutX="275.0" layoutY="151.0" mnemonicParsing="false" onAction="#AlterarClientePorCPF" text="Alterar" />
+            <Label fx:id="FeedbackAlterarPorCPF" layoutX="192.0" layoutY="194.0" prefHeight="200.0" prefWidth="220.0" />
          </children>
       </Pane>
-      <Pane fx:id="ExcluirPorCPFPane" layoutX="21.0" layoutY="132.0" prefHeight="427.0" prefWidth="606.0" visible="false">
+        <Pane fx:id="AlterandoClientePorCPFPane" layoutX="8.0" layoutY="111.0" prefHeight="450.0" prefWidth="606.0" visible="false">
+            <children>
+                <TextField fx:id="AlterandoCPFPorCPF" layoutX="216.0" layoutY="132.0" />
+                <TextField fx:id="AlterandoNomePorCPF" layoutX="216.0" layoutY="165.0" />
+                <TextField fx:id="AlterandoEmailPorCPF" layoutX="216.0" layoutY="206.0" />
+                <Label layoutX="145.0" layoutY="130.0" prefHeight="27.0" prefWidth="62.0" text="CPF:">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <Label layoutX="144.0" layoutY="163.0" text="Nome:">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <Label layoutX="143.0" layoutY="204.0" text="Email:">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <Label layoutX="107.0" layoutY="243.0" prefHeight="27.0" prefWidth="272.0" text="Telefones (um por linha):">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <TextArea fx:id="AlterandoTelefonesPorCPF" layoutX="198.0" layoutY="270.0" prefHeight="84.0" prefWidth="200.0" />
+                <Label fx:id="feedbackAlterandoPorCPF" layoutX="198.0" layoutY="379.0" prefHeight="15.0" prefWidth="200.0" textFill="GREEN" />
+                <Button layoutX="262.0" layoutY="413.0" mnemonicParsing="false" onAction="#AlterandoClientePorCPF" text="Alterar" />
+            </children>
+        </Pane>
+        <Pane fx:id="ExcluirPorCPFPane" layoutY="98.0" prefHeight="461.0" prefWidth="627.0" visible="false">
          <children>
             <Label layoutX="158.0" layoutY="84.0" text="CPF:">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField layoutX="221.0" layoutY="86.0" />
-            <Button layoutX="275.0" layoutY="151.0" mnemonicParsing="false" text="Excluir" />
-            <Label layoutX="192.0" layoutY="194.0" prefHeight="200.0" prefWidth="220.0" />
+            <TextField fx:id="ExcluindoPorCPF_CPF" layoutX="221.0" layoutY="86.0" />
+            <Button layoutX="275.0" layoutY="151.0" mnemonicParsing="false" onAction="#ExcluirClientePorCPF" text="Excluir" />
+            <Label fx:id="FeedbackExcluirPorCPF" layoutX="192.0" layoutY="194.0" prefHeight="200.0" prefWidth="220.0" />
          </children>
       </Pane>
-        <Pane fx:id="BuscarPorEmailPane" layoutX="2.0" layoutY="58.0" prefHeight="489.0" prefWidth="604.0" visible="false">
+        <Pane fx:id="BuscarPorEmailPane" layoutX="2.0" layoutY="105.0" prefHeight="442.0" prefWidth="620.0" visible="false">
             <children>
                 <Label layoutX="138.0" layoutY="95.0" text="Email:">
                     <font>
@@ -180,7 +209,7 @@
                 <Label fx:id="BuscarPorEmail_Label" layoutX="152.0" layoutY="236.0" prefHeight="200.0" prefWidth="300.0" />
             </children>
         </Pane>
-      <Pane fx:id="BuscarPorNomePane" layoutX="4.0" layoutY="104.0" prefHeight="442.0" prefWidth="600.0" visible="false">
+        <Pane fx:id="BuscarPorNomePane" layoutX="4.0" layoutY="104.0" prefHeight="450.0" prefWidth="620.0" visible="false">
          <children>
             <Label layoutX="139.0" layoutY="55.0" text="Nome:">
                <font>
@@ -196,7 +225,6 @@
             </ScrollPane>
          </children>
       </Pane>
-
 
     </children>
 </AnchorPane>

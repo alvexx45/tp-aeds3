@@ -18,6 +18,9 @@ import main.java.com.petcare.model.Cliente;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -29,10 +32,34 @@ public class ClientesController implements Initializable {
     private AnchorPane rootPane;
 
 
-    //Adicionar cliente
-
+    // --- Paineis ---
     @FXML
     private Pane AdicionarCliente;
+    @FXML
+    private Pane BuscarPorIDPane;
+    @FXML
+    private Pane AlterarPorIDPane;
+    @FXML
+    private Pane AlterandoClientePorIDPane;
+    @FXML
+    private Pane ExcluirPorIDPane;
+    @FXML
+    private Pane BuscarPorCPFPane;
+    @FXML
+    private Pane AlterarPorCPFPane;
+    @FXML
+    private Pane AlterandoClientePorCPFPane;
+    @FXML
+    private Pane ExcluirPorCPFPane;
+    @FXML
+    private Pane BuscarPorEmailPane;
+    @FXML
+    private Pane BuscarPorNomePane;
+
+    // *
+
+    // --- Variaveis ---
+    //Adicionar cliente
     @FXML
     private TextField cpfField;
     @FXML
@@ -47,100 +74,137 @@ public class ClientesController implements Initializable {
     // *
 
     // Buscar Por ID
-
-    @FXML
-    private Pane BuscarPorIDPane;
-
     @FXML
     private TextField BuscarPorID_ID;
-
     @FXML
     private Label BuscarPorID_Label;
 
-    //*
-
-
+    // *
 
     // Alterar por ID
-
-    @FXML
-    private Pane AlterarPorIDPane;
-
     @FXML
     private TextField AlterarPorID_ID;
-
     @FXML
     private Label FeedbackAlterarPorID;
+    private int idClienteparaAlterarID;
 
-    private int idClienteparaAlterar;
-
+    // *
 
     //Alterando por ID
-
-    @FXML
-    private Pane AlterandoClientePorIDPane;
-
     @FXML
     private TextField AlterandoCPFPorID;
-
     @FXML
     private TextField AlterandoNomePorID;
-
     @FXML
     private TextField AlterandoEmailPorID;
-
     @FXML
     private TextArea AlterandoTelefonesPorID;
-
-    @FXML
-    private Label ClienteParaAlterar_Label;
-
     @FXML
     private Label feedbackAlterandoPorID;
 
+    // *
 
-    //*
+    // Excluindo Por ID
+    @FXML
+    private TextField ExcluirPorID_ID;
+    @FXML
+    private Label FeedbackExcluirPorID;
 
+    // *
 
+    // Buscar Por CPF
+    @FXML
+    private TextField BuscarPorCPF_CPF;
+    @FXML
+    private Label BuscarPorCPF_Label;
+
+    // *
+
+    // Alterar Por CPF
+    @FXML
+    private TextField AlterarPorCPF_CPF;
+    @FXML
+    private Label FeedbackAlterarPorCPF;
+    private int idClienteparaAlterarCPF;
+
+    // *
+
+    // AlterandoClientePorCPF
+    @FXML
+    private TextField AlterandoCPFPorCPF;
+    @FXML
+    private TextField AlterandoNomePorCPF;
+    @FXML
+    private TextField AlterandoEmailPorCPF;
+    @FXML
+    private TextArea AlterandoTelefonesPorCPF;
+    @FXML
+    private Label feedbackAlterandoPorCPF;
+
+    // *
+
+    // Excluindo Por CPF
+    @FXML
+    private TextField ExcluindoPorCPF_CPF;
+    @FXML
+    private Label FeedbackExcluirPorCPF;
 
     // *
 
     // Buscar Por Email
-
-    @FXML
-    private Pane BuscarPorEmailPane;
-
     @FXML
     private TextField BuscarPorEmail_Email;
-
     @FXML
     private Label BuscarPorEmail_Label;
 
+    // *
 
     // Buscar por nome
-
-    @FXML
-    private Pane BuscarPorNomePane;
-
     @FXML
     private TextField BuscarPorNome_Nome;
-
     @FXML
     private Label BuscarPorNome_Label;
-
 
     // *
 
     private ClienteDAO clienteDAO;
 
+    private List<Pane> managedPanes;
+
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        managedPanes = new ArrayList<>(Arrays.asList(
+                AdicionarCliente, BuscarPorIDPane, AlterarPorIDPane,
+                AlterandoClientePorIDPane, ExcluirPorIDPane, BuscarPorCPFPane,
+                AlterarPorCPFPane, AlterandoClientePorCPFPane, ExcluirPorCPFPane,
+                BuscarPorEmailPane, BuscarPorNomePane
+        ));
+
+
+        managedPanes.forEach(pane -> pane.setVisible(false));
+
         try {
             this.clienteDAO = new ClienteDAO();
         } catch (Exception e) {
             feedback.setText("Erro crítico ao carregar o banco de dados.");
             e.printStackTrace();
+        }
+    }
+
+    private void showExclusivePane(Pane paneToShow) {
+
+        boolean wasVisible = paneToShow.isVisible();
+
+        for (Pane pane : managedPanes) {
+            pane.setVisible(false);
+        }
+
+        if (!wasVisible) {
+            paneToShow.setVisible(true);
         }
     }
 
@@ -153,40 +217,67 @@ public class ClientesController implements Initializable {
         stage.show();
     }
 
+
+
+    // Mostrar Paineis
+
     @FXML
     private void MostrarPainelAdicionar() {
-        AdicionarCliente.setVisible(!AdicionarCliente.isVisible());
+        showExclusivePane(AdicionarCliente);
     }
 
     @FXML
     private void MostrarPainelBuscarPorID(){
-        BuscarPorIDPane.setVisible(!BuscarPorIDPane.isVisible());
+        showExclusivePane(BuscarPorIDPane);
     }
-
 
     @FXML
     private void MostrarPainelAlterarPorID(){
-        AlterarPorIDPane.setVisible(!AlterarPorIDPane.isVisible());
+        showExclusivePane(AlterarPorIDPane);
     }
-
 
     private void MostrarPainelAlterandoPorID(){
-        AlterandoClientePorIDPane.setVisible(!AlterandoClientePorIDPane.isVisible());
+        showExclusivePane(AlterandoClientePorIDPane);
     }
 
+    @FXML
+    private void MostrarPainelExcluirPorID() {
+        showExclusivePane(ExcluirPorIDPane);
+    }
+
+    @FXML
+    private void MostrarPainelBuscarPorCPF(){
+        showExclusivePane(BuscarPorCPFPane);
+    }
+
+    @FXML
+    private void MostrarPainelAlterarPorCPF(){
+        showExclusivePane(AlterarPorCPFPane);
+    }
+
+    @FXML
+    private void MostrarPainelAlterandoPorCPF(){
+        showExclusivePane(AlterandoClientePorCPFPane);
+    }
+
+    @FXML
+    private void MostrarPainelExcluirPorCpf(){
+        showExclusivePane(ExcluirPorCPFPane);
+    }
 
     @FXML
     private void MostrarPainelBuscarPorNome() {
-        BuscarPorNomePane.setVisible(!BuscarPorNomePane.isVisible());
+        showExclusivePane(BuscarPorNomePane);
     }
 
     @FXML
     private void MostrarPainelBuscarPorEmail() {
-        BuscarPorEmailPane.setVisible(!BuscarPorEmailPane.isVisible());
+        showExclusivePane(BuscarPorEmailPane);
     }
 
+    // *
 
-
+    // Adicionar Cliente
 
     @FXML
     private void SalvarCliente() {
@@ -221,6 +312,11 @@ public class ClientesController implements Initializable {
         }
     }
 
+    // *
+
+
+    // Seção ID
+
     @FXML
     private void BuscarClientePorId() throws Exception {
 
@@ -247,8 +343,6 @@ public class ClientesController implements Initializable {
     @FXML
     private void AlterarClientePorId() throws Exception {
 
-
-
         int id = Integer.parseInt(AlterarPorID_ID.getText());
 
         Cliente clienteExistente = clienteDAO.buscarCliente(id);
@@ -263,19 +357,16 @@ public class ClientesController implements Initializable {
         AlterandoNomePorID.setText(clienteExistente.getNome());
         AlterandoEmailPorID.setText(clienteExistente.getEmail());
         String[] telefones = clienteExistente.getTelefones();
-        
+
         if (telefones != null && telefones.length > 0) {
             AlterandoTelefonesPorID.setText(String.join("\n", telefones));
         } else {
             AlterandoTelefonesPorID.clear();
         }
 
-        this.idClienteparaAlterar = id;
+        this.idClienteparaAlterarID = id;
 
-        MostrarPainelAlterarPorID();
-        MostrarPainelAlterandoPorID();
-
-
+        showExclusivePane(AlterandoClientePorIDPane);
 
     }
 
@@ -292,11 +383,10 @@ public class ClientesController implements Initializable {
         String[] telefones = AlterandoTelefonesPorID.getText().split("\\r?\\n");
 
 
-        Cliente clienteAlterado = new Cliente(this.idClienteparaAlterar, cpf, nome, email, telefones);
+        Cliente clienteAlterado = new Cliente(this.idClienteparaAlterarID, cpf, nome, email, telefones);
 
         if (clienteDAO.alterarCliente(clienteAlterado))  {
-            MostrarPainelAlterandoPorID();
-            MostrarPainelAlterarPorID();
+            showExclusivePane(AlterarPorIDPane);
             FeedbackAlterarPorID.setText("Cliente alterado com sucesso!");
         } else {
             feedbackAlterandoPorID.setText("Erro ao alterar cliente!");
@@ -304,10 +394,130 @@ public class ClientesController implements Initializable {
     }
 
 
+    @FXML
+    private void ExcluirClientePorId() throws Exception {
+
+        int id = Integer.parseInt(ExcluirPorID_ID.getText());
+
+        Cliente cliente = clienteDAO.buscarCliente(id);
+
+        if (cliente == null) {
+            FeedbackExcluirPorID.setText("Cliente não encontrado!");
+            return;
+        }
+
+        StringBuilder ClienteExcluido = new StringBuilder();
+
+       ClienteExcluido.append(exibirCliente(cliente));
+
+        if (clienteDAO.excluirCliente(id)) {
+            FeedbackExcluirPorID.setText("Cliente:\n\n" + ClienteExcluido + "\nexcluído com sucesso!");
+        } else {
+            FeedbackExcluirPorID.setText("Erro ao excluir cliente!");
+        }
+
+    }
+
+    // *
+
+    // Seção CPF
+
+    @FXML
+    private void BuscarClientePorCPF() throws Exception {
+
+
+        String cpf = BuscarPorCPF_CPF.getText();
+
+        Cliente cliente = clienteDAO.buscarClientePorCPF(cpf);
+
+        if (cliente != null) {
+            BuscarPorCPF_Label.setText(exibirCliente(cliente));
+        } else {
+            BuscarPorCPF_Label.setText("Cliente com CPF " + cpf + " não encontrado!");
+        }
+    }
+
+    @FXML
+    private void AlterarClientePorCPF() throws Exception {
+
+        String cpf = AlterarPorCPF_CPF.getText();
+
+        Cliente clienteExistente = clienteDAO.buscarClientePorCPF(cpf);
+
+        if (clienteExistente == null) {
+            FeedbackAlterarPorCPF.setText("Cliente com CPF " + cpf + " não encontrado!");
+            return;
+        }
+
+        AlterandoCPFPorCPF.setText(clienteExistente.getCpf());
+        AlterandoNomePorCPF.setText(clienteExistente.getNome());
+        AlterandoEmailPorCPF.setText(clienteExistente.getEmail());
+        String[] telefones = clienteExistente.getTelefones();
+
+        if (telefones != null && telefones.length > 0) {
+            AlterandoTelefonesPorCPF.setText(String.join("\n", telefones));
+        } else {
+            AlterandoTelefonesPorCPF.clear();
+        }
+
+        this.idClienteparaAlterarCPF = clienteExistente.getId();
+
+        showExclusivePane(AlterandoClientePorCPFPane);
+
+
+    }
+
+    @FXML
+    private void AlterandoClientePorCPF() throws Exception {
+
+        String cpf = AlterandoCPFPorCPF.getText();
+
+        String nome = AlterandoNomePorCPF.getText();
+
+        String email = AlterandoEmailPorCPF.getText();
+
+
+        String[] telefones = AlterandoTelefonesPorCPF.getText().split("\\r?\\n");
+
+
+        Cliente clienteAlterado = new Cliente(this.idClienteparaAlterarCPF, cpf, nome, email, telefones);
+
+        if (clienteDAO.alterarCliente(clienteAlterado))  {
+            showExclusivePane(AlterarPorCPFPane);
+            FeedbackAlterarPorCPF.setText("Cliente alterado com sucesso!");
+        } else {
+            feedbackAlterandoPorCPF.setText("Erro ao alterar cliente!");
+        }
+    }
+
+    @FXML
+    private void ExcluirClientePorCPF() throws Exception {
 
 
 
+        String cpf = ExcluindoPorCPF_CPF.getText();
 
+        Cliente cliente = clienteDAO.buscarClientePorCPF(cpf);
+
+        if (cliente == null) {
+            FeedbackExcluirPorCPF.setText("Cliente com CPF " + cpf + " não encontrado!");
+            return;
+        }
+
+        StringBuilder ClienteExcluido = new StringBuilder();
+
+        ClienteExcluido.append(exibirCliente(cliente));
+
+        int id = cliente.getId();
+
+        if (clienteDAO.excluirCliente(id)) {
+            FeedbackExcluirPorID.setText("Cliente:\n\n" + ClienteExcluido + "\nexcluído com sucesso!");
+        } else {
+            FeedbackExcluirPorID.setText("Erro ao excluir cliente!");
+        }
+    }
+
+    // *
 
     @FXML
     private void BuscarClientePorEmail() throws Exception {
@@ -350,9 +560,6 @@ public class ClientesController implements Initializable {
         BuscarPorNome_Label.setText(textoCompleto.toString());
     }
 
-
-
-
     private String exibirCliente(Cliente cliente) {
 
         StringBuilder sb = new StringBuilder();
@@ -360,7 +567,6 @@ public class ClientesController implements Initializable {
         sb.append("CPF: ").append(cliente.getCpf()).append("\n");
         sb.append("Nome: ").append(cliente.getNome()).append("\n");
         sb.append("Email: ").append(cliente.getEmail()).append("\n");
-
 
         String[] telefones = cliente.getTelefones();
         if (telefones != null && telefones.length > 0) {
