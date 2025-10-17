@@ -2,15 +2,17 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.petcare.Controller">
+<AnchorPane fx:id="rootPane" prefHeight="527.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.petcare.PetsController">
    <children>
-      <Button fx:id="teste" layoutX="41.0" layoutY="79.0" mnemonicParsing="false" onAction="#switchtoGerenciarMenu" text="Menu" />
-      <Button layoutX="110.0" layoutY="79.0" mnemonicParsing="false" text="Adicionar" />
-      <Button layoutX="208.0" layoutY="79.0" mnemonicParsing="false" text="Buscar" />
-      <Button layoutX="279.0" layoutY="79.0" mnemonicParsing="false" text="Alterar" />
+      <Button layoutX="41.0" layoutY="79.0" mnemonicParsing="false" onAction="#switchtoGerenciarMenu" text="Menu" />
+      <Button layoutX="110.0" layoutY="79.0" mnemonicParsing="false" onAction="#MostrarPainelAdicionarPet" text="Adicionar" />
+      <Button layoutX="208.0" layoutY="79.0" mnemonicParsing="false" onAction="#MostrarPainelBuscarPet" text="Buscar" />
+      <Button layoutX="279.0" layoutY="79.0" mnemonicParsing="false" onAction="#MostrarPainelAlterarPet" text="Alterar" />
       <Button layoutX="355.0" layoutY="79.0" mnemonicParsing="false" text="Excluir" />
       <Button layoutX="439.0" layoutY="79.0" mnemonicParsing="false" text="Listar pelo cliente" />
       <Label layoutX="248.0" prefHeight="63.0" prefWidth="120.0" text="pets">
@@ -18,5 +20,105 @@
             <Font size="60.0" />
          </font>
       </Label>
+      <Pane fx:id="AdicionarPetPane" layoutX="8.0" layoutY="112.0" prefHeight="415.0" prefWidth="600.0" visible="false">
+         <children>
+            <Label layoutX="125.0" layoutY="35.0" text="Nome: ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="105.0" layoutY="78.0" text="Espécie: ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="136.0" layoutY="119.0" text="Raça: ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="136.0" layoutY="167.0" text="Peso: ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="46.0" layoutY="219.0" text="CPF do Dono: ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="AdicionarPet_Nome" layoutX="228.0" layoutY="37.0" />
+            <TextField fx:id="AdicionarPet_Especie" layoutX="228.0" layoutY="80.0" />
+            <TextField fx:id="AdicionarPet_Raca" layoutX="228.0" layoutY="121.0" />
+            <TextField fx:id="AdicionarPet_Peso" layoutX="228.0" layoutY="169.0" />
+            <TextField fx:id="AdicionarPet_CPF" layoutX="228.0" layoutY="221.0" />
+            <Button layoutX="264.0" layoutY="284.0" mnemonicParsing="false" onAction="#AdicionarPet" text="Adicionar" />
+            <Label fx:id="FeedbackAdicionarPet" layoutX="228.0" layoutY="338.0" prefHeight="15.0" prefWidth="0.0" />
+         </children>
+      </Pane>
+      <Pane fx:id="BuscarPetPane" layoutX="-1.0" layoutY="117.0" prefHeight="409.0" prefWidth="608.0" visible="false">
+         <children>
+            <Label layoutX="166.0" layoutY="58.0" text="ID : ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="BuscarPet_ID" layoutX="222.0" layoutY="60.0" />
+            <Button layoutX="276.0" layoutY="136.0" mnemonicParsing="false" onAction="#BuscarPet" text="Buscar" />
+            <Label fx:id="BuscarPet_Label" layoutX="144.0" layoutY="173.0" prefHeight="196.0" prefWidth="319.0" />
+         </children>
+      </Pane>
+       <Pane fx:id="AlterarPetPane" layoutX="9.0" layoutY="127.0" prefHeight="409.0" prefWidth="608.0" visible="false">
+           <children>
+               <Label layoutX="166.0" layoutY="58.0" text="ID : ">
+                   <font>
+                       <Font size="24.0" />
+                   </font>
+               </Label>
+               <TextField fx:id="AlterarPet_ID" layoutX="222.0" layoutY="60.0" />
+               <Button layoutX="276.0" layoutY="136.0" mnemonicParsing="false" onAction="#AlterarPet" text="Alterar" />
+               <Label fx:id="AlterarPet_Label" layoutX="144.0" layoutY="210.0" prefHeight="196.0" prefWidth="319.0" />
+
+               <Label fx:id="FeedbackAlterarPet" layoutX="222.0" layoutY="180.0" prefWidth="250.0" />
+
+           </children>
+       </Pane>
+      <Pane fx:id="AlterandoPetPane" layoutX="4.0" layoutY="130.0" prefHeight="403.0" prefWidth="608.0">
+         <children>
+            <Label layoutX="296.0" layoutY="38.0" text="Nome: ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="276.0" layoutY="81.0" text="Espécie: ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="307.0" layoutY="122.0" text="Raça: ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="307.0" layoutY="170.0" text="Peso: ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="217.0" layoutY="222.0" text="CPF do Dono: ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="AlterandoPet_Nome" layoutX="399.0" layoutY="40.0" />
+            <TextField fx:id="AlterandoPet_Especie" layoutX="399.0" layoutY="83.0" />
+            <TextField fx:id="AlterandoPet_Raca" layoutX="399.0" layoutY="124.0" />
+            <TextField fx:id="AlterandoPet_Peso" layoutX="399.0" layoutY="172.0" />
+            <TextField fx:id="AlterandoPet_CPF" layoutX="399.0" layoutY="224.0" />
+            <Button layoutX="435.0" layoutY="287.0" mnemonicParsing="false" onAction="#AlterandoPet" text="Alterar" />
+            <Label fx:id="FeedbackAlterandoPet" layoutX="215.0" layoutY="263.0" prefHeight="15.0" prefWidth="350.0" />
+            <Label fx:id="AlterandoPet_Label" layoutX="14.0" layoutY="25.0" prefHeight="262.0" prefWidth="206.0" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

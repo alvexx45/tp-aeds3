@@ -28,6 +28,10 @@ public class ClientesController implements Initializable {
     private Stage stage;
     private Scene scene;
 
+    private ClienteDAO clienteDAO;
+
+    private List<Pane> managedPanes;
+
     @FXML
     private AnchorPane rootPane;
 
@@ -167,9 +171,7 @@ public class ClientesController implements Initializable {
 
     // *
 
-    private ClienteDAO clienteDAO;
 
-    private List<Pane> managedPanes;
 
 
 
