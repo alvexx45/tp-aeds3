@@ -1,15 +1,4 @@
-# TP AEDS-3 - Gerenciador de Petshop
-
-## 🆕 NOVIDADE: Interface Gráfica JavaFX Adicionada!
-
-O sistema agora possui uma **interface gráfica moderna** desenvolvida em JavaFX, mantendo toda a funcionalidade original do console.
-
-### ✨ Funcionalidades da Interface Gráfica
-- **Gerenciamento de Clientes**: Interface intuitiva com abas para incluir, buscar, alterar e excluir
-- **Gerenciamento de Pets**: Cadastro completo com associação aos donos e busca por CPF do dono
-- **Gerenciamento de Serviços**: CRUD completo com validação de dados
-- **Design Moderno**: Interface limpa com estilos CSS customizados
-- **Validações**: Campos obrigatórios e tipos de dados verificados em tempo real
+# TP AEDS-III - Petcare Manager
 
 ## 📋 Requisitos
 
@@ -19,48 +8,12 @@ O sistema agora possui uma **interface gráfica moderna** desenvolvida em JavaFX
 
 ## 🚀 Compilação com Maven
 
-### Limpar e compilar o projeto
+### Limpar, compilar e rodar o projeto
 ```bash
-mvn clean compile
+./run.sh
 ```
 
-### Apenas compilar
-```bash
-mvn compile
-```
-
-### Criar JAR executável
-```bash
-mvn package
-```
-
-## ▶️ Execução
-
-### 🖥️ Interface Gráfica JavaFX (NOVO - RECOMENDADO)
-
-#### Opção 1: Script Automático
-```bash
-./run-javafx.sh
-```
-
-#### Opção 2: Maven JavaFX Plugin
-```bash
-mvn clean compile javafx:run
-```
-
-#### Opção 3: Exec Java  
-```bash
-mvn exec:java -Dexec.mainClass="app.Main"
-```
-
-#### Opção 4: Comando Maven Padrão
-```bash
-mvn exec:java
-```
-
-### 💻 Execução Simplificada
-
-O sistema agora utiliza **apenas interface gráfica**. Para executar:
+### Apenas rodar
 ```bash
 mvn exec:java
 ```
@@ -202,9 +155,9 @@ A **Bateria de Testes** (opção 4 do menu) insere dados de exemplo e demonstra:
 - Bernardo Pires
 - Eduardo Luttembarck
 
-## 🎨 Interface Gráfica JavaFX - Detalhes
+## 🎨 Interface Gráfica JavaFX
 
-### Características da Nova Interface
+### Características da Interface
 - **Design Moderno**: Interface limpa com layout profissional
 - **Navegação Intuitiva**: Organização em abas para cada funcionalidade
 - **Validação em Tempo Real**: Verificação de campos obrigatórios e tipos de dados
@@ -229,7 +182,7 @@ A **Bateria de Testes** (opção 4 do menu) insere dados de exemplo e demonstra:
 - **Aba Buscar/Alterar**: Busca por ID com edição
 - **Aba Buscar por Dono**: Lista pets por CPF do dono
 
-#### �️ **Gerenciamento de Serviços**
+#### 🛒 **Gerenciamento de Serviços**
 - **Aba Incluir**: Cadastro de serviços com nome e valor
 - **Aba Buscar/Alterar**: Busca por ID ou nome com edição
 - **Aba Listar**: Visualização de todos os serviços
@@ -241,11 +194,8 @@ A **Bateria de Testes** (opção 4 do menu) insere dados de exemplo e demonstra:
 - **Binding**: Ligação entre interface e dados
 - **Eventos**: Manipulação de cliques e ações do usuário
 
-## �📝 Notas
+## 📝 Notas
 
 - Os arquivos de dados são criados automaticamente na pasta `src/dados/`
 - Os arquivos compilados ficam em `target/classes/`
 - Para limpar os dados: `rm -rf src/dados/`
-- Para limpar compilação: `mvn clean`
-- **Nova funcionalidade**: Interface gráfica e console coexistem no mesmo projeto
-- **Compatibilidade**: Todas as funcionalidades originais preservadas
