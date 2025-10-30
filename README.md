@@ -1,9 +1,21 @@
 # TP AEDS-3 - Gerenciador de Petshop
 
+## 🆕 NOVIDADE: Interface Gráfica JavaFX Adicionada!
+
+O sistema agora possui uma **interface gráfica moderna** desenvolvida em JavaFX, mantendo toda a funcionalidade original do console.
+
+### ✨ Funcionalidades da Interface Gráfica
+- **Gerenciamento de Clientes**: Interface intuitiva com abas para incluir, buscar, alterar e excluir
+- **Gerenciamento de Pets**: Cadastro completo com associação aos donos e busca por CPF do dono
+- **Gerenciamento de Serviços**: CRUD completo com validação de dados
+- **Design Moderno**: Interface limpa com estilos CSS customizados
+- **Validações**: Campos obrigatórios e tipos de dados verificados em tempo real
+
 ## 📋 Requisitos
 
 - Java 11 ou superior
 - Maven 3.6 ou superior
+- JavaFX (incluído automaticamente via Maven)
 
 ## 🚀 Compilação com Maven
 
@@ -24,17 +36,40 @@ mvn package
 
 ## ▶️ Execução
 
-### 1. Executar o programa principal (Menu interativo)
+### 🖥️ Interface Gráfica JavaFX (NOVO - RECOMENDADO)
+
+#### Opção 1: Script Automático
+```bash
+./run-javafx.sh
+```
+
+#### Opção 2: Maven JavaFX Plugin
+```bash
+mvn clean compile javafx:run
+```
+
+#### Opção 3: Exec Java  
+```bash
+mvn exec:java -Dexec.mainClass="app.Main"
+```
+
+#### Opção 4: Comando Maven Padrão
 ```bash
 mvn exec:java
 ```
 
-#### Opções do Menu:
-- **1** - Gerenciar Clientes (CRUD completo)
-- **2** - Gerenciar Pets (CRUD completo com relacionamento)
-- **3** - Gerenciar Serviços (CRUD completo)
-- **4** - Executar Bateria de Testes (insere dados de exemplo)
-- **0** - Sair
+### 💻 Execução Simplificada
+
+O sistema agora utiliza **apenas interface gráfica**. Para executar:
+```bash
+mvn exec:java
+```
+
+#### Funcionalidades Principais:
+- **Gerenciar Clientes**: CRUD completo com busca por nome, CPF, email
+- **Gerenciar Pets**: CRUD completo com relacionamento e busca por dono
+- **Gerenciar Serviços**: CRUD completo com busca por faixa de preço
+- **Executar Bateria de Testes**: Insere dados de exemplo automaticamente
 
 ### 2. Bateria de Testes
 
@@ -59,13 +94,22 @@ tp-aeds3/
 │   ├── dcu.png
 │   ├── der.png
 │   └── Fase II - TP.pdf
-└── src/                       (código-fonte)
-    ├── app/                   (aplicação e menus)
-    │   ├── Main.java
-    │   ├── MenuCliente.java
-    │   ├── MenuPet.java
-    │   ├── MenuServico.java
-    │   └── BateriaTestes.java
+├── src/
+│   ├── app/                   (aplicação principal)
+│   │   ├── Main.java         (🆕 ponto de entrada JavaFX único)
+│   │   └── BateriaTestes.java (testes automáticos)
+│   ├── controller/            (🆕 controladores JavaFX)
+│   │   ├── MainController.java
+│   │   ├── ClienteController.java
+│   │   ├── PetController.java
+│   │   └── ServicoController.java
+│   ├── view/                  (🆕 interfaces FXML)
+│   │   ├── MainView.fxml
+│   │   ├── ClienteView.fxml
+│   │   ├── PetView.fxml
+│   │   └── ServicoView.fxml
+│   ├── css/                   (🆕 estilos CSS)
+│   │   └── Style.css
     ├── dao/                   (Data Access Objects)
     │   ├── Arquivo.java
     │   ├── ClienteDAO.java
@@ -158,9 +202,50 @@ A **Bateria de Testes** (opção 4 do menu) insere dados de exemplo e demonstra:
 - Bernardo Pires
 - Eduardo Luttembarck
 
-## 📝 Notas
+## 🎨 Interface Gráfica JavaFX - Detalhes
+
+### Características da Nova Interface
+- **Design Moderno**: Interface limpa com layout profissional
+- **Navegação Intuitiva**: Organização em abas para cada funcionalidade
+- **Validação em Tempo Real**: Verificação de campos obrigatórios e tipos de dados
+- **Feedback Visual**: Mensagens de sucesso, erro e confirmação
+- **Estilos Personalizados**: CSS customizado com cores harmoniosas
+
+### Funcionalidades por Tela
+
+#### 🏠 **Tela Principal**
+- Menu de navegação principal
+- Acesso direto a todas as funcionalidades
+- Opção de executar testes
+- Botão de saída
+
+#### 👥 **Gerenciamento de Clientes**
+- **Aba Incluir**: Cadastro com CPF, nome, email e telefones
+- **Aba Buscar/Alterar**: Busca por ID, CPF ou email com edição
+- **Aba Listar**: Visualização de todos os clientes
+
+#### 🐕 **Gerenciamento de Pets**
+- **Aba Incluir**: Cadastro completo com associação ao dono
+- **Aba Buscar/Alterar**: Busca por ID com edição
+- **Aba Buscar por Dono**: Lista pets por CPF do dono
+
+#### �️ **Gerenciamento de Serviços**
+- **Aba Incluir**: Cadastro de serviços com nome e valor
+- **Aba Buscar/Alterar**: Busca por ID ou nome com edição
+- **Aba Listar**: Visualização de todos os serviços
+
+### Tecnologias JavaFX Utilizadas
+- **FXML**: Definição declarativa das interfaces
+- **CSS**: Estilização customizada
+- **Controllers**: Padrão MVC para organização do código
+- **Binding**: Ligação entre interface e dados
+- **Eventos**: Manipulação de cliques e ações do usuário
+
+## �📝 Notas
 
 - Os arquivos de dados são criados automaticamente na pasta `src/dados/`
-- Os arquivos compilados ficam em `src/bin/`
+- Os arquivos compilados ficam em `target/classes/`
 - Para limpar os dados: `rm -rf src/dados/`
-- Para limpar compilação: `mvn clean` ou `rm -rf src/bin/`
+- Para limpar compilação: `mvn clean`
+- **Nova funcionalidade**: Interface gráfica e console coexistem no mesmo projeto
+- **Compatibilidade**: Todas as funcionalidades originais preservadas

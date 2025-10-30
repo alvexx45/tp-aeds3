@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServicoController">
+   <top>
+      <Label text="Gerenciar Serviços" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="15.0" top="15.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
+   <center>
+      <TabPane>
+         <tabs>
+            <Tab text="Incluir Serviço">
+               <content>
+                  <VBox spacing="10.0">
+                     <children>
+                        <GridPane hgap="10.0" vgap="10.0">
+                           <children>
+                              <Label text="Nome:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                              <TextField fx:id="txtNomeIncluir" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                              <Label text="Valor (R$):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                              <TextField fx:id="txtValorIncluir" promptText="Ex: 50" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           </children>
+                        </GridPane>
+                        <Button fx:id="btnIncluir" mnemonicParsing="false" onAction="#incluirServico" styleClass="action-button" text="Incluir Serviço" />
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab text="Buscar/Alterar">
+               <content>
+                  <VBox spacing="15.0">
+                     <children>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Label text="Buscar por ID ou Nome:" />
+                              <TextField fx:id="txtBuscar" promptText="ID do Serviço ou Nome" />
+                              <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#buscarServico" styleClass="action-button" text="Buscar" />
+                           </children>
+                        </HBox>
+                        <GridPane fx:id="gridAlteracao" hgap="10.0" vgap="10.0" visible="false">
+                           <children>
+                              <Label text="ID:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                              <TextField fx:id="txtIdAlterar" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                              <Label text="Nome:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                              <TextField fx:id="txtNomeAlterar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text="Valor (R$):" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                              <TextField fx:id="txtValorAlterar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           </children>
+                        </GridPane>
+                        <HBox fx:id="botoesAcao" spacing="10.0" visible="false">
+                           <children>
+                              <Button fx:id="btnAlterar" mnemonicParsing="false" onAction="#alterarServico" styleClass="action-button" text="Alterar" />
+                              <Button fx:id="btnExcluir" mnemonicParsing="false" onAction="#excluirServico" styleClass="danger-button" text="Excluir" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab text="Buscar por Faixa de Preço">
+               <content>
+                  <VBox spacing="10.0">
+                     <children>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Label text="Valor Mínimo (R$):" />
+                              <TextField fx:id="txtValorMin" promptText="Ex: 0" />
+                              <Label text="Valor Máximo (R$):" />
+                              <TextField fx:id="txtValorMax" promptText="Ex: 100" />
+                              <Button fx:id="btnBuscarPorFaixa" mnemonicParsing="false" onAction="#buscarServicosPorFaixa" styleClass="action-button" text="Buscar" />
+                           </children>
+                        </HBox>
+                        <Button fx:id="btnListarTodos" mnemonicParsing="false" onAction="#listarTodosServicos" styleClass="action-button" text="Listar Todos os Serviços (R$ 0 - 999999)" />
+                        <ListView fx:id="listViewServicos" prefHeight="300.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </center>
+   <bottom>
+      <Button fx:id="btnFechar" mnemonicParsing="false" onAction="#fecharJanela" styleClass="exit-button" text="Fechar" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+</BorderPane>

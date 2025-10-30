@@ -1,0 +1,161 @@
+/* Estilo geral para o aplicativo */
+.root {
+    -fx-background-color: #f0f0f0;
+    -fx-font-family: "System";
+}
+
+/* Títulos principais */
+.label {
+    -fx-text-fill: #333333;
+}
+
+/* Botões do menu principal */
+.menu-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+}
+
+.menu-button:hover {
+    -fx-background-color: #45a049;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.menu-button:pressed {
+    -fx-background-color: #3d8b40;
+}
+
+/* Botão de ação (incluir, alterar, buscar) */
+.action-button {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 3;
+    -fx-border-radius: 3;
+    -fx-cursor: hand;
+    -fx-padding: 8 16 8 16;
+}
+
+.action-button:hover {
+    -fx-background-color: #1976D2;
+}
+
+.action-button:pressed {
+    -fx-background-color: #0D47A1;
+}
+
+/* Botão de perigo (excluir) */
+.danger-button {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 3;
+    -fx-border-radius: 3;
+    -fx-cursor: hand;
+    -fx-padding: 8 16 8 16;
+}
+
+.danger-button:hover {
+    -fx-background-color: #d32f2f;
+}
+
+.danger-button:pressed {
+    -fx-background-color: #b71c1c;
+}
+
+/* Botão de saída */
+.exit-button {
+    -fx-background-color: #9E9E9E;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 3;
+    -fx-border-radius: 3;
+    -fx-cursor: hand;
+    -fx-padding: 8 16 8 16;
+}
+
+.exit-button:hover {
+    -fx-background-color: #757575;
+}
+
+.exit-button:pressed {
+    -fx-background-color: #424242;
+}
+
+/* Campos de texto */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+    -fx-padding: 8;
+}
+
+.text-field:focused {
+    -fx-border-color: #2196F3;
+    -fx-border-width: 2;
+}
+
+/* TabPane */
+.tab-pane {
+    -fx-background-color: #ffffff;
+}
+
+.tab {
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 5 5 0 0;
+    -fx-padding: 8 16 8 16;
+}
+
+.tab:selected {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #2196F3;
+    -fx-border-width: 0 0 2 0;
+}
+
+.tab .tab-label {
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+}
+
+/* ListView */
+.list-view {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 8;
+}
+
+.list-cell:selected {
+    -fx-background-color: #E3F2FD;
+    -fx-text-fill: #1976D2;
+}
+
+/* GridPane */
+.grid-pane {
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-padding: 20;
+}
+
+/* Bordas dos painéis */
+.border-pane {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
