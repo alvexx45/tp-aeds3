@@ -231,7 +231,6 @@ public class Arquivo<T extends Registro> {
     public T findBy(java.util.function.Predicate<T> condition) throws Exception {
         arquivo.seek(TAM_CABECALHO);
         while (arquivo.getFilePointer() < arquivo.length()) {
-            long posicao = arquivo.getFilePointer();
             byte lapide = arquivo.readByte();
             short tamanho = arquivo.readShort();
             byte[] dados = new byte[tamanho];
@@ -254,7 +253,6 @@ public class Arquivo<T extends Registro> {
         arquivo.seek(TAM_CABECALHO);
         
         while (arquivo.getFilePointer() < arquivo.length()) {
-            long posicao = arquivo.getFilePointer();
             byte lapide = arquivo.readByte();
             short tamanho = arquivo.readShort();
             byte[] dados = new byte[tamanho];

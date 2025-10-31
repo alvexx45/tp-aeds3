@@ -8,9 +8,6 @@ public class IndiceSequencial {
     private RandomAccessFile arquivo;
     private ArrayList<RegistroIndice> indices;
     
-    // Estrutura de um registro no índice: [ID(4 bytes)][Endereço(8 bytes)] = 12 bytes
-    private static final int TAM_REGISTRO_INDICE = 12;
-    
     private class RegistroIndice implements Comparable<RegistroIndice> {
         int id;
         long endereco;
