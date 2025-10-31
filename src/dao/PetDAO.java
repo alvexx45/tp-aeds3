@@ -11,12 +11,23 @@ public class PetDAO {
     }
 
     public boolean incluirPet(Pet pet) throws Exception {
+        // Validar se já existe pet com mesmo nome para o mesmo dono
+        String cpfDono = pet.getDono() != null ? pet.getDono().getCpf() : null;
+        if (cpfDono != null && !cpfDono.isEmpty()) {
+            java.util.List<Pet> petsDoMesmoDono = buscarPetsPorCpfDono(cpfDono);
+            for (Pet petExistente : petsDoMesmoDono) {
+                if (petExistente.getNome().equalsIgnoreCase(pet.getNome())) {
+                    throw new IllegalArgumentException("Já existe um pet com o nome '" + pet.getNome() + 
+                                                     "' para o dono com CPF: " + cpfDono);
+                }
+            }
+        }
+        
         // Criar o pet no arquivo principal
         int idGerado = arqPets.create(pet);
         
         if (idGerado > 0) {
             // Inserir relacionamento na Hash Extensível
-            String cpfDono = pet.getDono() != null ? pet.getDono().getCpf() : null;
             if (cpfDono != null && !cpfDono.isEmpty()) {
                 indiceHash.inserir(cpfDono, idGerado);
             }
@@ -27,6 +38,28 @@ public class PetDAO {
     }
 
     public boolean alterarPet(Pet pet) throws Exception {
+        // Buscar pet existente
+        Pet petExistente = arqPets.read(pet.getId());
+        if (petExistente == null) {
+            throw new IllegalArgumentException("Pet não encontrado com ID: " + pet.getId());
+        }
+        
+        // Validar se nome mudou e se já existe outro pet com o mesmo nome para o mesmo dono
+        String cpfDono = pet.getDono() != null ? pet.getDono().getCpf() : null;
+        if (cpfDono != null && !cpfDono.isEmpty()) {
+            // Se o nome mudou, verificar se já existe outro pet com esse nome
+            if (!petExistente.getNome().equalsIgnoreCase(pet.getNome())) {
+                java.util.List<Pet> petsDoMesmoDono = buscarPetsPorCpfDono(cpfDono);
+                for (Pet outropet : petsDoMesmoDono) {
+                    if (outropet.getId() != pet.getId() && 
+                        outropet.getNome().equalsIgnoreCase(pet.getNome())) {
+                        throw new IllegalArgumentException("Já existe outro pet com o nome '" + pet.getNome() + 
+                                                         "' para o dono com CPF: " + cpfDono);
+                    }
+                }
+            }
+        }
+        
         return arqPets.update(pet);
     }
 

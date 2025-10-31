@@ -9,10 +9,29 @@ public class ServicoDAO {
     }
 
     public boolean incluirServico(Servico servico) throws Exception {
+        // Validar se nome já existe
+        if (buscarServicoPorNome(servico.getNome()) != null) {
+            throw new IllegalArgumentException("Já existe um serviço cadastrado com o nome: " + servico.getNome());
+        }
+        
         return arqServicos.create(servico) > 0;
     }
 
     public boolean alterarServico(Servico servico) throws Exception {
+        // Buscar serviço existente
+        Servico servicoExistente = arqServicos.read(servico.getId());
+        if (servicoExistente == null) {
+            throw new IllegalArgumentException("Serviço não encontrado com ID: " + servico.getId());
+        }
+        
+        // Validar se nome mudou e se já existe outro serviço com o novo nome
+        if (!servicoExistente.getNome().equals(servico.getNome())) {
+            Servico servicoComMesmoNome = buscarServicoPorNome(servico.getNome());
+            if (servicoComMesmoNome != null && servicoComMesmoNome.getId() != servico.getId()) {
+                throw new IllegalArgumentException("Já existe outro serviço cadastrado com o nome: " + servico.getNome());
+            }
+        }
+        
         return arqServicos.update(servico);
     }
 

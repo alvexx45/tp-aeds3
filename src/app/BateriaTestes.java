@@ -41,6 +41,10 @@ public class BateriaTestes {
             System.out.println("\n[3/3] Inserindo Pets...");
             inserirPets();
             
+            // Testar validações de duplicatas
+            System.out.println("\n[4/4] Testando Validações de Duplicatas...");
+            testarValidacoesDuplicatas();
+            
             // Exibir resumo
             System.out.println("\n" + "=".repeat(60));
             exibirResumo();
@@ -210,5 +214,83 @@ public class BateriaTestes {
                 }
             }
         }
+    }
+    
+    /**
+     * Testa as validações de duplicatas implementadas
+     */
+    private void testarValidacoesDuplicatas() {
+        System.out.println("   🛡️ Testando validações de duplicatas...");
+        
+        // Teste 1: Cliente com CPF duplicado
+        System.out.println("\n   [Teste 1] Cliente com CPF duplicado:");
+        try {
+            Cliente clienteDuplicado = new Cliente(-1, "12345678901", "Nome Duplicado", "teste@email.com", new String[]{"31999999999"});
+            clienteDAO.incluirCliente(clienteDuplicado);
+            System.out.println("   ❌ ERRO: Deveria ter rejeitado CPF duplicado!");
+        } catch (IllegalArgumentException e) {
+            System.out.println("   ✅ CORRETO: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("   ⚠️ Erro inesperado: " + e.getMessage());
+        }
+        
+        // Teste 2: Cliente com email duplicado
+        System.out.println("\n   [Teste 2] Cliente com email duplicado:");
+        try {
+            Cliente clienteEmailDuplicado = new Cliente(-1, "00000000000", "Nome Teste", "joao.silva@email.com", new String[]{"31999999999"});
+            clienteDAO.incluirCliente(clienteEmailDuplicado);
+            System.out.println("   ❌ ERRO: Deveria ter rejeitado email duplicado!");
+        } catch (IllegalArgumentException e) {
+            System.out.println("   ✅ CORRETO: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("   ⚠️ Erro inesperado: " + e.getMessage());
+        }
+        
+        // Teste 3: Serviço com nome duplicado
+        System.out.println("\n   [Teste 3] Serviço com nome duplicado:");
+        try {
+            Servico servicoDuplicado = new Servico(-1, "Banho", 3000); // Nome já existe
+            servicoDAO.incluirServico(servicoDuplicado);
+            System.out.println("   ❌ ERRO: Deveria ter rejeitado nome de serviço duplicado!");
+        } catch (IllegalArgumentException e) {
+            System.out.println("   ✅ CORRETO: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("   ⚠️ Erro inesperado: " + e.getMessage());
+        }
+        
+        // Teste 4: Pet com nome duplicado para o mesmo dono
+        System.out.println("\n   [Teste 4] Pet com nome duplicado para o mesmo dono:");
+        try {
+            // Buscar um cliente existente
+            Cliente cliente = clienteDAO.buscarClientePorCPF("12345678901");
+            if (cliente != null) {
+                Pet petDuplicado = new Pet(-1, "Rex", "Cão", "Labrador", 10.5f, cliente); // Nome já pode existir
+                petDAO.incluirPet(petDuplicado);
+                System.out.println("   ❌ ERRO: Deveria ter rejeitado nome de pet duplicado para o mesmo dono!");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("   ✅ CORRETO: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("   ⚠️ Erro inesperado: " + e.getMessage());
+        }
+        
+        // Teste 5: Alteração mantendo dados próprios (deve funcionar)
+        System.out.println("\n   [Teste 5] Alteração mantendo dados próprios:");
+        try {
+            Cliente cliente = clienteDAO.buscarClientePorCPF("12345678901");
+            if (cliente != null) {
+                cliente.setNome("João Silva - Atualizado");
+                boolean alterado = clienteDAO.alterarCliente(cliente);
+                if (alterado) {
+                    System.out.println("   ✅ CORRETO: Permitiu alterar mantendo CPF próprio");
+                } else {
+                    System.out.println("   ❌ ERRO: Não deveria ter rejeitado alteração válida!");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ Erro inesperado na alteração: " + e.getMessage());
+        }
+        
+        System.out.println("\n   🛡️ Testes de validação de duplicatas concluídos!");
     }
 }

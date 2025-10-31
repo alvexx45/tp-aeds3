@@ -12,10 +12,46 @@ public class ClienteDAO {
     }
 
     public boolean incluirCliente(Cliente cliente) throws Exception {
+        // Validar se CPF já existe
+        if (buscarClientePorCPF(cliente.getCpf()) != null) {
+            throw new IllegalArgumentException("Já existe um cliente cadastrado com o CPF: " + cliente.getCpf());
+        }
+        
+        // Validar se email já existe (se fornecido)
+        if (cliente.getEmail() != null && !cliente.getEmail().trim().isEmpty()) {
+            if (buscarClientePorEmail(cliente.getEmail()) != null) {
+                throw new IllegalArgumentException("Já existe um cliente cadastrado com o email: " + cliente.getEmail());
+            }
+        }
+        
         return arqClientes.create(cliente) > 0;
     }
 
     public boolean alterarCliente(Cliente cliente) throws Exception {
+        // Buscar cliente existente
+        Cliente clienteExistente = arqClientes.read(cliente.getId());
+        if (clienteExistente == null) {
+            throw new IllegalArgumentException("Cliente não encontrado com ID: " + cliente.getId());
+        }
+        
+        // Validar se CPF mudou e se já existe outro cliente com o novo CPF
+        if (!clienteExistente.getCpf().equals(cliente.getCpf())) {
+            Cliente clienteComMesmoCPF = buscarClientePorCPF(cliente.getCpf());
+            if (clienteComMesmoCPF != null && clienteComMesmoCPF.getId() != cliente.getId()) {
+                throw new IllegalArgumentException("Já existe outro cliente cadastrado com o CPF: " + cliente.getCpf());
+            }
+        }
+        
+        // Validar se email mudou e se já existe outro cliente com o novo email
+        if (cliente.getEmail() != null && !cliente.getEmail().trim().isEmpty()) {
+            if (!cliente.getEmail().equals(clienteExistente.getEmail())) {
+                Cliente clienteComMesmoEmail = buscarClientePorEmail(cliente.getEmail());
+                if (clienteComMesmoEmail != null && clienteComMesmoEmail.getId() != cliente.getId()) {
+                    throw new IllegalArgumentException("Já existe outro cliente cadastrado com o email: " + cliente.getEmail());
+                }
+            }
+        }
+        
         return arqClientes.update(cliente);
     }
 
