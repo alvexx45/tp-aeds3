@@ -61,7 +61,7 @@ public class MainController {
     @FXML
     private void abrirGerenciarAgendamentos() {
         try {
-            abrirJanela("/view/AgendarView.fxml", "Gerenciar Agendamentos");
+            abrirJanelaComTamanho("/view/AgendarView.fxml", "Gerenciar Agendamentos", 1200, 750);
         } catch (Exception e) {
             mostrarErro("Erro ao abrir tela de agendamentos", e.getMessage());
         }
@@ -97,6 +97,18 @@ public class MainController {
         Stage stage = new Stage();
         stage.setTitle(titulo);
         stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.getScene().getStylesheets().add(getClass().getResource("/css/Style.css").toExternalForm());
+        stage.showAndWait();
+    }
+    
+    private void abrirJanelaComTamanho(String fxmlPath, String titulo, int largura, int altura) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        Parent root = loader.load();
+        
+        Stage stage = new Stage();
+        stage.setTitle(titulo);
+        stage.setScene(new Scene(root, largura, altura));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.getScene().getStylesheets().add(getClass().getResource("/css/Style.css").toExternalForm());
         stage.showAndWait();

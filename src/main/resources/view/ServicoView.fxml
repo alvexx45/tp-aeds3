@@ -15,7 +15,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServicoController">
    <top>
-      <Label text="Gerenciar Serviços" BorderPane.alignment="CENTER">
+      <Label styleClass="titulo" text="Gerenciar Serviços" BorderPane.alignment="CENTER">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

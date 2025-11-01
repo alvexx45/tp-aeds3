@@ -14,7 +14,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainView.fxml"));
         Parent root = loader.load();
         
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root, 1000, 700);
         scene.getStylesheets().add(getClass().getResource("/css/Style.css").toExternalForm());
         
         primaryStage.setTitle("Sistema de Gerenciamento - Petshop");

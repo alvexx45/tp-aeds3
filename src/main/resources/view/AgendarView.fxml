@@ -4,138 +4,125 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AgendarController">
-   <children>
-      <Label styleClass="titulo" text="Gerenciamento de Agendamentos" />
-      
-      <!-- Seção de Inclusão -->
-      <TitledPane expanded="true" text="Novo Agendamento">
-         <content>
-            <GridPane hgap="10.0" vgap="10.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Label text="CPF do Cliente:" />
-                  <TextField fx:id="txtCpfClienteIncluir" prefWidth="200.0" promptText="000.000.000-00" GridPane.columnIndex="1" />
-                  
-                  <Label text="Pet:" GridPane.rowIndex="1" />
-                  <ComboBox fx:id="cmbPetIncluir" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  
-                  <Label text="Serviço:" GridPane.rowIndex="2" />
-                  <ComboBox fx:id="cmbServicoIncluir" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  
-                  <Label text="Data:" GridPane.rowIndex="3" />
-                  <DatePicker fx:id="dtpDataIncluir" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  
-                  <Button fx:id="btnIncluir" mnemonicParsing="false" onAction="#incluirAgendamento" text="Incluir" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </GridPane>
-         </content>
-      </TitledPane>
-      
-      <!-- Seção de Busca -->
-      <TitledPane expanded="true" text="Buscar Agendamentos">
-         <content>
-            <HBox alignment="CENTER_LEFT" spacing="10.0">
-               <children>
-                  <Label text="CPF do Cliente:" />
-                  <TextField fx:id="txtCpfClienteBuscar" prefWidth="200.0" promptText="000.000.000-00" />
-                  <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#buscarAgendamentos" text="Buscar" />
-                  <Button fx:id="btnListarTodos" mnemonicParsing="false" onAction="#listarTodos" text="Listar Todos" />
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </HBox>
-         </content>
-      </TitledPane>
-      
-      <!-- Lista de Agendamentos -->
-      <TitledPane expanded="true" text="Agendamentos Futuros">
-         <content>
-            <VBox>
-               <children>
-                  <ListView fx:id="listViewAgendamentosFuturos" onMouseClicked="#selecionarAgendamento" prefHeight="150.0" />
-                  
-                  <!-- Seção de Alteração -->
-                  <GridPane fx:id="gridAlteracao" hgap="10.0" vgap="10.0" visible="false">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label text="ID:" />
-                        <TextField fx:id="txtIdAlterar" editable="false" GridPane.columnIndex="1" />
-                        
-                        <Label text="CPF do Cliente:" GridPane.rowIndex="1" />
-                        <TextField fx:id="txtCpfClienteAlterar" prefWidth="200.0" promptText="000.000.000-00" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        
-                        <Label text="Pet:" GridPane.rowIndex="2" />
-                        <ComboBox fx:id="cmbPetAlterar" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        
-                        <Label text="Serviço:" GridPane.rowIndex="3" />
-                        <ComboBox fx:id="cmbServicoAlterar" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        
-                        <Label text="Data:" GridPane.rowIndex="4" />
-                        <DatePicker fx:id="dtpDataAlterar" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </GridPane>
-                  
-                  <!-- Botões de Ação -->
-                  <HBox fx:id="botoesAcao" alignment="CENTER" spacing="10.0" visible="false">
-                     <children>
-                        <Button fx:id="btnAlterar" mnemonicParsing="false" onAction="#alterarAgendamento" text="Alterar" />
-                        <Button fx:id="btnExcluir" mnemonicParsing="false" onAction="#excluirAgendamento" text="Excluir" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-               </children>
-            </VBox>
-         </content>
-      </TitledPane>
-      
-      <!-- Lista de Agendamentos Passados -->
-      <TitledPane expanded="false" text="Agendamentos Passados">
-         <content>
-            <ListView fx:id="listViewAgendamentosPassados" prefHeight="150.0" />
-         </content>
-      </TitledPane>
-      
-      <!-- Botão Fechar -->
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AgendarController">
+   <top>
+      <VBox>
+         <children>
+            <Label styleClass="titulo" text="Gerenciamento de Agendamentos">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </top>
+   
+   <center>
+      <HBox spacing="20.0">
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="10.0" />
+         </padding>
+         
+         <!-- COLUNA ESQUERDA - Incluir e Buscar -->
+         <VBox spacing="15.0" HBox.hgrow="NEVER" prefWidth="450.0">
+            <children>
+               <!-- Seção de Inclusão -->
+               <TitledPane expanded="true" text="Novo Agendamento" collapsible="false">
+                  <content>
+                     <GridPane hgap="12.0" vgap="12.0">
+                        <columnConstraints>
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="120.0" />
+                           <ColumnConstraints hgrow="ALWAYS" minWidth="200.0" prefWidth="280.0" />
+                        </columnConstraints>
+                        <rowConstraints>
+                           <RowConstraints minHeight="35.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="35.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="35.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="35.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="40.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                        </rowConstraints>
+                        <children>
+                           <Label text="CPF do Cliente:" />
+                           <TextField fx:id="txtCpfClienteIncluir" promptText="000.000.000-00" GridPane.columnIndex="1" />
+                           
+                           <Label text="Pet:" GridPane.rowIndex="1" />
+                           <ComboBox fx:id="cmbPetIncluir" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           
+                           <Label text="Serviço:" GridPane.rowIndex="2" />
+                           <ComboBox fx:id="cmbServicoIncluir" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           
+                           <Label text="Data:" GridPane.rowIndex="3" />
+                           <DatePicker fx:id="dtpDataIncluir" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                           
+                           <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                              <children>
+                                 <Button fx:id="btnIncluir" mnemonicParsing="false" onAction="#incluirAgendamento" text="Incluir Agendamento" prefWidth="180.0" />
+                              </children>
+                           </HBox>
+                        </children>
+                        <padding>
+                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        </padding>
+                     </GridPane>
+                  </content>
+               </TitledPane>
+               
+               <!-- Seção de Busca -->
+               <TitledPane expanded="true" text="Buscar Agendamentos" collapsible="false">
+                  <content>
+                     <VBox spacing="12.0">
+                        <children>
+                           <HBox alignment="CENTER_LEFT" spacing="10.0">
+                              <children>
+                                 <Label text="CPF do Cliente:" minWidth="100.0" />
+                                 <TextField fx:id="txtCpfClienteBuscar" promptText="000.000.000-00" HBox.hgrow="ALWAYS" />
+                              </children>
+                           </HBox>
+                           <HBox alignment="CENTER" spacing="10.0">
+                              <children>
+                                 <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#buscarAgendamentos" text="Buscar" prefWidth="120.0" />
+                                 <Button fx:id="btnListarTodos" mnemonicParsing="false" onAction="#listarTodos" text="Listar Todos" prefWidth="120.0" />
+                              </children>
+                           </HBox>
+                        </children>
+                        <padding>
+                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        </padding>
+                     </VBox>
+                  </content>
+               </TitledPane>
+            </children>
+         </VBox>
+         
+         <!-- COLUNA DIREITA - Listas de Agendamentos -->
+         <VBox spacing="15.0" HBox.hgrow="ALWAYS" prefWidth="600.0">
+            <children>
+               <!-- Lista de Agendamentos Futuros -->
+               <TitledPane expanded="true" text="Agendamentos Futuros" VBox.vgrow="ALWAYS">
+                  <content>
+                     <ListView fx:id="listViewAgendamentosFuturos" onMouseClicked="#selecionarAgendamento" prefHeight="320.0" />
+                  </content>
+               </TitledPane>
+               
+               <!-- Lista de Agendamentos Passados -->
+               <TitledPane expanded="false" text="Agendamentos Passados" VBox.vgrow="ALWAYS">
+                  <content>
+                     <ListView fx:id="listViewAgendamentosPassados" onMouseClicked="#selecionarAgendamento" prefHeight="250.0" />
+                  </content>
+               </TitledPane>
+            </children>
+         </VBox>
+      </HBox>
+   </center>
+   
+   <bottom>
       <HBox alignment="CENTER">
          <children>
-            <Button fx:id="btnFechar" mnemonicParsing="false" onAction="#fechar" text="Fechar" />
+            <Button fx:id="btnFechar" mnemonicParsing="false" onAction="#fechar" styleClass="exit-button" text="Fechar" prefWidth="120.0" />
          </children>
          <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </padding>
       </HBox>
-   </children>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
-</VBox>
+   </bottom>
+</BorderPane>

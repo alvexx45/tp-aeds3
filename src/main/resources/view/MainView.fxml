@@ -3,38 +3,55 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <top>
-      <Label text="Sistema de Gerenciamento - Petshop" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-         <BorderPane.margin>
-            <Insets bottom="20.0" top="20.0" />
-         </BorderPane.margin>
-      </Label>
+      <VBox>
+         <children>
+            <!-- Logo e Título -->
+            <HBox alignment="CENTER" spacing="20.0" styleClass="logo-container">
+               <children>
+                  <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logo.png" />
+                     </image>
+                  </ImageView>
+                  <Label styleClass="titulo" text="Sistema de Gerenciamento - Petshop">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
    </top>
    <center>
-      <VBox alignment="CENTER" spacing="15.0">
+      <VBox alignment="CENTER" spacing="20.0">
          <children>
-            <Label text="Bem-vindo ao Sistema!">
+            <Label styleClass="label" text="Bem-vindo ao Sistema!">
                <font>
-                  <Font size="16.0" />
+                  <Font size="20.0" />
                </font>
             </Label>
-            <Button fx:id="btnClientes" mnemonicParsing="false" onAction="#abrirGerenciarClientes" prefHeight="40.0" prefWidth="200.0" styleClass="menu-button" text="Gerenciar Clientes" />
-            <Button fx:id="btnPets" mnemonicParsing="false" onAction="#abrirGerenciarPets" prefHeight="40.0" prefWidth="200.0" styleClass="menu-button" text="Gerenciar Pets" />
-            <Button fx:id="btnServicos" mnemonicParsing="false" onAction="#abrirGerenciarServicos" prefHeight="40.0" prefWidth="200.0" styleClass="menu-button" text="Gerenciar Serviços" />
-            <Button fx:id="btnAgendamentos" mnemonicParsing="false" onAction="#abrirGerenciarAgendamentos" prefHeight="40.0" prefWidth="200.0" styleClass="menu-button" text="Gerenciar Agendamentos" />
-            <Button fx:id="btnTestes" mnemonicParsing="false" onAction="#executarTestes" prefHeight="40.0" prefWidth="200.0" styleClass="menu-button" text="Executar Testes" />
-            <Button fx:id="btnSair" mnemonicParsing="false" onAction="#sair" prefHeight="40.0" prefWidth="200.0" styleClass="exit-button" text="Sair" />
+            <Button fx:id="btnClientes" mnemonicParsing="false" onAction="#abrirGerenciarClientes" prefHeight="55.0" prefWidth="280.0" styleClass="menu-button" text="Gerenciar Clientes" />
+            <Button fx:id="btnPets" mnemonicParsing="false" onAction="#abrirGerenciarPets" prefHeight="55.0" prefWidth="280.0" styleClass="menu-button" text="Gerenciar Pets" />
+            <Button fx:id="btnServicos" mnemonicParsing="false" onAction="#abrirGerenciarServicos" prefHeight="55.0" prefWidth="280.0" styleClass="menu-button" text="Gerenciar Serviços" />
+            <Button fx:id="btnAgendamentos" mnemonicParsing="false" onAction="#abrirGerenciarAgendamentos" prefHeight="55.0" prefWidth="280.0" styleClass="menu-button" text="Gerenciar Agendamentos" />
+            <Button fx:id="btnTestes" mnemonicParsing="false" onAction="#executarTestes" prefHeight="55.0" prefWidth="280.0" styleClass="menu-button" text="Executar Testes" />
+            <Button fx:id="btnSair" mnemonicParsing="false" onAction="#sair" prefHeight="55.0" prefWidth="280.0" styleClass="exit-button" text="Sair" />
          </children>
          <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            <Insets bottom="40.0" left="20.0" right="20.0" top="30.0" />
          </padding>
       </VBox>
    </center>

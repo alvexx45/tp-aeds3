@@ -9,8 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import model.Agendar;
 import model.Cliente;
 import model.Pet;
@@ -35,15 +33,6 @@ public class AgendarController implements Initializable {
     // Campos para busca
     @FXML private TextField txtCpfClienteBuscar;
     @FXML private Button btnBuscar;
-    @FXML private GridPane gridAlteracao;
-    @FXML private TextField txtIdAlterar;
-    @FXML private TextField txtCpfClienteAlterar;
-    @FXML private ComboBox<Pet> cmbPetAlterar;
-    @FXML private ComboBox<Servico> cmbServicoAlterar;
-    @FXML private DatePicker dtpDataAlterar;
-    @FXML private HBox botoesAcao;
-    @FXML private Button btnAlterar;
-    @FXML private Button btnExcluir;
 
     // Lista de agendamentos
     @FXML private Button btnListarTodos;
@@ -86,7 +75,6 @@ public class AgendarController implements Initializable {
         // Carregar serviços - buscar todos usando faixa de preço ampla
         List<Servico> servicos = servicoDAO.buscarServicosPorFaixaPreco(0, Integer.MAX_VALUE);
         cmbServicoIncluir.setItems(FXCollections.observableArrayList(servicos));
-        cmbServicoAlterar.setItems(FXCollections.observableArrayList(servicos));
         
         // Configurar listeners para atualizar pets quando CPF for digitado
         txtCpfClienteIncluir.textProperty().addListener((obs, oldVal, newVal) -> {
@@ -94,14 +82,6 @@ public class AgendarController implements Initializable {
                 atualizarPetsPorCpf(newVal, cmbPetIncluir);
             } else {
                 cmbPetIncluir.setItems(FXCollections.observableArrayList());
-            }
-        });
-        
-        txtCpfClienteAlterar.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null && !newVal.trim().isEmpty()) {
-                atualizarPetsPorCpf(newVal, cmbPetAlterar);
-            } else {
-                cmbPetAlterar.setItems(FXCollections.observableArrayList());
             }
         });
     }
@@ -164,7 +144,7 @@ public class AgendarController implements Initializable {
                     atualizarListaAgendamentos(todosAgendamentos);
                 }
                 
-                limparCamposInclusao();
+                limparCampos();
             } else {
                 mostrarAlerta("Erro", "Erro ao incluir agendamento");
             }
@@ -226,85 +206,14 @@ public class AgendarController implements Initializable {
     }
 
     @FXML
-    public void alterarAgendamento() {
-        try {
-            if (agendamentoAtual == null) {
-                mostrarAlerta("Seleção necessária", "Selecione um agendamento para alterar");
-                return;
-            }
-
-            Pet pet = cmbPetAlterar.getSelectionModel().getSelectedItem();
-            Servico servico = cmbServicoAlterar.getSelectionModel().getSelectedItem();
-            LocalDate data = dtpDataAlterar.getValue();
-
-            if (pet == null || servico == null || data == null) {
-                mostrarAlerta("Campos obrigatórios", "Todos os campos devem ser preenchidos");
-                return;
-            }
-            
-            // Validar se a data não é passada
-            if (data.isBefore(LocalDate.now())) {
-                mostrarAlerta("Data inválida", "Não é permitido agendar em datas passadas");
-                return;
-            }
-
-            agendamentoAtual.setData(data);
-            agendamentoAtual.setIdPet(pet.getId());
-            agendamentoAtual.setIdServico(servico.getId());
-
-            boolean sucesso = agendarDAO.alterarAgendamento(agendamentoAtual);
-            if (sucesso) {
-                mostrarSucesso("Agendamento alterado com sucesso!");
-                limparCampos();
-                listarTodos();
-            } else {
-                mostrarAlerta("Erro", "Erro ao alterar agendamento");
-            }
-
-        } catch (IllegalArgumentException e) {
-            mostrarAlerta("Erro de validação", e.getMessage());
-        } catch (Exception e) {
-            mostrarAlerta("Erro", "Erro ao alterar agendamento: " + e.getMessage());
-        }
-    }
-
-    @FXML
-    public void excluirAgendamento() {
-        try {
-            if (agendamentoAtual == null) {
-                mostrarAlerta("Seleção necessária", "Selecione um agendamento para excluir");
-                return;
-            }
-
-            Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmacao.setTitle("Confirmação de Exclusão");
-            confirmacao.setHeaderText("Deseja realmente excluir este agendamento?");
-            confirmacao.setContentText("Esta ação não pode ser desfeita.");
-
-            if (confirmacao.showAndWait().get() == ButtonType.OK) {
-                boolean sucesso = agendarDAO.excluirAgendamento(
-                    agendamentoAtual.getIdPet(),
-                    agendamentoAtual.getIdServico()
-                );
-
-                if (sucesso) {
-                    mostrarSucesso("Agendamento excluído com sucesso!");
-                    limparCampos();
-                    listarTodos();
-                } else {
-                    mostrarAlerta("Erro", "Erro ao excluir agendamento");
-                }
-            }
-
-        } catch (Exception e) {
-            mostrarAlerta("Erro", "Erro ao excluir agendamento: " + e.getMessage());
-        }
-    }
-
-    @FXML
     public void selecionarAgendamento() {
         try {
+            // Verificar qual lista foi clicada
             String itemSelecionado = listViewAgendamentosFuturos.getSelectionModel().getSelectedItem();
+            if (itemSelecionado == null || itemSelecionado.isEmpty()) {
+                itemSelecionado = listViewAgendamentosPassados.getSelectionModel().getSelectedItem();
+            }
+            
             if (itemSelecionado != null && !itemSelecionado.isEmpty()) {
                 processarSelecaoAgendamento(itemSelecionado);
             }
@@ -325,49 +234,40 @@ public class AgendarController implements Initializable {
             for (Agendar agendamento : todos) {
                 if (agendamento.getId() == id) {
                     agendamentoAtual = agendamento;
-                    preencherCamposAlteracao();
+                    abrirDialogAlteracao();
                     break;
                 }
             }
         }
     }
 
-    private void preencherCamposAlteracao() {
-        if (agendamentoAtual != null) {
-            try {
-                txtIdAlterar.setText(String.valueOf(agendamentoAtual.getId()));
-                
-                // Buscar o pet pelo ID para obter o dono
-                Pet pet = petDAO.buscarPet(agendamentoAtual.getIdPet());
-                if (pet != null && pet.getDono() != null) {
-                    // Preencher CPF do cliente
-                    txtCpfClienteAlterar.setText(pet.getDono().getCpf());
-                    
-                    // Atualizar pets e selecionar pet
-                    atualizarPetsPorCpf(pet.getDono().getCpf(), cmbPetAlterar);
-                    for (Pet p : cmbPetAlterar.getItems()) {
-                        if (p.getId() == agendamentoAtual.getIdPet()) {
-                            cmbPetAlterar.getSelectionModel().select(p);
-                            break;
-                        }
-                    }
+    private void abrirDialogAlteracao() {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                getClass().getResource("/view/AlterarAgendamentoDialog.fxml")
+            );
+            javafx.scene.Parent root = loader.load();
+            
+            AlterarAgendamentoDialogController dialogController = loader.getController();
+            dialogController.setAgendamento(agendamentoAtual);
+            dialogController.setOnCloseCallback(() -> {
+                // Atualizar listas após fechar dialog
+                try {
+                    listarTodos();
+                } catch (Exception e) {
+                    mostrarAlerta("Erro", "Erro ao atualizar lista: " + e.getMessage());
                 }
-                
-                // Selecionar serviço
-                for (Servico servico : cmbServicoAlterar.getItems()) {
-                    if (servico.getId() == agendamentoAtual.getIdServico()) {
-                        cmbServicoAlterar.getSelectionModel().select(servico);
-                        break;
-                    }
-                }
-                
-                dtpDataAlterar.setValue(agendamentoAtual.getData());
-                
-                gridAlteracao.setVisible(true);
-                botoesAcao.setVisible(true);
-            } catch (Exception e) {
-                mostrarAlerta("Erro", "Erro ao preencher campos: " + e.getMessage());
-            }
+            });
+            
+            javafx.stage.Stage dialogStage = new javafx.stage.Stage();
+            dialogStage.setTitle("Editar Agendamento");
+            dialogStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            dialogStage.setScene(new javafx.scene.Scene(root, 500, 450));
+            dialogStage.getScene().getStylesheets().add(getClass().getResource("/css/Style.css").toExternalForm());
+            dialogStage.showAndWait();
+            
+        } catch (Exception e) {
+            mostrarAlerta("Erro", "Erro ao abrir dialog: " + e.getMessage());
         }
     }
 
@@ -412,26 +312,11 @@ public class AgendarController implements Initializable {
     }
 
     private void limparCampos() {
-        limparCamposInclusao();
-        limparCamposAlteracao();
-    }
-
-    private void limparCamposInclusao() {
         txtCpfClienteIncluir.clear();
         cmbPetIncluir.getItems().clear();
         cmbServicoIncluir.getSelectionModel().clearSelection();
         dtpDataIncluir.setValue(null);
-    }
-
-    private void limparCamposAlteracao() {
         agendamentoAtual = null;
-        txtIdAlterar.clear();
-        txtCpfClienteAlterar.clear();
-        cmbPetAlterar.getItems().clear();
-        cmbServicoAlterar.getSelectionModel().clearSelection();
-        dtpDataAlterar.setValue(null);
-        gridAlteracao.setVisible(false);
-        botoesAcao.setVisible(false);
     }
 
     @FXML
