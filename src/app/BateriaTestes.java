@@ -347,7 +347,138 @@ public class BateriaTestes {
             System.out.println("   ⚠️ " + e.getMessage());
         }
         
-        System.out.println("   Total: " + count + " agendamentos inseridos");
+        System.out.println("\n   📅 AGENDAMENTOS PASSADOS (histórico):");
+        
+        // Rex (ID 1) - agendamentos históricos
+        try {
+            Agendar agPast1 = new Agendar(0, LocalDate.now().minusDays(5), 1, 1); // Rex - Banho (5 dias atrás)
+            if (agendarDAO.incluirAgendamento(agPast1)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Rex → Banho (passado)");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        try {
+            Agendar agPast2 = new Agendar(0, LocalDate.now().minusDays(30), 1, 4); // Rex - Consulta (30 dias atrás)
+            if (agendarDAO.incluirAgendamento(agPast2)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Rex → Consulta (passado)");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        // Mimi (ID 2) - histórico
+        try {
+            Agendar agPast3 = new Agendar(0, LocalDate.now().minusDays(15), 2, 2); // Mimi - Tosa (15 dias atrás)
+            if (agendarDAO.incluirAgendamento(agPast3)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Mimi → Tosa (passado)");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        try {
+            Agendar agPast4 = new Agendar(0, LocalDate.now().minusDays(60), 2, 5); // Mimi - Vacinação (60 dias atrás)
+            if (agendarDAO.incluirAgendamento(agPast4)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Mimi → Vacinação (passado)");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        // Thor (ID 3) - histórico
+        try {
+            Agendar agPast5 = new Agendar(0, LocalDate.now().minusDays(10), 3, 1); // Thor - Banho (10 dias atrás)
+            if (agendarDAO.incluirAgendamento(agPast5)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Thor → Banho (passado)");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        // Bolinha (ID 4) - histórico
+        try {
+            Agendar agPast6 = new Agendar(0, LocalDate.now().minusDays(20), 4, 3); // Bolinha - Banho e Tosa (20 dias atrás)
+            if (agendarDAO.incluirAgendamento(agPast6)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Bolinha → Banho e Tosa (passado)");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        try {
+            Agendar agPast7 = new Agendar(0, LocalDate.now().minusDays(90), 4, 10); // Bolinha - Antipulgas (90 dias atrás)
+            if (agendarDAO.incluirAgendamento(agPast7)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Bolinha → Antipulgas (passado)");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        // Nina (ID 5) - histórico
+        try {
+            Agendar agPast8 = new Agendar(0, LocalDate.now().minusDays(7), 5, 11); // Nina - Corte de Unhas (7 dias atrás)
+            if (agendarDAO.incluirAgendamento(agPast8)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Nina → Corte de Unhas (passado)");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        // Mel (ID 6) - histórico
+        try {
+            Agendar agPast9 = new Agendar(0, LocalDate.now().minusDays(45), 6, 1); // Mel - Banho (45 dias atrás)
+            if (agendarDAO.incluirAgendamento(agPast9)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Mel → Banho (passado)");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        // Duque (ID 7) - histórico
+        try {
+            Agendar agPast10 = new Agendar(0, LocalDate.now().minusDays(25), 7, 2); // Duque - Tosa (25 dias atrás)
+            if (agendarDAO.incluirAgendamento(agPast10)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Duque → Tosa (passado)");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        // Pipoca (ID 8) - histórico
+        try {
+            Agendar agPast11 = new Agendar(0, LocalDate.now().minusDays(35), 8, 4); // Pipoca - Consulta (35 dias atrás)
+            if (agendarDAO.incluirAgendamento(agPast11)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Pipoca → Consulta (passado)");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        // Luna (ID 11) - histórico
+        try {
+            Agendar agPast12 = new Agendar(0, LocalDate.now().minusDays(50), 11, 3); // Luna - Banho e Tosa (50 dias atrás)
+            if (agendarDAO.incluirAgendamento(agPast12)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Luna → Banho e Tosa (passado)");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        System.out.println("\n   Total: " + count + " agendamentos inseridos (futuros e passados)");
         System.out.println("   💡 Relacionamento N:N indexado na Árvore B+");
     }
     
