@@ -24,8 +24,8 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label text="Cliente:" />
-                  <ComboBox fx:id="cmbClienteIncluir" prefWidth="200.0" GridPane.columnIndex="1" />
+                  <Label text="CPF do Cliente:" />
+                  <TextField fx:id="txtCpfClienteIncluir" prefWidth="200.0" promptText="000.000.000-00" GridPane.columnIndex="1" />
                   
                   <Label text="Pet:" GridPane.rowIndex="1" />
                   <ComboBox fx:id="cmbPetIncluir" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -50,8 +50,8 @@
          <content>
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
-                  <Label text="Cliente:" />
-                  <ComboBox fx:id="cmbClienteBuscar" prefWidth="200.0" />
+                  <Label text="CPF do Cliente:" />
+                  <TextField fx:id="txtCpfClienteBuscar" prefWidth="200.0" promptText="000.000.000-00" />
                   <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#buscarAgendamentos" text="Buscar" />
                   <Button fx:id="btnListarTodos" mnemonicParsing="false" onAction="#listarTodos" text="Listar Todos" />
                </children>
@@ -63,11 +63,11 @@
       </TitledPane>
       
       <!-- Lista de Agendamentos -->
-      <TitledPane expanded="true" text="Agendamentos">
+      <TitledPane expanded="true" text="Agendamentos Futuros">
          <content>
             <VBox>
                <children>
-                  <ListView fx:id="listViewAgendamentos" onMouseClicked="#selecionarAgendamento" prefHeight="150.0" />
+                  <ListView fx:id="listViewAgendamentosFuturos" onMouseClicked="#selecionarAgendamento" prefHeight="150.0" />
                   
                   <!-- Seção de Alteração -->
                   <GridPane fx:id="gridAlteracao" hgap="10.0" vgap="10.0" visible="false">
@@ -86,8 +86,8 @@
                         <Label text="ID:" />
                         <TextField fx:id="txtIdAlterar" editable="false" GridPane.columnIndex="1" />
                         
-                        <Label text="Cliente:" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="cmbClienteAlterar" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="CPF do Cliente:" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtCpfClienteAlterar" prefWidth="200.0" promptText="000.000.000-00" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         
                         <Label text="Pet:" GridPane.rowIndex="2" />
                         <ComboBox fx:id="cmbPetAlterar" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -115,6 +115,13 @@
                   </HBox>
                </children>
             </VBox>
+         </content>
+      </TitledPane>
+      
+      <!-- Lista de Agendamentos Passados -->
+      <TitledPane expanded="false" text="Agendamentos Passados">
+         <content>
+            <ListView fx:id="listViewAgendamentosPassados" prefHeight="150.0" />
          </content>
       </TitledPane>
       
