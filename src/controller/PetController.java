@@ -9,10 +9,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import model.Cliente;
 import model.Pet;
 
+import java.net.URL;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -29,7 +29,6 @@ public class PetController implements Initializable {
     @FXML private TextField txtBuscar;
     @FXML private Button btnBuscar;
     @FXML private GridPane gridAlteracao;
-    @FXML private TextField txtIdAlterar;
     @FXML private TextField txtNomeAlterar;
     @FXML private TextField txtEspecieAlterar;
     @FXML private TextField txtRacaAlterar;
@@ -302,7 +301,6 @@ public class PetController implements Initializable {
 
     @FXML
     private void preencherCamposAlteracao(Pet pet) {
-        txtIdAlterar.setText(String.valueOf(pet.getId()));
         txtNomeAlterar.setText(pet.getNome());
         txtEspecieAlterar.setText(pet.getEspecie());
         txtRacaAlterar.setText(pet.getRaca());
@@ -320,7 +318,6 @@ public class PetController implements Initializable {
 
     private void limparBusca() {
         txtBuscar.clear();
-        txtIdAlterar.clear();
         txtNomeAlterar.clear();
         txtEspecieAlterar.clear();
         txtRacaAlterar.clear();

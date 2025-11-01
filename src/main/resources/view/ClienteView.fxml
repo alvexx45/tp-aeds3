@@ -90,20 +90,17 @@
                                  <ColumnConstraints hgrow="ALWAYS" minWidth="200.0" prefWidth="280.0" />
                               </columnConstraints>
                               <children>
-                                 <Label text="ID:" />
-                                 <TextField fx:id="txtIdAlterar" editable="false" styleClass="readonly" GridPane.columnIndex="1" />
+                                 <Label text="CPF:" />
+                                 <TextField fx:id="txtCpfAlterar" GridPane.columnIndex="1" />
                                  
-                                 <Label text="CPF:" GridPane.rowIndex="1" />
-                                 <TextField fx:id="txtCpfAlterar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                 <Label text="Nome:" GridPane.rowIndex="1" />
+                                 <TextField fx:id="txtNomeAlterar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                  
-                                 <Label text="Nome:" GridPane.rowIndex="2" />
-                                 <TextField fx:id="txtNomeAlterar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                 <Label text="Email:" GridPane.rowIndex="2" />
+                                 <TextField fx:id="txtEmailAlterar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                  
-                                 <Label text="Email:" GridPane.rowIndex="3" />
-                                 <TextField fx:id="txtEmailAlterar" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                 
-                                 <Label text="Telefones:" GridPane.rowIndex="4" />
-                                 <TextField fx:id="txtTelefonesAlterar" promptText="Separados por vírgula" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                 <Label text="Telefones:" GridPane.rowIndex="3" />
+                                 <TextField fx:id="txtTelefonesAlterar" promptText="Separados por vírgula" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               </children>
                            </GridPane>
                            

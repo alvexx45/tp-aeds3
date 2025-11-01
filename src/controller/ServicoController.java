@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import model.Servico;
 
 import java.net.URL;
@@ -23,7 +22,6 @@ public class ServicoController implements Initializable {
     @FXML private TextField txtBuscar;
     @FXML private Button btnBuscar;
     @FXML private GridPane gridAlteracao;
-    @FXML private TextField txtIdAlterar;
     @FXML private TextField txtNomeAlterar;
     @FXML private TextField txtValorAlterar;
     @FXML private HBox botoesAcao;
@@ -295,7 +293,6 @@ public class ServicoController implements Initializable {
     @FXML
 
     private void preencherCamposAlteracao(Servico servico) {
-        txtIdAlterar.setText(String.valueOf(servico.getId()));
         txtNomeAlterar.setText(servico.getNome());
         txtValorAlterar.setText(String.valueOf(servico.getValor()));
     }
@@ -307,7 +304,6 @@ public class ServicoController implements Initializable {
 
     private void limparBusca() {
         txtBuscar.clear();
-        txtIdAlterar.clear();
         txtNomeAlterar.clear();
         txtValorAlterar.clear();
         gridAlteracao.setVisible(false);

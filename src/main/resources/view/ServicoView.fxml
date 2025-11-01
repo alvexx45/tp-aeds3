@@ -92,17 +92,12 @@
                                     prefWidth="280.0" />
                               </columnConstraints>
                               <children>
-                                 <Label text="ID:" />
-                                 <TextField fx:id="txtIdAlterar" editable="false"
-                                    styleClass="readonly" GridPane.columnIndex="1" />
+                                 <Label text="Nome:" />
+                                 <TextField fx:id="txtNomeAlterar" GridPane.columnIndex="1" />
 
-                                 <Label text="Nome:" GridPane.rowIndex="1" />
-                                 <TextField fx:id="txtNomeAlterar" GridPane.columnIndex="1"
-                                    GridPane.rowIndex="1" />
-
-                                 <Label text="Valor (R$):" GridPane.rowIndex="2" />
+                                 <Label text="Valor (R$):" GridPane.rowIndex="1" />
                                  <TextField fx:id="txtValorAlterar" GridPane.columnIndex="1"
-                                    GridPane.rowIndex="2" />
+                                    GridPane.rowIndex="1" />
                               </children>
                            </GridPane>
 

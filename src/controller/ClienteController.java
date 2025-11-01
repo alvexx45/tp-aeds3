@@ -8,11 +8,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import model.Cliente;
 
 import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.ResourceBundle;
 
 public class ClienteController implements Initializable {
@@ -26,7 +26,6 @@ public class ClienteController implements Initializable {
     @FXML private TextField txtBuscar;
     @FXML private Button btnBuscar;
     @FXML private GridPane gridAlteracao;
-    @FXML private TextField txtIdAlterar;
     @FXML private TextField txtCpfAlterar;
     @FXML private TextField txtNomeAlterar;
     @FXML private TextField txtEmailAlterar;
@@ -280,7 +279,6 @@ public class ClienteController implements Initializable {
 
     @FXML
     private void preencherCamposAlteracao(Cliente cliente) {
-        txtIdAlterar.setText(String.valueOf(cliente.getId()));
         txtCpfAlterar.setText(cliente.getCpf());
         txtNomeAlterar.setText(cliente.getNome());
         txtEmailAlterar.setText(cliente.getEmail());
@@ -296,7 +294,6 @@ public class ClienteController implements Initializable {
 
     private void limparBusca() {
         txtBuscar.clear();
-        txtIdAlterar.clear();
         txtCpfAlterar.clear();
         txtNomeAlterar.clear();
         txtEmailAlterar.clear();
