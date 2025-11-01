@@ -62,6 +62,15 @@ public class ClienteDAO {
             return false;
         }
         
+        // Excluir em cascata: primeiro excluir todos os pets do cliente
+        PetDAO petDAO = new PetDAO();
+        java.util.List<Integer> idsPets = indiceHash.buscarIdsPetsPorCpf(cliente.getCpf());
+        
+        // Excluir cada pet
+        for (Integer idPet : idsPets) {
+            petDAO.excluirPet(idPet);
+        }
+        
         // Excluir o cliente do arquivo
         boolean excluido = arqClientes.delete(id);
         
@@ -101,6 +110,15 @@ public class ClienteDAO {
         Cliente cliente = buscarClientePorCPF(cpf);
         if (cliente == null) {
             return false; // Cliente não encontrado
+        }
+        
+        // Excluir em cascata: primeiro excluir todos os pets do cliente
+        PetDAO petDAO = new PetDAO();
+        java.util.List<Integer> idsPets = indiceHash.buscarIdsPetsPorCpf(cpf);
+        
+        // Excluir cada pet
+        for (Integer idPet : idsPets) {
+            petDAO.excluirPet(idPet);
         }
         
         // Remover todos os relacionamentos Pet-Dono da hash extensível

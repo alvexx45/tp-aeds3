@@ -195,11 +195,12 @@ public class ClienteController implements Initializable {
             Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
             confirmacao.setTitle("Confirmar Exclusão");
             confirmacao.setHeaderText("Deseja realmente excluir este cliente?");
-            confirmacao.setContentText("Cliente: " + clienteAtual.getNome() + " (ID: " + clienteAtual.getId() + ")");
+            confirmacao.setContentText("Cliente: " + clienteAtual.getNome() + " (ID: " + clienteAtual.getId() + ")\n\n" +
+                                      "ATENÇÃO: Todos os pets deste cliente também serão excluídos!");
 
             if (confirmacao.showAndWait().get() == ButtonType.OK) {
                 if (clienteDAO.excluirCliente(clienteAtual.getId())) {
-                    mostrarSucesso("Cliente Excluído", "Cliente excluído com sucesso!");
+                    mostrarSucesso("Cliente Excluído", "Cliente e seus pets foram excluídos com sucesso!");
                     limparBusca();
                     listarTodosClientes(false); // Atualiza a lista dinamicamente sem exibir mensagem
                 } else {
