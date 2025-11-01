@@ -1,11 +1,14 @@
 package app;
 
+import dao.AgendarDAO;
 import dao.ClienteDAO;
 import dao.PetDAO;
 import dao.ServicoDAO;
+import model.Agendar;
 import model.Cliente;
 import model.Pet;
 import model.Servico;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -16,11 +19,13 @@ public class BateriaTestes {
     private ClienteDAO clienteDAO;
     private PetDAO petDAO;
     private ServicoDAO servicoDAO;
+    private AgendarDAO agendarDAO;
     
     public BateriaTestes() throws Exception {
         this.clienteDAO = new ClienteDAO();
         this.petDAO = new PetDAO();
         this.servicoDAO = new ServicoDAO();
+        this.agendarDAO = new AgendarDAO();
     }
     
     public void executar() {
@@ -30,19 +35,23 @@ public class BateriaTestes {
         
         try {
             // Inserir clientes
-            System.out.println("\n[1/3] Inserindo Clientes...");
+            System.out.println("\n[1/4] Inserindo Clientes...");
             inserirClientes();
             
             // Inserir serviços
-            System.out.println("\n[2/3] Inserindo Serviços...");
+            System.out.println("\n[2/4] Inserindo Serviços...");
             inserirServicos();
             
             // Inserir pets
-            System.out.println("\n[3/3] Inserindo Pets...");
+            System.out.println("\n[3/4] Inserindo Pets...");
             inserirPets();
             
+            // Inserir agendamentos
+            System.out.println("\n[4/4] Inserindo Agendamentos...");
+            inserirAgendamentos();
+            
             // Testar validações de duplicatas
-            System.out.println("\n[4/4] Testando Validações de Duplicatas...");
+            System.out.println("\n[5/5] Testando Validações de Duplicatas...");
             testarValidacoesDuplicatas();
             
             // Exibir resumo
@@ -175,6 +184,173 @@ public class BateriaTestes {
         System.out.println("   Total: " + count + " pets inseridos");
     }
     
+    private void inserirAgendamentos() throws Exception {
+        int count = 0;
+        
+        // Rex (ID 1) - 3 agendamentos
+        try {
+            Agendar ag1 = new Agendar(0, LocalDate.now(), 1, 1); // Rex - Banho
+            if (agendarDAO.incluirAgendamento(ag1)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Rex → Banho");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        try {
+            Agendar ag2 = new Agendar(0, LocalDate.now().plusDays(7), 1, 2); // Rex - Tosa
+            if (agendarDAO.incluirAgendamento(ag2)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Rex → Tosa");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        try {
+            Agendar ag3 = new Agendar(0, LocalDate.now().plusDays(14), 1, 14); // Rex - Adestramento
+            if (agendarDAO.incluirAgendamento(ag3)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Rex → Adestramento");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        // Mimi (ID 2) - 2 agendamentos
+        try {
+            Agendar ag4 = new Agendar(0, LocalDate.now().plusDays(1), 2, 1); // Mimi - Banho
+            if (agendarDAO.incluirAgendamento(ag4)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Mimi → Banho");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        try {
+            Agendar ag5 = new Agendar(0, LocalDate.now().plusDays(3), 2, 11); // Mimi - Corte de Unhas
+            if (agendarDAO.incluirAgendamento(ag5)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Mimi → Corte de Unhas");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        // Thor (ID 3) - 2 agendamentos
+        try {
+            Agendar ag6 = new Agendar(0, LocalDate.now().plusDays(2), 3, 3); // Thor - Banho e Tosa
+            if (agendarDAO.incluirAgendamento(ag6)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Thor → Banho e Tosa");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        try {
+            Agendar ag7 = new Agendar(0, LocalDate.now().plusDays(10), 3, 5); // Thor - Vacinação
+            if (agendarDAO.incluirAgendamento(ag7)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Thor → Vacinação");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        // Bolinha (ID 4)
+        try {
+            Agendar ag8 = new Agendar(0, LocalDate.now().plusDays(4), 4, 2); // Bolinha - Tosa
+            if (agendarDAO.incluirAgendamento(ag8)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Bolinha → Tosa");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        // Nina (ID 5)
+        try {
+            Agendar ag9 = new Agendar(0, LocalDate.now().plusDays(5), 5, 1); // Nina - Banho
+            if (agendarDAO.incluirAgendamento(ag9)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Nina → Banho");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        // Mel (ID 6)
+        try {
+            Agendar ag10 = new Agendar(0, LocalDate.now().plusDays(6), 6, 4); // Mel - Consulta Veterinária
+            if (agendarDAO.incluirAgendamento(ag10)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Mel → Consulta Veterinária");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        // Duque (ID 7) - 2 agendamentos
+        try {
+            Agendar ag11 = new Agendar(0, LocalDate.now().plusDays(8), 7, 5); // Duque - Vacinação
+            if (agendarDAO.incluirAgendamento(ag11)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Duque → Vacinação");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        try {
+            Agendar ag12 = new Agendar(0, LocalDate.now().plusDays(30), 7, 8); // Duque - Castração
+            if (agendarDAO.incluirAgendamento(ag12)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Duque → Castração");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        // Pipoca (ID 8)
+        try {
+            Agendar ag13 = new Agendar(0, LocalDate.now().plusDays(9), 8, 10); // Pipoca - Antipulgas
+            if (agendarDAO.incluirAgendamento(ag13)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Pipoca → Aplicação de Antipulgas");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        // Luna (ID 11)
+        try {
+            Agendar ag14 = new Agendar(0, LocalDate.now().plusDays(15), 11, 13); // Luna - Hospedagem
+            if (agendarDAO.incluirAgendamento(ag14)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Luna → Hospedagem (diária)");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        // Bella (ID 14)
+        try {
+            Agendar ag15 = new Agendar(0, LocalDate.now().plusDays(12), 14, 2); // Bella - Tosa
+            if (agendarDAO.incluirAgendamento(ag15)) {
+                count++;
+                System.out.println("   ✓ Agendamento " + count + ": Bella → Tosa");
+            }
+        } catch (Exception e) {
+            System.out.println("   ⚠️ " + e.getMessage());
+        }
+        
+        System.out.println("   Total: " + count + " agendamentos inseridos");
+        System.out.println("   💡 Relacionamento N:N indexado na Árvore B+");
+    }
+    
     private void exibirResumo() throws Exception {
         System.out.println("\n=== RESUMO DOS DADOS INSERIDOS ===\n");
         
@@ -211,6 +387,38 @@ public class BateriaTestes {
                     for (Pet pet : pets) {
                         System.out.println("      🐕 " + pet.getNome() + " - " + pet.getEspecie() + " (" + pet.getRaca() + ")");
                     }
+                }
+            }
+        }
+        
+        // Contar e demonstrar agendamentos
+        System.out.println("\n📅 AGENDAMENTOS:");
+        List<Agendar> todosAgendamentos = agendarDAO.listarTodosAgendamentos();
+        System.out.println("   Total: " + todosAgendamentos.size() + " agendamentos");
+        
+        if (!todosAgendamentos.isEmpty()) {
+            System.out.println("\n   Exemplos:");
+            int mostrados = 0;
+            for (Agendar ag : todosAgendamentos) {
+                if (mostrados >= 8) break;
+                
+                Pet pet = petDAO.buscarPet(ag.getIdPet());
+                Servico servico = servicoDAO.buscarServico(ag.getIdServico());
+                
+                if (pet != null && servico != null) {
+                    System.out.println(String.format("   📌 %s → %s (Data: %s)", 
+                        pet.getNome(), servico.getNome(), ag.getData()));
+                    mostrados++;
+                }
+            }
+            
+            // Demonstrar busca por pet
+            System.out.println("\n   🔍 Agendamentos do Rex:");
+            List<Agendar> agendamentosRex = agendarDAO.buscarAgendamentosPorPet(1);
+            for (Agendar ag : agendamentosRex) {
+                Servico servico = servicoDAO.buscarServico(ag.getIdServico());
+                if (servico != null) {
+                    System.out.println("      → " + servico.getNome() + " (" + ag.getData() + ")");
                 }
             }
         }
@@ -279,7 +487,7 @@ public class BateriaTestes {
         try {
             Cliente cliente = clienteDAO.buscarClientePorCPF("12345678901");
             if (cliente != null) {
-                cliente.setNome("João Silva - Atualizado");
+                cliente.setNome("João Silva");
                 boolean alterado = clienteDAO.alterarCliente(cliente);
                 if (alterado) {
                     System.out.println("   ✅ CORRETO: Permitiu alterar mantendo CPF próprio");
@@ -289,6 +497,18 @@ public class BateriaTestes {
             }
         } catch (Exception e) {
             System.out.println("   ⚠️ Erro inesperado na alteração: " + e.getMessage());
+        }
+        
+        // Teste 6: Agendamento duplicado
+        System.out.println("\n   [Teste 6] Agendamento duplicado:");
+        try {
+            Agendar agDuplicado = new Agendar(0, LocalDate.now(), 1, 1); // Rex + Banho já existe
+            agendarDAO.incluirAgendamento(agDuplicado);
+            System.out.println("   ❌ ERRO: Deveria ter rejeitado agendamento duplicado!");
+        } catch (IllegalArgumentException e) {
+            System.out.println("   ✅ CORRETO: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("   ⚠️ Erro inesperado: " + e.getMessage());
         }
         
         System.out.println("\n   🛡️ Testes de validação de duplicatas concluídos!");
