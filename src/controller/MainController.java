@@ -34,7 +34,7 @@ public class MainController {
     @FXML
     private void abrirGerenciarClientes() {
         try {
-            abrirJanela("/view/ClienteView.fxml", "Gerenciar Clientes");
+            abrirJanelaComTamanho("/view/ClienteView.fxml", "Gerenciar Clientes", 1350, 750);
         } catch (Exception e) {
             mostrarErro("Erro ao abrir tela de clientes", e.getMessage());
         }
@@ -43,7 +43,7 @@ public class MainController {
     @FXML
     private void abrirGerenciarPets() {
         try {
-            abrirJanela("/view/PetView.fxml", "Gerenciar Pets");
+            abrirJanelaComTamanho("/view/PetView.fxml", "Gerenciar Pets", 1350, 750);
         } catch (Exception e) {
             mostrarErro("Erro ao abrir tela de pets", e.getMessage());
         }
@@ -52,7 +52,7 @@ public class MainController {
     @FXML
     private void abrirGerenciarServicos() {
         try {
-            abrirJanela("/view/ServicoView.fxml", "Gerenciar Serviços");
+            abrirJanelaComTamanho("/view/ServicoView.fxml", "Gerenciar Serviços", 1350, 750);
         } catch (Exception e) {
             mostrarErro("Erro ao abrir tela de serviços", e.getMessage());
         }
@@ -61,7 +61,7 @@ public class MainController {
     @FXML
     private void abrirGerenciarAgendamentos() {
         try {
-            abrirJanelaComTamanho("/view/AgendarView.fxml", "Gerenciar Agendamentos", 1200, 750);
+            abrirJanelaComTamanho("/view/AgendarView.fxml", "Gerenciar Agendamentos", 1350, 750);
         } catch (Exception e) {
             mostrarErro("Erro ao abrir tela de agendamentos", e.getMessage());
         }

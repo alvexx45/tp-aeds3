@@ -164,6 +164,7 @@ public class ClienteController implements Initializable {
             if (clienteDAO.alterarCliente(clienteAtual)) {
                 mostrarSucesso("Cliente Alterado", "Cliente alterado com sucesso!");
                 limparBusca();
+                listarTodosClientes(false); // Atualiza a lista dinamicamente sem exibir mensagem
             } else {
                 mostrarErro("Erro", "Erro ao alterar cliente.");
             }
@@ -189,6 +190,7 @@ public class ClienteController implements Initializable {
                 if (clienteDAO.excluirCliente(clienteAtual.getId())) {
                     mostrarSucesso("Cliente Excluído", "Cliente excluído com sucesso!");
                     limparBusca();
+                    listarTodosClientes(false); // Atualiza a lista dinamicamente sem exibir mensagem
                 } else {
                     mostrarErro("Erro", "Erro ao excluir cliente.");
                 }
@@ -200,6 +202,10 @@ public class ClienteController implements Initializable {
 
     @FXML
     private void listarTodosClientes() {
+        listarTodosClientes(true);
+    }
+    
+    private void listarTodosClientes(boolean exibirMensagem) {
         try {
             listaClientes.clear();
             
@@ -207,7 +213,9 @@ public class ClienteController implements Initializable {
             List<Cliente> clientes = clienteDAO.buscarClientesPorNome("");
             
             if (clientes.isEmpty()) {
-                mostrarInfo("Nenhum cliente encontrado", "Não há clientes cadastrados no sistema.");
+                if (exibirMensagem) {
+                    mostrarInfo("Nenhum cliente encontrado", "Não há clientes cadastrados no sistema.");
+                }
             } else {
                 for (Cliente cliente : clientes) {
                     String info = String.format("ID: %d | %s - %s | Email: %s | Tel: %s", 
@@ -218,7 +226,9 @@ public class ClienteController implements Initializable {
                         String.join(", ", cliente.getTelefones()));
                     listaClientes.add(info);
                 }
-                mostrarSucesso("Clientes Listados", clientes.size() + " cliente(s) encontrado(s).");
+                if (exibirMensagem) {
+                    mostrarSucesso("Clientes Listados", clientes.size() + " cliente(s) encontrado(s).");
+                }
             }
         } catch (Exception e) {
             mostrarErro("Erro ao listar clientes", e.getMessage());

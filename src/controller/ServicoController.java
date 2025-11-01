@@ -159,6 +159,7 @@ public class ServicoController implements Initializable {
             if (servicoDAO.alterarServico(servicoAtual)) {
                 mostrarSucesso("Serviço Alterado", "Serviço alterado com sucesso!");
                 limparBusca();
+                listarTodosServicos(false); // Atualiza a lista dinamicamente sem exibir mensagem
             } else {
                 mostrarErro("Erro", "Erro ao alterar serviço.");
             }
@@ -184,6 +185,7 @@ public class ServicoController implements Initializable {
                 if (servicoDAO.excluirServico(servicoAtual.getId())) {
                     mostrarSucesso("Serviço Excluído", "Serviço excluído com sucesso!");
                     limparBusca();
+                    listarTodosServicos(false); // Atualiza a lista dinamicamente sem exibir mensagem
                 } else {
                     mostrarErro("Erro", "Erro ao excluir serviço.");
                 }
@@ -195,13 +197,19 @@ public class ServicoController implements Initializable {
 
     @FXML
     private void listarTodosServicos() {
+        listarTodosServicos(true);
+    }
+    
+    private void listarTodosServicos(boolean exibirMensagem) {
         try {
             listaServicos.clear();
             // Buscar todos os serviços usando uma faixa muito ampla de preços
             java.util.List<Servico> servicos = servicoDAO.buscarServicosPorFaixaPreco(0, 999999);
             
             if (servicos.isEmpty()) {
-                mostrarInfo("Nenhum serviço encontrado", "Não há serviços cadastrados no sistema.");
+                if (exibirMensagem) {
+                    mostrarInfo("Nenhum serviço encontrado", "Não há serviços cadastrados no sistema.");
+                }
             } else {
                 for (Servico servico : servicos) {
                     String info = String.format("ID: %d | %s - R$ %d", 
@@ -210,7 +218,9 @@ public class ServicoController implements Initializable {
                         servico.getValor());
                     listaServicos.add(info);
                 }
-                mostrarSucesso("Serviços Listados", servicos.size() + " serviço(s) encontrado(s).");
+                if (exibirMensagem) {
+                    mostrarSucesso("Serviços Listados", servicos.size() + " serviço(s) encontrado(s).");
+                }
             }
         } catch (Exception e) {
             mostrarErro("Erro ao listar serviços", e.getMessage());

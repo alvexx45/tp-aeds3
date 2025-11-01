@@ -182,6 +182,9 @@ public class PetController implements Initializable {
             if (petDAO.alterarPet(petAtual)) {
                 mostrarSucesso("Pet Alterado", "Pet alterado com sucesso!");
                 limparBusca();
+                // Atualiza a lista dinamicamente buscando pets do mesmo dono
+                txtCpfBusca.setText(cpfDono);
+                buscarPetsPorDono();
             } else {
                 mostrarErro("Erro", "Erro ao alterar pet.");
             }
@@ -204,9 +207,13 @@ public class PetController implements Initializable {
             confirmacao.setContentText("Pet: " + petAtual.getNome() + " (ID: " + petAtual.getId() + ")");
 
             if (confirmacao.showAndWait().get() == ButtonType.OK) {
+                String cpfDono = petAtual.getDono().getCpf(); // Salva o CPF antes de excluir
                 if (petDAO.excluirPet(petAtual.getId())) {
                     mostrarSucesso("Pet Excluído", "Pet excluído com sucesso!");
                     limparBusca();
+                    // Atualiza a lista dinamicamente buscando pets do mesmo dono
+                    txtCpfBusca.setText(cpfDono);
+                    buscarPetsPorDono();
                 } else {
                     mostrarErro("Erro", "Erro ao excluir pet.");
                 }
