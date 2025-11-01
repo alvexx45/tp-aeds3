@@ -45,5 +45,10 @@ public class Servico implements Registro {
         setNome(dis.readUTF());
         setValor(dis.readInt());
     }
+    
+    @Override
+    public String toString() {
+        return String.format("%s - R$ %d,00", nome, valor);
+    }
 
 }

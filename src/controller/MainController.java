@@ -23,6 +23,9 @@ public class MainController {
     private Button btnServicos;
     
     @FXML
+    private Button btnAgendamentos;
+    
+    @FXML
     private Button btnTestes;
     
     @FXML
@@ -52,6 +55,15 @@ public class MainController {
             abrirJanela("/view/ServicoView.fxml", "Gerenciar Serviços");
         } catch (Exception e) {
             mostrarErro("Erro ao abrir tela de serviços", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void abrirGerenciarAgendamentos() {
+        try {
+            abrirJanela("/view/AgendarView.fxml", "Gerenciar Agendamentos");
+        } catch (Exception e) {
+            mostrarErro("Erro ao abrir tela de agendamentos", e.getMessage());
         }
     }
 

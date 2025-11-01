@@ -67,4 +67,9 @@ public class Cliente implements Registro {
         }
         setTelefones(telefones);
     }
+    
+    @Override
+    public String toString() {
+        return String.format("%s - %s", nome, cpf);
+    }
 }

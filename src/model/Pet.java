@@ -69,4 +69,9 @@ public class Pet implements Registro {
             setDono(dono);
         }
     }
+    
+    @Override
+    public String toString() {
+        return String.format("%s (%s)", nome, especie);
+    }
 }

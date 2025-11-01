@@ -29,6 +29,7 @@
             <Button fx:id="btnClientes" mnemonicParsing="false" onAction="#abrirGerenciarClientes" prefHeight="40.0" prefWidth="200.0" styleClass="menu-button" text="Gerenciar Clientes" />
             <Button fx:id="btnPets" mnemonicParsing="false" onAction="#abrirGerenciarPets" prefHeight="40.0" prefWidth="200.0" styleClass="menu-button" text="Gerenciar Pets" />
             <Button fx:id="btnServicos" mnemonicParsing="false" onAction="#abrirGerenciarServicos" prefHeight="40.0" prefWidth="200.0" styleClass="menu-button" text="Gerenciar Serviços" />
+            <Button fx:id="btnAgendamentos" mnemonicParsing="false" onAction="#abrirGerenciarAgendamentos" prefHeight="40.0" prefWidth="200.0" styleClass="menu-button" text="Gerenciar Agendamentos" />
             <Button fx:id="btnTestes" mnemonicParsing="false" onAction="#executarTestes" prefHeight="40.0" prefWidth="200.0" styleClass="menu-button" text="Executar Testes" />
             <Button fx:id="btnSair" mnemonicParsing="false" onAction="#sair" prefHeight="40.0" prefWidth="200.0" styleClass="exit-button" text="Sair" />
          </children>

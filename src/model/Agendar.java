@@ -1,56 +1,58 @@
 package model;
 
-import java.time.LocalDate;
 import java.io.*;
+import java.time.LocalDate;
+import dao.Registro;
 
-public class Agendar {
+public class Agendar implements Registro {
+    private int id;
     private LocalDate data;
-    private Cliente cliente;
-    private Servico servico;
+    private int idPet;      // Apenas o ID do pet
+    private int idServico;  // Apenas o ID do serviço
 
     public Agendar() {
-        this(null, null, null);
+        this(-1, null, -1, -1);
     }
 
-    public Agendar(LocalDate data, Cliente cliente, Servico servico) {
+    public Agendar(int id, LocalDate data, int idPet, int idServico) {
+        setId(id);
         setData(data);
-        setCliente(cliente);
-        setServico(servico);
+        setIdPet(idPet);
+        setIdServico(idServico);
     }
 
+    public void setId(int id) { this.id = id; }
     public void setData(LocalDate data) { this.data = data; }
-    public void setCliente(Cliente cliente) { this.cliente = cliente; }
-    public void setServico(Servico servico) { this.servico = servico; }
-
+    public void setIdPet(int idPet) { this.idPet = idPet; }
+    public void setIdServico(int idServico) { this.idServico = idServico; }
+    
+    public int getId() { return id; }
     public LocalDate getData() { return data; }
-    public Cliente getCliente() { return cliente; }
-    public Servico getServico() { return servico; }
+    public int getIdPet() { return idPet; }
+    public int getIdServico() { return idServico; }
 
+    @Override
     public byte[] toByteArray() throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(baos);
-        
-        dos.writeLong(getData().toEpochDay());
-        dos.writeInt(getCliente().getId());
-        dos.writeInt(getServico().getId());
+
+        dos.writeInt(getId());
+        dos.writeUTF(getData() != null ? getData().toString() : "");
+        dos.writeInt(getIdPet());
+        dos.writeInt(getIdServico());
         
         return baos.toByteArray();
     }
 
+    @Override
     public void fromByteArray(byte[] b) throws IOException {
         ByteArrayInputStream bais = new ByteArrayInputStream(b);
         DataInputStream dis = new DataInputStream(bais);
-        
-        setData(LocalDate.ofEpochDay(dis.readLong()));
 
-        int idCliente = dis.readInt();
-        Cliente cliente = new Cliente();
-        cliente.setId(idCliente);
-        setCliente(cliente);
-    
-        int idServ = dis.readInt();
-        Servico servico = new Servico();
-        servico.setId(idServ);
-        setServico(servico);
+        setId(dis.readInt());
+        String dataStr = dis.readUTF();
+        setData(!dataStr.isEmpty() ? LocalDate.parse(dataStr) : null);
+        setIdPet(dis.readInt());
+        setIdServico(dis.readInt());
     }
 }
