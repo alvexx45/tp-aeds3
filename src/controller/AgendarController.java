@@ -128,6 +128,7 @@ public class AgendarController implements Initializable {
     @FXML
     public void incluirAgendamento() {
         try {
+            String cpf = txtCpfClienteIncluir.getText();
             Pet pet = cmbPetIncluir.getSelectionModel().getSelectedItem();
             Servico servico = cmbServicoIncluir.getSelectionModel().getSelectedItem();
             LocalDate data = dtpDataIncluir.getValue();
@@ -148,8 +149,22 @@ public class AgendarController implements Initializable {
             boolean sucesso = agendarDAO.incluirAgendamento(agendamento);
             if (sucesso) {
                 mostrarSucesso("Agendamento incluído com sucesso!");
+                
+                // Buscar e exibir agendamentos do cliente que acabou de agendar
+                String cpfLimpo = cpf.replaceAll("[^0-9]", "");
+                if (cpfLimpo.length() == 11) {
+                    List<Pet> pets = petDAO.buscarPetsPorCpfDono(cpfLimpo);
+                    List<Agendar> todosAgendamentos = new ArrayList<>();
+                    
+                    for (Pet p : pets) {
+                        List<Agendar> agendamentosDoPet = agendarDAO.buscarAgendamentosPorPet(p.getId());
+                        todosAgendamentos.addAll(agendamentosDoPet);
+                    }
+                    
+                    atualizarListaAgendamentos(todosAgendamentos);
+                }
+                
                 limparCamposInclusao();
-                listarTodos();
             } else {
                 mostrarAlerta("Erro", "Erro ao incluir agendamento");
             }
