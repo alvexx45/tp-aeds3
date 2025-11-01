@@ -109,6 +109,11 @@ public class PetDAO {
         return arqPets.findBy(p -> p.getDono() != null && p.getDono().getCpf().equals(cpfDono));
     }
 
+    public java.util.List<Pet> listarTodosPets() throws Exception {
+        // Retorna todos os pets usando findAll com condição sempre verdadeira
+        return arqPets.findAll(pet -> true);
+    }
+
     public void close() throws Exception {
         // Fechar o arquivo se necessário
     }

@@ -41,6 +41,7 @@ public class PetController implements Initializable {
 
     @FXML private TextField txtCpfBusca;
     @FXML private Button btnBuscarPorDono;
+    @FXML private Button btnListarTodos;
     @FXML private ListView<String> listViewPets;
 
     @FXML private Button btnFechar;
@@ -246,6 +247,44 @@ public class PetController implements Initializable {
             }
         } catch (Exception e) {
             mostrarErro("Erro ao buscar pets", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void listarTodosPets() {
+        listarTodosPets(true);
+    }
+
+    private void listarTodosPets(boolean exibirMensagem) {
+        try {
+            List<Pet> pets = petDAO.listarTodosPets();
+            listaPets.clear();
+
+            if (pets.isEmpty()) {
+                if (exibirMensagem) {
+                    mostrarInfo("Nenhum pet encontrado", "Não há pets cadastrados no sistema.");
+                }
+            } else {
+                for (Pet pet : pets) {
+                    String dono = "N/A";
+                    if (pet.getDono() != null) {
+                        dono = pet.getDono().getNome() + " (CPF: " + pet.getDono().getCpf() + ")";
+                    }
+                    String info = String.format("ID: %d | %s (%s) - %s - %.2f kg | Dono: %s", 
+                        pet.getId(), 
+                        pet.getNome(), 
+                        pet.getEspecie(), 
+                        pet.getRaca(), 
+                        pet.getPeso(),
+                        dono);
+                    listaPets.add(info);
+                }
+                if (exibirMensagem) {
+                    mostrarSucesso("Pets Listados", pets.size() + " pet(s) encontrado(s).");
+                }
+            }
+        } catch (Exception e) {
+            mostrarErro("Erro ao listar pets", e.getMessage());
         }
     }
 

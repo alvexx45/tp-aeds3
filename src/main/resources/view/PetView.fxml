@@ -142,6 +142,7 @@
                                  <Label text="CPF do Dono:" minWidth="100.0" />
                                  <TextField fx:id="txtCpfBusca" promptText="Digite o CPF" HBox.hgrow="ALWAYS" />
                                  <Button fx:id="btnBuscarPorDono" mnemonicParsing="false" onAction="#buscarPetsPorDono" text="Buscar Pets" prefWidth="132.0" />
+                                 <Button fx:id="btnListarTodos" mnemonicParsing="false" onAction="#listarTodosPets" text="Listar Todos" prefWidth="132.0" />
                               </children>
                            </HBox>
                            <ListView fx:id="listViewPets" prefHeight="520.0" />
