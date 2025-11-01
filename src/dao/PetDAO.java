@@ -70,6 +70,10 @@ public class PetDAO {
             return false;
         }
         
+        // Excluir em cascata: primeiro excluir todos os agendamentos deste pet
+        AgendarDAO agendarDAO = new AgendarDAO();
+        agendarDAO.excluirAgendamentosPorPet(id);
+        
         // Remover do arquivo principal
         boolean removido = arqPets.delete(id);
         

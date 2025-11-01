@@ -43,7 +43,7 @@ public class MainController {
     @FXML
     private void abrirGerenciarPets() {
         try {
-            abrirJanelaComTamanho("/view/PetView.fxml", "Gerenciar Pets", 1350, 980);
+            abrirJanelaComTamanho("/view/PetView.fxml", "Gerenciar Pets", 1350, 970);
         } catch (Exception e) {
             mostrarErro("Erro ao abrir tela de pets", e.getMessage());
         }

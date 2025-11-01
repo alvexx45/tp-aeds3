@@ -36,6 +36,10 @@ public class ServicoDAO {
     }
 
     public boolean excluirServico(int id) throws Exception {
+        // Excluir em cascata: primeiro excluir todos os agendamentos deste serviço
+        AgendarDAO agendarDAO = new AgendarDAO();
+        agendarDAO.excluirAgendamentosPorServico(id);
+        
         return arqServicos.delete(id);
     }
 

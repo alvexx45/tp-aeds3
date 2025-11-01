@@ -82,7 +82,7 @@
                <!-- Seção de Busca -->
                <TitledPane expanded="true" text="Buscar Pet" collapsible="false">
                   <content>
-                     <VBox spacing="12.0">
+                     <VBox spacing="10.0">
                         <children>
                            <HBox alignment="CENTER_LEFT" spacing="10.0">
                               <children>
@@ -98,7 +98,7 @@
                               </children>
                            </HBox>
 
-                           <GridPane fx:id="gridAlteracao" hgap="12.0" vgap="12.0" visible="false">
+                           <GridPane fx:id="gridAlteracao" hgap="12.0" vgap="10.0" visible="false">
                               <columnConstraints>
                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0"
                                     prefWidth="120.0" />
@@ -140,7 +140,7 @@
                            </HBox>
                         </children>
                         <padding>
-                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           <Insets bottom="12.0" left="15.0" right="15.0" top="12.0" />
                         </padding>
                      </VBox>
                   </content>

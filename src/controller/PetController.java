@@ -216,12 +216,13 @@ public class PetController implements Initializable {
             Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
             confirmacao.setTitle("Confirmar Exclusão");
             confirmacao.setHeaderText("Deseja realmente excluir este pet?");
-            confirmacao.setContentText("Pet: " + petAtual.getNome() + " (ID: " + petAtual.getId() + ")");
+            confirmacao.setContentText("Pet: " + petAtual.getNome() + " (ID: " + petAtual.getId() + ")\n\n" +
+                                      "ATENÇÃO: Todos os agendamentos deste pet também serão excluídos!");
 
             if (confirmacao.showAndWait().get() == ButtonType.OK) {
                 String cpfDono = petAtual.getDono().getCpf(); // Salva o CPF antes de excluir
                 if (petDAO.excluirPet(petAtual.getId())) {
-                    mostrarSucesso("Pet Excluído", "Pet excluído com sucesso!");
+                    mostrarSucesso("Pet Excluído", "Pet e seus agendamentos foram excluídos com sucesso!");
                     limparBusca();
                     // Atualiza a lista dinamicamente buscando pets do mesmo dono
                     txtCpfBusca.setText(cpfDono);

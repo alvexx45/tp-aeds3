@@ -170,6 +170,38 @@ public class AgendarDAO {
         return resultados != null && !resultados.isEmpty();
     }
 
+    /**
+     * Exclui todos os agendamentos de um pet específico (exclusão em cascata)
+     */
+    public int excluirAgendamentosPorPet(int idPet) throws Exception {
+        List<Agendar> agendamentos = buscarAgendamentosPorPet(idPet);
+        int count = 0;
+        
+        for (Agendar agendamento : agendamentos) {
+            if (excluirAgendamento(agendamento.getIdPet(), agendamento.getIdServico())) {
+                count++;
+            }
+        }
+        
+        return count;
+    }
+
+    /**
+     * Exclui todos os agendamentos de um serviço específico (exclusão em cascata)
+     */
+    public int excluirAgendamentosPorServico(int idServico) throws Exception {
+        List<Agendar> agendamentos = buscarAgendamentosPorServico(idServico);
+        int count = 0;
+        
+        for (Agendar agendamento : agendamentos) {
+            if (excluirAgendamento(agendamento.getIdPet(), agendamento.getIdServico())) {
+                count++;
+            }
+        }
+        
+        return count;
+    }
+
     public void close() throws Exception {
         // Fechar recursos se necessário
     }

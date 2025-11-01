@@ -189,11 +189,12 @@ public class ServicoController implements Initializable {
             Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
             confirmacao.setTitle("Confirmar Exclusão");
             confirmacao.setHeaderText("Deseja realmente excluir este serviço?");
-            confirmacao.setContentText("Serviço: " + servicoAtual.getNome() + " (ID: " + servicoAtual.getId() + ")");
+            confirmacao.setContentText("Serviço: " + servicoAtual.getNome() + " (ID: " + servicoAtual.getId() + ")\n\n" +
+                                      "ATENÇÃO: Todos os agendamentos deste serviço também serão excluídos!");
 
             if (confirmacao.showAndWait().get() == ButtonType.OK) {
                 if (servicoDAO.excluirServico(servicoAtual.getId())) {
-                    mostrarSucesso("Serviço Excluído", "Serviço excluído com sucesso!");
+                    mostrarSucesso("Serviço Excluído", "Serviço e seus agendamentos foram excluídos com sucesso!");
                     limparBusca();
                     listarTodosServicos(false); // Atualiza a lista dinamicamente sem exibir mensagem
                 } else {
