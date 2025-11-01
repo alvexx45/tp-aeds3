@@ -48,6 +48,20 @@ public class ServicoController implements Initializable {
             servicoDAO = new ServicoDAO();
             listaServicos = FXCollections.observableArrayList();
             listViewServicos.setItems(listaServicos);
+            
+            // Listener para buscar automaticamente ao clicar em um serviço
+            listViewServicos.setOnMouseClicked(event -> {
+                String servicoSelecionado = listViewServicos.getSelectionModel().getSelectedItem();
+                if (servicoSelecionado != null && !servicoSelecionado.isEmpty()) {
+                    // Extrair o ID do serviço (formato: "ID: 1 | ...")
+                    String[] partes = servicoSelecionado.split("\\|");
+                    if (partes.length > 0) {
+                        String id = partes[0].replace("ID:", "").trim();
+                        txtBuscar.setText(id);
+                        buscarServico(); // Aciona a busca automaticamente
+                    }
+                }
+            });
         } catch (Exception e) {
             mostrarErro("Erro de Inicialização", "Erro ao inicializar DAO: " + e.getMessage());
         }

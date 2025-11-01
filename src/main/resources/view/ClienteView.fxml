@@ -132,9 +132,9 @@
                         <children>
                            <HBox alignment="CENTER_LEFT" spacing="10.0">
                               <children>
-                                 <Button fx:id="btnListarTodos" mnemonicParsing="false" onAction="#listarTodosClientes" text="Listar Todos" prefWidth="132.0" />
                                  <TextField fx:id="txtBuscarNome" promptText="Digite parte do nome para buscar" HBox.hgrow="ALWAYS" />
                                  <Button fx:id="btnBuscarPorNome" mnemonicParsing="false" onAction="#buscarClientesPorNome" text="Buscar por Nome" prefWidth="165.0" />
+                                 <Button fx:id="btnListarTodos" mnemonicParsing="false" onAction="#listarTodosClientes" text="Listar Todos" prefWidth="132.0" />
                               </children>
                            </HBox>
                            <ListView fx:id="listViewClientes" prefHeight="520.0" />

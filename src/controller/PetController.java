@@ -58,6 +58,20 @@ public class PetController implements Initializable {
             clienteDAO = new ClienteDAO();
             listaPets = FXCollections.observableArrayList();
             listViewPets.setItems(listaPets);
+            
+            // Listener para buscar automaticamente ao clicar em um pet
+            listViewPets.setOnMouseClicked(event -> {
+                String petSelecionado = listViewPets.getSelectionModel().getSelectedItem();
+                if (petSelecionado != null && !petSelecionado.isEmpty()) {
+                    // Extrair o ID do pet (formato: "ID: 1 | ...")
+                    String[] partes = petSelecionado.split("\\|");
+                    if (partes.length > 0) {
+                        String id = partes[0].replace("ID:", "").trim();
+                        txtBuscar.setText(id);
+                        buscarPet(); // Aciona a busca automaticamente
+                    }
+                }
+            });
         } catch (Exception e) {
             mostrarErro("Erro de Inicialização", "Erro ao inicializar DAO: " + e.getMessage());
         }

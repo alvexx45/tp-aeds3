@@ -52,6 +52,20 @@ public class ClienteController implements Initializable {
             clienteDAO = new ClienteDAO();
             listaClientes = FXCollections.observableArrayList();
             listViewClientes.setItems(listaClientes);
+            
+            // Listener para buscar automaticamente ao clicar em um cliente
+            listViewClientes.setOnMouseClicked(event -> {
+                String clienteSelecionado = listViewClientes.getSelectionModel().getSelectedItem();
+                if (clienteSelecionado != null && !clienteSelecionado.isEmpty()) {
+                    // Extrair o ID do cliente (formato: "ID: 1 | ...")
+                    String[] partes = clienteSelecionado.split("\\|");
+                    if (partes.length > 0) {
+                        String id = partes[0].replace("ID:", "").trim();
+                        txtBuscar.setText(id);
+                        buscarCliente(); // Aciona a busca automaticamente
+                    }
+                }
+            });
         } catch (Exception e) {
             mostrarErro("Erro de Inicialização", "Erro ao inicializar DAO: " + e.getMessage());
         }
