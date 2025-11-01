@@ -36,8 +36,6 @@ public class ServicoController implements Initializable {
     @FXML private Button btnListarTodos;
     @FXML private ListView<String> listViewServicos;
 
-    @FXML private Button btnFechar;
-
     private ServicoDAO servicoDAO;
     private Servico servicoAtual;
     private ObservableList<String> listaServicos;
@@ -295,10 +293,6 @@ public class ServicoController implements Initializable {
     }
 
     @FXML
-    private void fecharJanela() {
-        Stage stage = (Stage) btnFechar.getScene().getWindow();
-        stage.close();
-    }
 
     private void preencherCamposAlteracao(Servico servico) {
         txtIdAlterar.setText(String.valueOf(servico.getId()));

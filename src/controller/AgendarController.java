@@ -39,8 +39,6 @@ public class AgendarController implements Initializable {
     @FXML private ListView<String> listViewAgendamentosFuturos;
     @FXML private ListView<String> listViewAgendamentosPassados;
 
-    @FXML private Button btnFechar;
-
     private AgendarDAO agendarDAO;
     private ClienteDAO clienteDAO;
     private PetDAO petDAO;
@@ -320,10 +318,6 @@ public class AgendarController implements Initializable {
     }
 
     @FXML
-    public void fechar() {
-        // Implementar fechamento da janela
-        btnFechar.getScene().getWindow().hide();
-    }
 
     private void mostrarAlerta(String titulo, String mensagem) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

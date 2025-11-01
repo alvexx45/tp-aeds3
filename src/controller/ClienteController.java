@@ -40,8 +40,6 @@ public class ClienteController implements Initializable {
     @FXML private Button btnBuscarPorNome;
     @FXML private ListView<String> listViewClientes;
 
-    @FXML private Button btnFechar;
-
     private ClienteDAO clienteDAO;
     private Cliente clienteAtual;
     private ObservableList<String> listaClientes;
@@ -281,11 +279,6 @@ public class ClienteController implements Initializable {
     }
 
     @FXML
-    private void fecharJanela() {
-        Stage stage = (Stage) btnFechar.getScene().getWindow();
-        stage.close();
-    }
-
     private void preencherCamposAlteracao(Cliente cliente) {
         txtIdAlterar.setText(String.valueOf(cliente.getId()));
         txtCpfAlterar.setText(cliente.getCpf());

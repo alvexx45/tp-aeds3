@@ -22,7 +22,6 @@ public class AlterarAgendamentoDialogController {
     @FXML private DatePicker dtpData;
     @FXML private Button btnAlterar;
     @FXML private Button btnExcluir;
-    @FXML private Button btnFechar;
 
     private AgendarDAO agendarDAO;
     private PetDAO petDAO;
@@ -169,11 +168,13 @@ public class AlterarAgendamentoDialogController {
 
     @FXML
     private void fechar() {
+        // Executar callback para atualizar a lista na tela principal
         if (onCloseCallback != null) {
             onCloseCallback.run();
         }
         
-        Stage stage = (Stage) btnFechar.getScene().getWindow();
+        // Fechar a janela do dialog
+        Stage stage = (Stage) txtId.getScene().getWindow();
         stage.close();
     }
 

@@ -34,7 +34,7 @@ public class MainController {
     @FXML
     private void abrirGerenciarClientes() {
         try {
-            abrirJanelaComTamanho("/view/ClienteView.fxml", "Gerenciar Clientes", 1350, 750);
+            abrirJanelaComTamanho("/view/ClienteView.fxml", "Gerenciar Clientes", 1350, 950);
         } catch (Exception e) {
             mostrarErro("Erro ao abrir tela de clientes", e.getMessage());
         }
@@ -43,7 +43,7 @@ public class MainController {
     @FXML
     private void abrirGerenciarPets() {
         try {
-            abrirJanelaComTamanho("/view/PetView.fxml", "Gerenciar Pets", 1350, 750);
+            abrirJanelaComTamanho("/view/PetView.fxml", "Gerenciar Pets", 1350, 900);
         } catch (Exception e) {
             mostrarErro("Erro ao abrir tela de pets", e.getMessage());
         }
@@ -52,7 +52,7 @@ public class MainController {
     @FXML
     private void abrirGerenciarServicos() {
         try {
-            abrirJanelaComTamanho("/view/ServicoView.fxml", "Gerenciar Serviços", 1350, 750);
+            abrirJanelaComTamanho("/view/ServicoView.fxml", "Gerenciar Serviços", 1350, 850);
         } catch (Exception e) {
             mostrarErro("Erro ao abrir tela de serviços", e.getMessage());
         }

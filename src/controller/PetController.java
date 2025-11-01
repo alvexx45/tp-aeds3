@@ -44,8 +44,6 @@ public class PetController implements Initializable {
     @FXML private Button btnListarTodos;
     @FXML private ListView<String> listViewPets;
 
-    @FXML private Button btnFechar;
-
     private PetDAO petDAO;
     private ClienteDAO clienteDAO;
     private Pet petAtual;
@@ -303,11 +301,6 @@ public class PetController implements Initializable {
     }
 
     @FXML
-    private void fecharJanela() {
-        Stage stage = (Stage) btnFechar.getScene().getWindow();
-        stage.close();
-    }
-
     private void preencherCamposAlteracao(Pet pet) {
         txtIdAlterar.setText(String.valueOf(pet.getId()));
         txtNomeAlterar.setText(pet.getNome());

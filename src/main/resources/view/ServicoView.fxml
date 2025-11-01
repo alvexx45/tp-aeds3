@@ -161,16 +161,4 @@
          </VBox>
       </HBox>
    </center>
-
-   <bottom>
-      <HBox alignment="CENTER">
-         <children>
-            <Button fx:id="btnFechar" mnemonicParsing="false" onAction="#fecharJanela"
-               styleClass="exit-button" text="Fechar" prefWidth="132.0" />
-         </children>
-         <padding>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-         </padding>
-      </HBox>
-   </bottom>
 </BorderPane>
