@@ -168,7 +168,7 @@
                                     prefWidth="132.0" />
                               </children>
                            </HBox>
-                           <ListView fx:id="listViewPets" prefHeight="520.0" />
+                           <ListView fx:id="listViewPets" prefHeight="730.0" />
                         </children>
                         <padding>
                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

@@ -134,7 +134,7 @@
                                  <Button fx:id="btnListarTodos" mnemonicParsing="false" onAction="#listarTodosClientes" text="Listar Todos" prefWidth="132.0" />
                               </children>
                            </HBox>
-                           <ListView fx:id="listViewClientes" prefHeight="520.0" />
+                           <ListView fx:id="listViewClientes" prefHeight="680.0" />
                         </children>
                         <padding>
                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
