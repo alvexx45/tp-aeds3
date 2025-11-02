@@ -71,7 +71,7 @@ public class ClienteController implements Initializable {
     @FXML
     private void incluirCliente() {
         try {
-            String cpf = txtCpfIncluir.getText().trim();
+            String cpf = limparCpf(txtCpfIncluir.getText());
             String nome = txtNomeIncluir.getText().trim();
             String email = txtEmailIncluir.getText().trim();
             String telefonesStr = txtTelefonesIncluir.getText().trim();
@@ -152,7 +152,7 @@ public class ClienteController implements Initializable {
                 return;
             }
 
-            String cpf = txtCpfAlterar.getText().trim();
+            String cpf = limparCpf(txtCpfAlterar.getText());
             String nome = txtNomeAlterar.getText().trim();
             String email = txtEmailAlterar.getText().trim();
             String telefonesStr = txtTelefonesAlterar.getText().trim();
@@ -302,6 +302,16 @@ public class ClienteController implements Initializable {
         gridAlteracao.setVisible(false);
         botoesAcao.setVisible(false);
         clienteAtual = null;
+    }
+
+    /**
+     * Remove caracteres não numéricos do CPF, mantendo apenas os dígitos
+     */
+    private String limparCpf(String cpf) {
+        if (cpf == null) {
+            return "";
+        }
+        return cpf.replaceAll("[^0-9]", "");
     }
 
     private void mostrarErro(String titulo, String mensagem) {

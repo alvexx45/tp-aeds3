@@ -81,7 +81,7 @@ public class PetController implements Initializable {
             String especie = txtEspecieIncluir.getText().trim();
             String raca = txtRacaIncluir.getText().trim();
             String pesoStr = txtPesoIncluir.getText().trim();
-            String cpfDono = txtCpfDonoIncluir.getText().trim();
+            String cpfDono = limparCpf(txtCpfDonoIncluir.getText());
 
             if (nome.isEmpty() || especie.isEmpty() || raca.isEmpty() || pesoStr.isEmpty() || cpfDono.isEmpty()) {
                 mostrarAviso("Campos Obrigatórios", "Todos os campos são obrigatórios!");
@@ -163,7 +163,7 @@ public class PetController implements Initializable {
             String especie = txtEspecieAlterar.getText().trim();
             String raca = txtRacaAlterar.getText().trim();
             String pesoStr = txtPesoAlterar.getText().trim();
-            String cpfDono = txtCpfDonoAlterar.getText().trim();
+            String cpfDono = limparCpf(txtCpfDonoAlterar.getText());
 
             if (nome.isEmpty() || especie.isEmpty() || raca.isEmpty() || pesoStr.isEmpty() || cpfDono.isEmpty()) {
                 mostrarAviso("Campos Obrigatórios", "Todos os campos são obrigatórios!");
@@ -327,6 +327,16 @@ public class PetController implements Initializable {
         gridAlteracao.setVisible(false);
         botoesAcao.setVisible(false);
         petAtual = null;
+    }
+
+    /**
+     * Remove caracteres não numéricos do CPF, mantendo apenas os dígitos
+     */
+    private String limparCpf(String cpf) {
+        if (cpf == null) {
+            return "";
+        }
+        return cpf.replaceAll("[^0-9]", "");
     }
 
     private void mostrarErro(String titulo, String mensagem) {
