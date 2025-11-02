@@ -108,6 +108,29 @@ public class PetController implements Initializable {
             
             if (sucesso) {
                 mostrarSucesso("Pet Incluído", "Pet incluído com sucesso!");
+                
+                // Buscar os pets do dono para encontrar o recém-incluído
+                List<Pet> petsDoDono = petDAO.buscarPetsPorCpfDono(cpfDono);
+                Pet petInserido = null;
+                for (Pet p : petsDoDono) {
+                    if (p.getNome().equals(nome) && p.getEspecie().equals(especie) && p.getRaca().equals(raca)) {
+                        petInserido = p;
+                        break;
+                    }
+                }
+                
+                if (petInserido != null) {
+                    txtBuscar.setText(String.valueOf(petInserido.getId()));
+                    buscarPet();
+                    
+                    // Adicionar à lista
+                    listaPets.clear();
+                    String info = String.format("ID: %d | %s (%s) - %s - %.2f kg", 
+                        petInserido.getId(), petInserido.getNome(), petInserido.getEspecie(), 
+                        petInserido.getRaca(), petInserido.getPeso());
+                    listaPets.add(info);
+                }
+                
                 limparCamposInclusao();
             } else {
                 mostrarErro("Erro", "Erro ao incluir pet.");

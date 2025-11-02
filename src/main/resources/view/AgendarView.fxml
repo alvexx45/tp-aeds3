@@ -95,7 +95,7 @@
          </VBox>
          
          <!-- COLUNA DIREITA - Listas de Agendamentos -->
-         <VBox spacing="15.0" HBox.hgrow="ALWAYS" prefWidth="700.0">
+         <VBox spacing="15.0" HBox.hgrow="ALWAYS" prefWidth="900.0">
             <children>
                <!-- Lista de Agendamentos Futuros -->
                <TitledPane expanded="true" text="Agendamentos Futuros" VBox.vgrow="ALWAYS">

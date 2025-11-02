@@ -24,29 +24,24 @@
                 <RowConstraints minHeight="35.0" prefHeight="40.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="35.0" prefHeight="40.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="35.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="35.0" prefHeight="40.0" vgrow="SOMETIMES" />
             </rowConstraints>
 
             <children>
-                <Label text="ID:" />
-                <TextField fx:id="txtId" editable="false" styleClass="readonly"
+                <Label text="CPF do Cliente:" />
+                <TextField fx:id="txtCpfCliente" editable="false" styleClass="readonly"
                     GridPane.columnIndex="1" />
 
-                <Label text="CPF do Cliente:" GridPane.rowIndex="1" />
-                <TextField fx:id="txtCpfCliente" promptText="000.000.000-00"
-                    GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
-                <Label text="Pet:" GridPane.rowIndex="2" />
+                <Label text="Pet:" GridPane.rowIndex="1" />
                 <ComboBox fx:id="cmbPet" maxWidth="Infinity" GridPane.columnIndex="1"
+                    GridPane.rowIndex="1" />
+
+                <Label text="Serviço:" GridPane.rowIndex="2" />
+                <ComboBox fx:id="cmbServico" maxWidth="Infinity" GridPane.columnIndex="1"
                     GridPane.rowIndex="2" />
 
-                <Label text="Serviço:" GridPane.rowIndex="3" />
-                <ComboBox fx:id="cmbServico" maxWidth="Infinity" GridPane.columnIndex="1"
-                    GridPane.rowIndex="3" />
-
-                <Label text="Data:" GridPane.rowIndex="4" />
+                <Label text="Data:" GridPane.rowIndex="3" />
                 <DatePicker fx:id="dtpData" maxWidth="Infinity" GridPane.columnIndex="1"
-                    GridPane.rowIndex="4" />
+                    GridPane.rowIndex="3" />
             </children>
         </GridPane>
 
@@ -56,7 +51,7 @@
             </padding>
             <children>
                 <Button fx:id="btnAlterar" mnemonicParsing="false" onAction="#alterarAgendamento"
-                    styleClass="button-primary" text="Salvar Alterações" prefWidth="150.0" />
+                    styleClass="button-primary" text="Salvar" prefWidth="150.0" />
                 <Button fx:id="btnExcluir" mnemonicParsing="false" onAction="#excluirAgendamento"
                     styleClass="button-danger" text="Excluir" prefWidth="120.0" />
             </children>

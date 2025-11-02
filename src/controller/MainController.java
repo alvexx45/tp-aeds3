@@ -61,7 +61,7 @@ public class MainController {
     @FXML
     private void abrirGerenciarAgendamentos() {
         try {
-            abrirJanelaComTamanho("/view/AgendarView.fxml", "Gerenciar Agendamentos", 1350, 750);
+            abrirJanelaComTamanho("/view/AgendarView.fxml", "Gerenciar Agendamentos", 1500, 750);
         } catch (Exception e) {
             mostrarErro("Erro ao abrir tela de agendamentos", e.getMessage());
         }

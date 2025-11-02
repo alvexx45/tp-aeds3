@@ -15,7 +15,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class AlterarAgendamentoDialogController {
-    @FXML private TextField txtId;
     @FXML private TextField txtCpfCliente;
     @FXML private ComboBox<Pet> cmbPet;
     @FXML private ComboBox<Servico> cmbServico;
@@ -55,8 +54,6 @@ public class AlterarAgendamentoDialogController {
         
         if (agendamento != null) {
             try {
-                txtId.setText(String.valueOf(agendamento.getId()));
-                
                 // Buscar o pet e o cliente
                 Pet pet = petDAO.buscarPet(agendamento.getIdPet());
                 if (pet != null && pet.getDono() != null) {
@@ -174,7 +171,7 @@ public class AlterarAgendamentoDialogController {
         }
         
         // Fechar a janela do dialog
-        Stage stage = (Stage) txtId.getScene().getWindow();
+        Stage stage = (Stage) txtCpfCliente.getScene().getWindow();
         stage.close();
     }
 

@@ -260,7 +260,7 @@ public class AgendarController implements Initializable {
             javafx.stage.Stage dialogStage = new javafx.stage.Stage();
             dialogStage.setTitle("Editar Agendamento");
             dialogStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
-            dialogStage.setScene(new javafx.scene.Scene(root, 500, 450));
+            dialogStage.setScene(new javafx.scene.Scene(root, 500, 350));
             dialogStage.getScene().getStylesheets().add(getClass().getResource("/css/Style.css").toExternalForm());
             dialogStage.showAndWait();
             
@@ -290,12 +290,16 @@ public class AgendarController implements Initializable {
                 String dataFormatada = agendamento.getData() != null ? 
                     agendamento.getData().format(formatter) : "N/A";
                 
-                String item = String.format("ID: %d, Data: %s, Cliente: %s, Pet: %s, Serviço: %s",
+                String valorFormatado = servico != null ? 
+                    String.format("R$ %d,00", servico.getValor()) : "N/A";
+                
+                String item = String.format("ID: %d, Data: %s, Cliente: %s, Pet: %s, Serviço: %s, Valor: %s",
                     agendamento.getId(),
                     dataFormatada,
                     cliente != null ? cliente.getNome() : "N/A",
                     pet != null ? pet.getNome() : "N/A",
-                    servico != null ? servico.getNome() : "N/A");
+                    servico != null ? servico.getNome() : "N/A",
+                    valorFormatado);
                 
                 // Separar entre futuros e passados
                 if (agendamento.getData() != null && agendamento.getData().isBefore(hoje)) {

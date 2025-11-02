@@ -13,7 +13,6 @@ import model.Cliente;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.ResourceBundle;
 
 public class ClienteController implements Initializable {
 
@@ -76,14 +75,34 @@ public class ClienteController implements Initializable {
             String email = txtEmailIncluir.getText().trim();
             String telefonesStr = txtTelefonesIncluir.getText().trim();
 
+            // Validar campos obrigatórios
             if (cpf.isEmpty() || nome.isEmpty() || email.isEmpty()) {
-                mostrarAviso("Campos Obrigatórios", "CPF, Nome e Email são obrigatórios!");
+                mostrarErro("Campos Obrigatórios", "CPF, Nome e Email são obrigatórios!");
                 return;
             }
 
+            // Validar CPF
+            if (!validarCpf(cpf)) {
+                mostrarErro("CPF Inválido", "O CPF informado é inválido. Deve conter exatamente 11 dígitos.");
+                return;
+            }
+
+            // Validar Email
+            if (!validarEmail(email)) {
+                mostrarErro("Email Inválido", "O email informado é inválido. Use o formato: exemplo@dominio.com");
+                return;
+            }
+
+            // Validar e processar telefones
             String[] telefones = telefonesStr.isEmpty() ? new String[0] : telefonesStr.split(",");
             for (int i = 0; i < telefones.length; i++) {
-                telefones[i] = telefones[i].trim();
+                telefones[i] = telefones[i].trim().replaceAll("[^0-9]", ""); // Remove caracteres não numéricos
+                
+                if (!telefones[i].isEmpty() && !validarTelefone(telefones[i])) {
+                    mostrarErro("Telefone Inválido", "O telefone '" + telefonesStr.split(",")[i].trim() + 
+                               "' é inválido. Deve conter exatamente 11 dígitos (DDD + número).\nExemplo: 31992880735");
+                    return;
+                }
             }
 
             Cliente cliente = new Cliente(-1, cpf, nome, email, telefones);
@@ -91,6 +110,24 @@ public class ClienteController implements Initializable {
             
             if (sucesso) {
                 mostrarSucesso("Cliente Incluído", "Cliente incluído com sucesso!");
+                
+                // Buscar o cliente recém-incluído pelo CPF e exibi-lo
+                Cliente clienteInserido = clienteDAO.buscarClientePorCPF(cpf);
+                if (clienteInserido != null) {
+                    txtBuscar.setText(String.valueOf(clienteInserido.getId()));
+                    buscarCliente();
+                    
+                    // Adicionar à lista
+                    listaClientes.clear();
+                    String info = String.format("ID: %d | %s - %s | Email: %s | Tel: %s", 
+                        clienteInserido.getId(), 
+                        clienteInserido.getNome(), 
+                        clienteInserido.getCpf(),
+                        clienteInserido.getEmail(),
+                        String.join(", ", clienteInserido.getTelefones()));
+                    listaClientes.add(info);
+                }
+                
                 limparCamposInclusao();
             } else {
                 mostrarErro("Erro", "Erro ao incluir cliente.");
@@ -157,14 +194,34 @@ public class ClienteController implements Initializable {
             String email = txtEmailAlterar.getText().trim();
             String telefonesStr = txtTelefonesAlterar.getText().trim();
 
+            // Validar campos obrigatórios
             if (cpf.isEmpty() || nome.isEmpty() || email.isEmpty()) {
-                mostrarAviso("Campos Obrigatórios", "CPF, Nome e Email são obrigatórios!");
+                mostrarErro("Campos Obrigatórios", "CPF, Nome e Email são obrigatórios!");
                 return;
             }
 
+            // Validar CPF
+            if (!validarCpf(cpf)) {
+                mostrarErro("CPF Inválido", "O CPF informado é inválido. Deve conter exatamente 11 dígitos.");
+                return;
+            }
+
+            // Validar Email
+            if (!validarEmail(email)) {
+                mostrarErro("Email Inválido", "O email informado é inválido. Use o formato: exemplo@dominio.com");
+                return;
+            }
+
+            // Validar e processar telefones
             String[] telefones = telefonesStr.isEmpty() ? new String[0] : telefonesStr.split(",");
             for (int i = 0; i < telefones.length; i++) {
-                telefones[i] = telefones[i].trim();
+                telefones[i] = telefones[i].trim().replaceAll("[^0-9]", ""); // Remove caracteres não numéricos
+                
+                if (!telefones[i].isEmpty() && !validarTelefone(telefones[i])) {
+                    mostrarErro("Telefone Inválido", "O telefone '" + telefonesStr.split(",")[i].trim() + 
+                               "' é inválido. Deve conter exatamente 11 dígitos (DDD + número).\nExemplo: 31992880735");
+                    return;
+                }
             }
 
             clienteAtual.setCpf(cpf);
@@ -312,6 +369,32 @@ public class ClienteController implements Initializable {
             return "";
         }
         return cpf.replaceAll("[^0-9]", "");
+    }
+
+    /**
+     * Valida se o CPF possui exatamente 11 dígitos
+     */
+    private boolean validarCpf(String cpf) {
+        return cpf != null && cpf.matches("\\d{11}");
+    }
+
+    /**
+     * Valida se o email possui formato válido
+     */
+    private boolean validarEmail(String email) {
+        if (email == null || email.isEmpty()) {
+            return false;
+        }
+        // Regex para validar email no formato: usuario@dominio.extensao
+        String emailRegex = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        return email.matches(emailRegex);
+    }
+
+    /**
+     * Valida se o telefone possui exatamente 11 dígitos (DDD + 9 dígitos)
+     */
+    private boolean validarTelefone(String telefone) {
+        return telefone != null && telefone.matches("\\d{11}");
     }
 
     private void mostrarErro(String titulo, String mensagem) {
