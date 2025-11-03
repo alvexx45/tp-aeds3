@@ -69,7 +69,7 @@ public class BateriaTestes {
     
     private void inserirClientes() throws Exception {
         String[][] dadosClientes = {
-            {"12345678901", "João Silva", "joao.silva@email.com", "31999991111", "31988881111"},
+            {"15974074610", "João Silva", "joao.silva@email.com", "31999991111", "31988881111"},
             {"98765432100", "Maria Santos", "maria.santos@email.com", "31999992222"},
             {"11122233344", "Pedro Oliveira", "pedro.oliveira@email.com", "31999993333", "31988883333"},
             {"55566677788", "Ana Costa", "ana.costa@email.com", "31999994444"},
@@ -135,7 +135,7 @@ public class BateriaTestes {
     
     private void inserirPets() throws Exception {
         // Buscar clientes para associar aos pets
-        Cliente joao = clienteDAO.buscarClientePorCPF("12345678901");
+        Cliente joao = clienteDAO.buscarClientePorCPF("15974074610");
         Cliente maria = clienteDAO.buscarClientePorCPF("98765432100");
         Cliente pedro = clienteDAO.buscarClientePorCPF("11122233344");
         Cliente ana = clienteDAO.buscarClientePorCPF("55566677788");
@@ -507,7 +507,7 @@ public class BateriaTestes {
         System.out.println("\n🐾 PETS (demonstrando relacionamento 1:N via Hash Extensível):");
         
         // Buscar pets por CPF de alguns donos
-        String[] cpfsParaTestar = {"12345678901", "98765432100", "11122233344", "99988877766", "88899900011", "33344455566"};
+        String[] cpfsParaTestar = {"15974074610", "98765432100", "11122233344", "99988877766", "88899900011", "33344455566"};
         
         for (String cpf : cpfsParaTestar) {
             Cliente dono = clienteDAO.buscarClientePorCPF(cpf);
@@ -564,7 +564,7 @@ public class BateriaTestes {
         // Teste 1: Cliente com CPF duplicado
         System.out.println("\n   [Teste 1] Cliente com CPF duplicado:");
         try {
-            Cliente clienteDuplicado = new Cliente(-1, "12345678901", "Nome Duplicado", "teste@email.com", new String[]{"31999999999"});
+            Cliente clienteDuplicado = new Cliente(-1, "15974074610", "Nome Duplicado", "teste@email.com", new String[]{"31999999999"});
             clienteDAO.incluirCliente(clienteDuplicado);
             System.out.println("   ❌ ERRO: Deveria ter rejeitado CPF duplicado!");
         } catch (IllegalArgumentException e) {
@@ -601,7 +601,7 @@ public class BateriaTestes {
         System.out.println("\n   [Teste 4] Pet com nome duplicado para o mesmo dono:");
         try {
             // Buscar um cliente existente
-            Cliente cliente = clienteDAO.buscarClientePorCPF("12345678901");
+            Cliente cliente = clienteDAO.buscarClientePorCPF("15974074610");
             if (cliente != null) {
                 Pet petDuplicado = new Pet(-1, "Rex", "Cão", "Labrador", 10.5f, cliente); // Nome já pode existir
                 petDAO.incluirPet(petDuplicado);
@@ -616,7 +616,7 @@ public class BateriaTestes {
         // Teste 5: Alteração mantendo dados próprios (deve funcionar)
         System.out.println("\n   [Teste 5] Alteração mantendo dados próprios:");
         try {
-            Cliente cliente = clienteDAO.buscarClientePorCPF("12345678901");
+            Cliente cliente = clienteDAO.buscarClientePorCPF("15974074610");
             if (cliente != null) {
                 cliente.setNome("João Silva");
                 boolean alterado = clienteDAO.alterarCliente(cliente);
