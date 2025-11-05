@@ -1,4 +1,4 @@
-# TP AEDS-III - Petcare Manager
+# TP AEDS-III - Petcare Manager (Fase 3 implementada!!)
 
 Sistema de gerenciamento de petshop desenvolvido em Java com interface gráfica JavaFX, implementando estruturas de dados avançadas (Hash Extensível e Árvore B+) para indexação e relacionamentos.
 
