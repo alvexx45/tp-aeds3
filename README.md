@@ -1,201 +1,117 @@
 # TP AEDS-III - Petcare Manager
 
-## 📋 Requisitos
+Sistema de gerenciamento de petshop desenvolvido em Java com interface gráfica JavaFX, implementando estruturas de dados avançadas (Hash Extensível e Árvore B+) para indexação e relacionamentos.
 
-- Java 11 ou superior
-- Maven 3.6 ou superior
-- JavaFX (incluído automaticamente via Maven)
+## 📋 Pré-requisitos
 
-## 🚀 Compilação com Maven
+- **Java 11** ou superior
+- **Maven 3.6** ou superior
+- **JavaFX** (gerenciado automaticamente pelo Maven)
 
-### Limpar, compilar e rodar o projeto
+## 🚀 Como Executar
+
+### **Opção 1: Script Automático (Recomendado)**
+
+Limpa, compila e executa o projeto:
+
 ```bash
 ./run.sh
 ```
 
-### Apenas rodar
+### **Opção 2: Comandos Maven**
+
+**Compilar o projeto:**
+```bash
+mvn clean compile
+```
+
+**Executar o projeto:**
 ```bash
 mvn exec:java
 ```
 
-#### Funcionalidades Principais:
-- **Gerenciar Clientes**: CRUD completo com busca por nome, CPF, email
-- **Gerenciar Pets**: CRUD completo com relacionamento e busca por dono
-- **Gerenciar Serviços**: CRUD completo com busca por faixa de preço
-- **Executar Bateria de Testes**: Insere dados de exemplo automaticamente
+### **Opção 3: Gerar JAR Executável**
 
-### 2. Bateria de Testes
+```bash
+mvn package
+java -jar target/tp-aeds3-1.0-SNAPSHOT.jar
+```
 
-A opção **4** do menu executa uma bateria de testes automática que insere:
-- **10 Clientes** com dados completos (CPF, nome, email, telefones)
-- **15 Serviços** diversos (banho, tosa, consultas, etc.)
+## 💻 Usando o Sistema
+
+### Menu Principal
+
+Ao iniciar, você verá 5 opções:
+
+1. **Gerenciar Clientes** - CRUD completo (CPF, nome, email, telefones)
+2. **Gerenciar Pets** - CRUD com relacionamento 1:N via CPF do dono
+3. **Gerenciar Serviços** - CRUD de serviços oferecidos
+4. **Gerenciar Agendamentos** - CRUD com relacionamento N:N via idPet e idServico
+5. **Executar Bateria de Testes** - Popula o sistema com dados de exemplo
+
+### Bateria de Testes
+
+A opção **5** insere automaticamente:
+- **10 Clientes** com CPF, nome, email e telefones válidos
 - **15 Pets** associados aos clientes (demonstra relacionamento 1:N)
+- **15 Serviços** diversos (banho, tosa, consultas veterinárias, etc.)
+- **20 Agendamentos** relacionando pets e serviços (demonstra relacionamento N:N)
 
-Esta bateria é útil para:
+**Útil para:**
 - ✅ Testar rapidamente todas as funcionalidades
-- ✅ Demonstrar o relacionamento 1:N via Hash Extensível
-- ✅ Validar a integridade dos índices
-- ✅ Popular o sistema com dados realistas
+- ✅ Demonstrar relacionamentos via Hash Extensível (1:N) e Árvore B+ (N:N)
+- ✅ Validar integridade dos índices e exclusões em cascata
 
-## 📁 Estrutura do Projeto
+## 🔧 Funcionalidades Principais
 
-```
-tp-aeds3/
-├── pom.xml                    (configuração Maven)
-├── README.md                  (este arquivo)
-├── docs/                      (documentação)
-│   ├── dcu.png
-│   ├── der.png
-│   └── Fase II - TP.pdf
-├── src/
-│   ├── app/                   (aplicação principal)
-│   │   ├── Main.java         (🆕 ponto de entrada JavaFX único)
-│   │   └── BateriaTestes.java (testes automáticos)
-│   ├── controller/            (🆕 controladores JavaFX)
-│   │   ├── MainController.java
-│   │   ├── ClienteController.java
-│   │   ├── PetController.java
-│   │   └── ServicoController.java
-│   ├── view/                  (🆕 interfaces FXML)
-│   │   ├── MainView.fxml
-│   │   ├── ClienteView.fxml
-│   │   ├── PetView.fxml
-│   │   └── ServicoView.fxml
-│   ├── css/                   (🆕 estilos CSS)
-│   │   └── Style.css
-    ├── dao/                   (Data Access Objects)
-    │   ├── Arquivo.java
-    │   ├── ClienteDAO.java
-    │   ├── PetDAO.java
-    │   ├── ServicoDAO.java
-    │   ├── AgendarDAO.java
-    │   ├── IndiceSequencial.java
-    │   ├── IndiceHashExtensivel.java
-    │   ├── HashExtensivel.java
-    │   ├── RegistroHashExtensivel.java
-    │   ├── RelacionamentoPetDono.java
-    │   └── Registro.java
-    ├── model/                 (modelos de dados)
-    │   ├── Cliente.java
-    │   ├── Pet.java
-    │   ├── Servico.java
-    │   └── Agendar.java
-    ├── bin/                   (arquivos compilados - gerado automaticamente)
-    ├── dados/                 (arquivos de dados - gerado automaticamente)
-        ├── clientes/
-        │   ├── clientes.db    (dados dos clientes)
-        │   └── clientes.idx   (índice sequencial - PK)
-        ├── pets/
-        │   ├── pets.db        (dados dos pets)
-        │   ├── pets.idx       (índice sequencial - PK)
-        │   ├── pets_hash.dir  (diretório da hash extensível)
-        │   └── pets_hash.db   (cestos da hash extensível)
-        └── servicos/
-            ├── servicos.db    (dados dos serviços)
-            └── servicos.idx   (índice sequencial - PK)
-```
+### ✅ CRUD Completo
+- **Clientes**: Inclusão, busca (ID/CPF/email), alteração, exclusão
+- **Pets**: Inclusão, busca (ID/CPF do dono), alteração, exclusão
+- **Serviços**: Inclusão, busca (ID/nome), alteração, exclusão
+- **Agendamentos**: Inclusão, busca, alteração, exclusão
 
-## 🔧 Funcionalidades Implementadas
+### ✅ Relacionamentos
+- **1:N (Cliente → Pets)**: Hash Extensível com chave CPF
+- **N:N (Pet ↔ Serviço)**: Árvore B+ (ordem 5) via Agendamento
 
-### Fase II - Índices
+### ✅ Validações
+- **CPF**: 11 dígitos obrigatórios
+- **Email**: Formato válido (regex)
+- **Telefone**: 11 dígitos (DDD + número)
+- **Duplicatas**: Impede inserções duplicadas
 
-#### ✅ Índice Primário (PK)
-- **Índice Sequencial** implementado em `IndiceSequencial.java`
-- Busca binária O(log n)
-- Mantido ordenado por ID
-- Usado nas tabelas: `clientes` e `pets`
+### ✅ Integridade Referencial
+- **Exclusão em Cascata**: Cliente → Pets → Agendamentos
+- **Índices Sincronizados**: Atualizações automáticas
 
-#### ✅ Relacionamento 1:N com Hash Extensível
-- **Hash Extensível** implementada em `HashExtensivel.java`
-- Gerenciador em `IndiceHashExtensivel.java`
-- Relacionamento Pet-Dono (CPF do Cliente → IDs dos Pets)
-- Busca O(1) em média
-- Expansão dinâmica de cestos
+## 📊 Complexidade das Operações
 
-### Classes Principais
+| Estrutura | Busca | Inserção | Remoção |
+|-----------|-------|----------|---------|
+| **Índice Sequencial** (PK) | O(log n) | O(n) | O(n) |
+| **Hash Extensível** (1:N) | O(1) médio | O(1) médio | O(1) médio |
+| **Árvore B+** (N:N) | O(log n) | O(log n) | O(log n) |
 
-#### DAO (Data Access Objects)
-- `Arquivo<T>`: Gerenciamento genérico de arquivos com índice sequencial
-- `ClienteDAO`: Operações CRUD para clientes
-- `PetDAO`: Operações CRUD para pets (com hash extensível)
-- `ServicoDAO`: Operações CRUD para serviços
-- `AgendarDAO`: Operações CRUD para agendamentos
-
-#### Índices
-- `IndiceSequencial`: Índice primário baseado em PK
-- `IndiceHashExtensivel`: Gerenciador do índice hash para relacionamento 1:N
-- `HashExtensivel<T>`: Implementação da estrutura hash extensível
-- `RelacionamentoPetDono`: Registro do relacionamento na hash
-
-#### Modelos
-- `Cliente`: CPF, nome, email, telefones
-- `Pet`: nome, espécie, raça, peso, dono (Cliente)
-- `Servico`: descrição, preço
-- `Agendar`: data, horário, pet, serviço
-
-## 🧪 Testes Disponíveis
-
-A **Bateria de Testes** (opção 4 do menu) insere dados de exemplo e demonstra:
-- Relacionamento 1:N entre Cliente e Pet via Hash Extensível
-- Funcionamento dos índices sequenciais
-- CRUD completo de todas as entidades
-- Busca por CPF com performance O(1)
-
-## 📊 Complexidade
-
-| Operação | Índice Sequencial | Hash Extensível |
-|----------|-------------------|-----------------|
-| Busca    | O(log n)          | O(1) médio      |
-| Inserção | O(n)              | O(1) médio      |
-| Remoção  | O(n)              | O(1) médio      |
 
 ## 👥 Autores
 
-- Bernardo Bicalho
-- Bernardo Pires
-- Eduardo Luttembarck
+- **Bernardo Bicalho**
+- **Bernardo Pires**
+- **Eduardo Luttembarck**
 
-## 🎨 Interface Gráfica JavaFX
+**Disciplina:** Algoritmos e Estruturas de Dados III (AEDS-III)  
+**Instituição:** PUC Minas  
+**Ano:** 2025
 
-### Características da Interface
-- **Design Moderno**: Interface limpa com layout profissional
-- **Navegação Intuitiva**: Organização em abas para cada funcionalidade
-- **Validação em Tempo Real**: Verificação de campos obrigatórios e tipos de dados
-- **Feedback Visual**: Mensagens de sucesso, erro e confirmação
-- **Estilos Personalizados**: CSS customizado com cores harmoniosas
+**Tópicos cobertos:**
+- Estrutura de representação dos registros
+- Tratamento de atributos multivalorados
+- Implementação de exclusão lógica (lápide)
+- Tipos de chaves e índices utilizados
+- Persistência de índices em disco
+- Relacionamentos 1:N e N:N
+- Integridade referencial
 
-### Funcionalidades por Tela
+## 📝 Licença
 
-#### 🏠 **Tela Principal**
-- Menu de navegação principal
-- Acesso direto a todas as funcionalidades
-- Opção de executar testes
-- Botão de saída
-
-#### 👥 **Gerenciamento de Clientes**
-- **Aba Incluir**: Cadastro com CPF, nome, email e telefones
-- **Aba Buscar/Alterar**: Busca por ID, CPF ou email com edição
-- **Aba Listar**: Visualização de todos os clientes
-
-#### 🐕 **Gerenciamento de Pets**
-- **Aba Incluir**: Cadastro completo com associação ao dono
-- **Aba Buscar/Alterar**: Busca por ID com edição
-- **Aba Buscar por Dono**: Lista pets por CPF do dono
-
-#### 🛒 **Gerenciamento de Serviços**
-- **Aba Incluir**: Cadastro de serviços com nome e valor
-- **Aba Buscar/Alterar**: Busca por ID ou nome com edição
-- **Aba Listar**: Visualização de todos os serviços
-
-### Tecnologias JavaFX Utilizadas
-- **FXML**: Definição declarativa das interfaces
-- **CSS**: Estilização customizada
-- **Controllers**: Padrão MVC para organização do código
-- **Binding**: Ligação entre interface e dados
-- **Eventos**: Manipulação de cliques e ações do usuário
-
-## 📝 Notas
-
-- Os arquivos de dados são criados automaticamente na pasta `src/dados/`
-- Os arquivos compilados ficam em `target/classes/`
-- Para limpar os dados: `rm -rf src/dados/`
+Este projeto foi desenvolvido para fins acadêmicos.
