@@ -47,7 +47,7 @@ Ao iniciar, você verá 5 opções:
 2. **Gerenciar Pets** - CRUD com relacionamento 1:N via CPF do dono
 3. **Gerenciar Serviços** - CRUD de serviços oferecidos
 4. **Gerenciar Agendamentos** - CRUD com relacionamento N:N via idPet e idServico
-5. **Executar Bateria de Testes** - Popula o sistema com dados de exemplo
+5. **Executar Testes** - Popula o sistema com dados de exemplo
 
 ### Bateria de Testes
 
