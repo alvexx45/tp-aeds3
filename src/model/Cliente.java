@@ -43,7 +43,7 @@ public class Cliente implements Registro {
         dos.writeUTF(getNome());
         dos.writeUTF(getEmail());
 
-        dos.writeInt(getTelefones().length);
+        dos.writeByte(getTelefones().length);  // Otimização: 1 byte ao invés de 4
         for (String telefone : this.telefones) {
             dos.writeUTF(telefone);
         }
@@ -60,7 +60,7 @@ public class Cliente implements Registro {
         setNome(dis.readUTF());
         setEmail(dis.readUTF());
 
-        int telefonesLength = dis.readInt();
+        int telefonesLength = dis.readByte();  // Otimização: lê 1 byte ao invés de 4
         String[] telefones = new String[telefonesLength];
         for (int i = 0; i < telefonesLength; i++) {
             telefones[i] = dis.readUTF();
