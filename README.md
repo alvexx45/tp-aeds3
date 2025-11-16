@@ -10,6 +10,8 @@ Sistema de gerenciamento de petshop desenvolvido em Java com interface gráfica 
 
 ## 🚀 Como Executar
 
+Todos os comandos abaixo devem ser executados na pasta src
+
 ### **Opção 1: Script Automático (Recomendado)**
 
 Limpa, compila e executa o projeto:
