@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CompressaoController">
+   <top>
+      <VBox>
+         <children>
+            <HBox alignment="CENTER" spacing="20.0" styleClass="logo-container">
+               <children>
+                  <Label styleClass="titulo" text="Compressão de Dados">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <VBox alignment="CENTER" spacing="30.0">
+         <children>
+            <VBox alignment="CENTER" spacing="15.0">
+               <children>
+                  <Label text="Compressão usando algoritmo LZW" styleClass="label">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            
+            <VBox alignment="CENTER" spacing="15.0">
+               <children>
+                  <Button fx:id="btnComprimir" mnemonicParsing="false" onAction="#comprimirDados" prefHeight="55.0" prefWidth="280.0" styleClass="menu-button" text="Comprimir Dados">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnDescomprimir" mnemonicParsing="false" onAction="#descomprimirDados" prefHeight="55.0" prefWidth="280.0" styleClass="menu-button" text="Descomprimir Dados">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            
+            <Label fx:id="lblStatus" text="" styleClass="label">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            
+            <Button fx:id="btnFechar" mnemonicParsing="false" onAction="#fechar" prefHeight="45.0" prefWidth="200.0" styleClass="exit-button" text="Fechar">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="40.0" left="20.0" right="20.0" top="30.0" />
+         </padding>
+      </VBox>
+   </center>
+</BorderPane>

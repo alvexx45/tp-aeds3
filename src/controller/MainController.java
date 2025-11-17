@@ -26,6 +26,9 @@ public class MainController {
     private Button btnAgendamentos;
     
     @FXML
+    private Button btnCompressao;
+    
+    @FXML
     private Button btnTestes;
     
     @FXML
@@ -64,6 +67,15 @@ public class MainController {
             abrirJanelaComTamanho("/view/AgendarView.fxml", "Gerenciar Agendamentos", 1500, 750);
         } catch (Exception e) {
             mostrarErro("Erro ao abrir tela de agendamentos", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void abrirCompressaoDados() {
+        try {
+            abrirJanelaComTamanho("/view/CompressaoView.fxml", "Compressão de Dados", 600, 550);
+        } catch (Exception e) {
+            mostrarErro("Erro ao abrir tela de compressão", e.getMessage());
         }
     }
 
