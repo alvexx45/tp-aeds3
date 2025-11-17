@@ -69,7 +69,7 @@ public class BateriaTestes {
     
     private void inserirClientes() throws Exception {
         String[][] dadosClientes = {
-            {"15974074610", "João Silva", "joao.silva@email.com", "31999991111", "31988881111"},
+            {"04975097670", "João Silva", "joao.silva@email.com", "31999991111", "31988881111"},
             {"98765432100", "Maria Santos", "maria.santos@email.com", "31999992222"},
             {"11122233344", "Pedro Oliveira", "pedro.oliveira@email.com", "31999993333", "31988883333"},
             {"55566677788", "Ana Costa", "ana.costa@email.com", "31999994444"},

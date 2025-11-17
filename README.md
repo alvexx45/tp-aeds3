@@ -1,4 +1,4 @@
-# TP AEDS-III - Petcare Manager
+# Petcare Manager (Fase 3 implementada!!)
 
 Sistema de gerenciamento de petshop desenvolvido em Java com interface gráfica JavaFX, implementando estruturas de dados avançadas (Hash Extensível e Árvore B+) para indexação e relacionamentos.
 
@@ -9,6 +9,8 @@ Sistema de gerenciamento de petshop desenvolvido em Java com interface gráfica 
 - **JavaFX** (gerenciado automaticamente pelo Maven)
 
 ## 🚀 Como Executar
+
+Todos os comandos abaixo devem ser executados na pasta src
 
 ### **Opção 1: Script Automático (Recomendado)**
 
@@ -47,7 +49,7 @@ Ao iniciar, você verá 5 opções:
 2. **Gerenciar Pets** - CRUD com relacionamento 1:N via CPF do dono
 3. **Gerenciar Serviços** - CRUD de serviços oferecidos
 4. **Gerenciar Agendamentos** - CRUD com relacionamento N:N via idPet e idServico
-5. **Executar Bateria de Testes** - Popula o sistema com dados de exemplo
+5. **Executar Testes** - Popula o sistema com dados de exemplo
 
 ### Bateria de Testes
 
