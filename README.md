@@ -61,7 +61,7 @@ A opção **6** insere automaticamente:
 - **20 Agendamentos** relacionando pets e serviços (demonstra relacionamento N:N)
 
 **Útil para:**
-- ✅ Testar rapidamente todas as funcionalidades
+- ✅ Testar rapidamente todas as funcionalidades de CRUD e compressão de dados
 - ✅ Demonstrar relacionamentos via Hash Extensível (1:N) e Árvore B+ (N:N)
 - ✅ Validar integridade dos índices e exclusões em cascata
 
@@ -114,6 +114,7 @@ A opção **6** insere automaticamente:
 - Persistência de índices em disco
 - Relacionamentos 1:N e N:N
 - Integridade referencial
+- Compressão de Dados
 
 ## 📝 Licença
 
