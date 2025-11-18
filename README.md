@@ -49,18 +49,19 @@ Ao iniciar, você verá 5 opções:
 2. **Gerenciar Pets** - CRUD com relacionamento 1:N via CPF do dono
 3. **Gerenciar Serviços** - CRUD de serviços oferecidos
 4. **Gerenciar Agendamentos** - CRUD com relacionamento N:N via idPet e idServico
-5. **Executar Testes** - Popula o sistema com dados de exemplo
+5. **Compressão de Dados** - Compressão e descompressão dos dados utilizando Huffman ou LZW
+6. **Executar Testes** - Popula o sistema com dados de exemplo
 
 ### Bateria de Testes
 
-A opção **5** insere automaticamente:
+A opção **6** insere automaticamente:
 - **10 Clientes** com CPF, nome, email e telefones válidos
 - **15 Pets** associados aos clientes (demonstra relacionamento 1:N)
 - **15 Serviços** diversos (banho, tosa, consultas veterinárias, etc.)
 - **20 Agendamentos** relacionando pets e serviços (demonstra relacionamento N:N)
 
 **Útil para:**
-- ✅ Testar rapidamente todas as funcionalidades
+- ✅ Testar rapidamente todas as funcionalidades de CRUD e compressão de dados
 - ✅ Demonstrar relacionamentos via Hash Extensível (1:N) e Árvore B+ (N:N)
 - ✅ Validar integridade dos índices e exclusões em cascata
 
@@ -113,6 +114,7 @@ A opção **5** insere automaticamente:
 - Persistência de índices em disco
 - Relacionamentos 1:N e N:N
 - Integridade referencial
+- Compressão de Dados
 
 ## 📝 Licença
 
