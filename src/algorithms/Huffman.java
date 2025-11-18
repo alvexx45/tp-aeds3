@@ -219,19 +219,26 @@ public class Huffman {
 		java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
 		java.io.DataOutputStream dos = new java.io.DataOutputStream(baos);
 		
-		// Salva a tabela de códigos
-		dos.writeInt(huffman.hmapCode.size());
+		// Salva a tabela de códigos de forma mais eficiente
+		dos.writeShort(huffman.hmapCode.size()); // 2 bytes ao invés de 4
 		for (Map.Entry<Character, String> entry : huffman.hmapCode.entrySet()) {
-			dos.writeChar(entry.getKey());
-			dos.writeUTF(entry.getValue());
+			dos.writeChar(entry.getKey()); // 2 bytes
+			dos.writeByte(entry.getValue().length()); // 1 byte para tamanho do código
+			// Converte string de código em bits compactos
+			String codigo = entry.getValue();
+			int numBytesCodigo = (codigo.length() + 7) / 8;
+			byte[] bytesCodigo = new byte[numBytesCodigo];
+			for (int i = 0; i < codigo.length(); i++) {
+				if (codigo.charAt(i) == '1') {
+					bytesCodigo[i / 8] |= (1 << (7 - (i % 8)));
+				}
+			}
+			dos.write(bytesCodigo);
 		}
-		
-		// Salva o tamanho original
-		dos.writeInt(dados.length);
 		
 		// Converte a string de bits para bytes
 		int numBits = encodedStr.length();
-		dos.writeInt(numBits);
+		dos.writeInt(numBits); // 4 bytes
 		
 		// Converte string de bits em bytes
 		int numBytes = (numBits + 7) / 8;
@@ -242,7 +249,6 @@ public class Huffman {
 			}
 		}
 		
-		dos.writeInt(bitsComprimidos.length);
 		dos.write(bitsComprimidos);
 		
 		dos.close();
@@ -258,20 +264,35 @@ public class Huffman {
 		java.io.DataInputStream dis = new java.io.DataInputStream(bais);
 		
 		// Lê a tabela de códigos
-		int tamanhoTabela = dis.readInt();
+		int tamanhoTabela = dis.readShort(); // 2 bytes
 		HashMap<String, Character> hmapCodeR = new HashMap<>();
 		for (int i = 0; i < tamanhoTabela; i++) {
-			char ch = dis.readChar();
-			String code = dis.readUTF();
-			hmapCodeR.put(code, ch);
+			char ch = dis.readChar(); // 2 bytes
+			int tamanhoCode = dis.readByte() & 0xFF; // 1 byte (unsigned)
+			
+			// Lê os bytes do código
+			int numBytesCodigo = (tamanhoCode + 7) / 8;
+			byte[] bytesCodigo = new byte[numBytesCodigo];
+			dis.read(bytesCodigo);
+			
+			// Reconstrói a string do código
+			StringBuilder codigo = new StringBuilder();
+			for (int j = 0; j < tamanhoCode; j++) {
+				int byteIndex = j / 8;
+				int bitIndex = 7 - (j % 8);
+				if ((bytesCodigo[byteIndex] & (1 << bitIndex)) != 0) {
+					codigo.append('1');
+				} else {
+					codigo.append('0');
+				}
+			}
+			
+			hmapCodeR.put(codigo.toString(), ch);
 		}
 		
-		// Lê o tamanho original (não usado, mas necessário para leitura sequencial)
-		dis.readInt();
-		
 		// Lê os bits comprimidos
-		int numBits = dis.readInt();
-		int numBytes = dis.readInt();
+		int numBits = dis.readInt(); // 4 bytes
+		int numBytes = (numBits + 7) / 8;
 		byte[] bitsComprimidos = new byte[numBytes];
 		dis.read(bitsComprimidos);
 		
