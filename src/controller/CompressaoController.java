@@ -56,7 +56,7 @@ public class CompressaoController {
                     
                     Platform.runLater(() -> {
                         lblStatus.setText("Dados comprimidos com sucesso usando " + algoritmo + "!");
-                        mostrarInfo("Sucesso", "Dados comprimidos com sucesso!");
+                        mostrarEstatisticasCompressao();
                         verificarEstadoCompressao();
                     });
                 } catch (Exception e) {
@@ -144,5 +144,37 @@ public class CompressaoController {
         alert.setHeaderText(null);
         alert.setContentText(mensagem);
         alert.showAndWait();
+    }
+    
+    private void mostrarEstatisticasCompressao() {
+        try {
+            // Lê o arquivo de metadados
+            java.io.File arquivo = new java.io.File("src/metadados_compressao.txt");
+            if (!arquivo.exists()) {
+                mostrarInfo("Sucesso", "Dados comprimidos com sucesso!");
+                return;
+            }
+            
+            // Lê o conteúdo do arquivo
+            StringBuilder sb = new StringBuilder();
+            try (java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(arquivo))) {
+                String linha;
+                while ((linha = br.readLine()) != null) {
+                    sb.append(linha).append("\n");
+                }
+            }
+            
+            // Mostra o relatório completo
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Compressão Concluída");
+            alert.setHeaderText("Relatório de Compressão");
+            alert.setContentText(sb.toString());
+            alert.getDialogPane().setPrefWidth(700);
+            alert.getDialogPane().setPrefHeight(600);
+            alert.showAndWait();
+            
+        } catch (Exception e) {
+            mostrarInfo("Sucesso", "Dados comprimidos com sucesso!");
+        }
     }
 }

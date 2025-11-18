@@ -1,4 +1,6 @@
 /instruções
 /src/dados
+/src/dados_comprimidos
+*.txt
 /target
 .vscode
