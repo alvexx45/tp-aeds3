@@ -5,11 +5,22 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import dao.CompressaoManager;
 
 public class CompressaoController {
 
+    @FXML
+    private RadioButton radioLZW;
+    
+    @FXML
+    private RadioButton radioHuffman;
+    
+    @FXML
+    private ToggleGroup grupoAlgoritmos;
+    
     @FXML
     private Button btnComprimir;
     
@@ -40,7 +51,7 @@ public class CompressaoController {
             // Executa a compressão em uma thread separada para não bloquear a UI
             new Thread(() -> {
                 try {
-                    String algoritmo = "LZW";
+                    String algoritmo = radioLZW.isSelected() ? "LZW" : "HUFFMAN";
                     compressaoManager.comprimirDados(algoritmo);
                     
                     Platform.runLater(() -> {
@@ -108,6 +119,8 @@ public class CompressaoController {
         
         btnComprimir.setDisable(dadosComprimidos);
         btnDescomprimir.setDisable(!dadosComprimidos);
+        radioLZW.setDisable(dadosComprimidos);
+        radioHuffman.setDisable(dadosComprimidos);
         
         if (dadosComprimidos) {
             String algoritmo = compressaoManager.obterAlgoritmoUtilizado();

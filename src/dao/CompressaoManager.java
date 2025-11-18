@@ -1,6 +1,7 @@
 package dao;
 
 import algorithms.LZW;
+import algorithms.Huffman;
 import java.io.*;
 import java.nio.file.*;
 import java.util.zip.ZipEntry;
@@ -55,6 +56,9 @@ public class CompressaoManager {
             throw new Exception("Arquivo comprimido não encontrado!");
         }
         
+        // Lê o algoritmo usado
+        String algoritmo = obterAlgoritmoUtilizado();
+        
         try (FileInputStream fis = new FileInputStream(ARQUIVO_COMPRIMIDO);
              ZipInputStream zis = new ZipInputStream(fis)) {
             
@@ -78,8 +82,13 @@ public class CompressaoManager {
                     }
                     byte[] dadosComprimidos = baos.toByteArray();
                     
-                    // Descomprime os dados usando LZW
-                    byte[] dadosDescomprimidos = LZW.decodifica(dadosComprimidos);
+                    // Descomprime os dados usando o algoritmo correto
+                    byte[] dadosDescomprimidos;
+                    if (algoritmo.equals("HUFFMAN")) {
+                        dadosDescomprimidos = Huffman.descomprimirBytes(dadosComprimidos);
+                    } else {
+                        dadosDescomprimidos = LZW.decodifica(dadosComprimidos);
+                    }
                     
                     // Escreve o arquivo descomprimido
                     try (FileOutputStream fos = new FileOutputStream(arquivo)) {
@@ -148,8 +157,13 @@ public class CompressaoManager {
                 // Lê o arquivo
                 byte[] dadosOriginais = Files.readAllBytes(arquivo.toPath());
                 
-                // Comprime os dados usando LZW
-                byte[] dadosComprimidos = LZW.codifica(dadosOriginais);
+                // Comprime os dados usando o algoritmo selecionado
+                byte[] dadosComprimidos;
+                if (algoritmo.equals("HUFFMAN")) {
+                    dadosComprimidos = Huffman.comprimirBytes(dadosOriginais);
+                } else {
+                    dadosComprimidos = LZW.codifica(dadosOriginais);
+                }
                 
                 // Adiciona ao ZIP
                 zos.putNextEntry(new ZipEntry(caminhoNoZip));

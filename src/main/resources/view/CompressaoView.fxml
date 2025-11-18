@@ -34,11 +34,28 @@
          <children>
             <VBox alignment="CENTER" spacing="15.0">
                <children>
-                  <Label text="Compressão usando algoritmo LZW" styleClass="label">
+                  <Label text="Selecione o algoritmo de compressão:" styleClass="label">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
+                  <VBox spacing="10.0" alignment="CENTER">
+                     <children>
+                        <RadioButton fx:id="radioLZW" text="LZW" selected="true" styleClass="radio-button">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="grupoAlgoritmos" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="radioHuffman" text="Huffman" toggleGroup="$grupoAlgoritmos" styleClass="radio-button">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
             

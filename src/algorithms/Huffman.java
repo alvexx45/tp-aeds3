@@ -1,113 +1,305 @@
 package algorithms;
 
-import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.PriorityQueue;
-
-class HuffmanNode implements Comparable<HuffmanNode> {
-    byte b;
-    int frequencia;
-    HuffmanNode esquerdo, direito;
-
-    public HuffmanNode(byte b, int f) {
-        this.b = b;
-        this.frequencia = f;
-        esquerdo = direito = null;
-    }
-
-    @Override
-    public int compareTo(HuffmanNode o) {
-        return this.frequencia - o.frequencia;
-    }
-}
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Comparator;
 
 public class Huffman {
+	private String orgStr, encodedStr, decodedStr;
+	public HashMap<Character, Integer> hmapWC;  // for occurrence count
+	public HashMap<Character, String> hmapCode; // for code(character/code)
+	public HashMap<String, Character> hmapCodeR; // for code(code/character)
+	private PriorityQueue<node> pq;  // for MinHeap
+	private int counter;  // Unique id assigned to each node
+	private int treeSize;  // # of total nodes in the tree
+	private node root;
 
-    public static HashMap<Byte, String> codifica(byte[] sequencia) {
-        HashMap<Byte, Integer> mapaDeFrequencias = new HashMap<>();
-        for (byte c : sequencia) {
-            mapaDeFrequencias.put(c, mapaDeFrequencias.getOrDefault(c, 0) + 1);
-        }
-
-        PriorityQueue<HuffmanNode> pq = new PriorityQueue<>();
-        for (Byte b : mapaDeFrequencias.keySet()) {
-            pq.add(new HuffmanNode(b, mapaDeFrequencias.get(b)));
-        }
-
-        while (pq.size() > 1) {
-            HuffmanNode esquerdo = pq.poll();
-            HuffmanNode direito = pq.poll();
-
-            HuffmanNode pai = new HuffmanNode((byte)0, esquerdo.frequencia + direito.frequencia);
-            pai.esquerdo = esquerdo;
-            pai.direito = direito;
-
-            pq.add(pai);
-        }
-
-        HuffmanNode raiz = pq.poll();
-        HashMap<Byte, String> codigos = new HashMap<>();
-        constroiCodigos(raiz, "", codigos);
-
-        return codigos;
+	// Inner class
+	private class node{
+		int uid, weight;
+		char ch;
+		node left, right;
+		
+		// Constructor for class node
+		private node(Character ch, Integer weight, node left, node right){
+			uid = ++counter;
+			this.weight = weight;
+			this.ch = ch;
+			this.left = left;
+			this.right = right;
+		}	
+	}
+	
+	// Constructor for class Huffman
+	public Huffman(String orgStr, boolean show, String dotfilename){
+		this.counter = 0;
+		this.treeSize = 0;
+		this.orgStr = orgStr;
+		hmapWC = new HashMap<Character, Integer>();
+		hmapCode = new HashMap<Character, String>();
+		hmapCodeR = new HashMap<String, Character>();
+		pq = new PriorityQueue<node>(1, new Comparator<node>() {
+	        @Override
+	        public int compare(node n1, node n2) {
+	        	if (n1.weight < n2.weight)
+	        		return -1;
+	        	else if (n1.weight > n2.weight)
+	        		return 1;
+	        	return 0;
+	        }
+	    });
+		
+		countWord();  // STEP 1: Count frequency of word
+		buildTree();  // STEP 2: Build Huffman Tree
+		writeDot(dotfilename);  // STEP 3: Write .dot file to visualize the tree with Graphviz software
+		buildCodeTable();  // STEP 4: Build Huffman Code Table
+	}
+		
+	private void buildCodeTable(){
+		String code = "";
+		node n = root;
+		buildCodeRecursion(n, code);  // Recursion
+	}
+	
+	private void buildCodeRecursion(node n, String code){
+		if (n != null){
+			if (! isLeaf(n)){  // n = internal node
+				buildCodeRecursion(n.left, code + '0');
+				buildCodeRecursion(n.right, code + '1');
+			}
+			else{  // n = Leaf node
+				hmapCode.put(n.ch, code); // for {character:code}
+				hmapCodeR.put(code, n.ch); // for {code:character}
+			}
+		}
+	}
+	
+	private void writeDot(String fname){
+		if (treeSize > 1){
+			node n = root;
+			try (PrintWriter o = new PrintWriter(new BufferedWriter (new FileWriter(fname)))){
+				o.println("## Command to generate pdf:  dot -Tpdf test.dot -o test.pdf");
+				o.println("digraph g {");
+				dotWriteRecursion(n, o);  // Recursion
+				o.println("}");
+			}
+			catch (IOException e){
+				System.out.println(e);
+			}
+		}
+	}
+	
+	private void dotWriteRecursion(node n, PrintWriter o){
+		if (! isLeaf(n)){
+			if (n.left != null){  // has left kid
+				String t = "";
+				char c = n.left.ch;
+				if (c != '\0' && c != ' ' && c != '"' && c!= '\n')  // regular characters
+					t = "\\n " + c; 
+				else if (c == ' ') 
+					t = "\\n blank";
+				else if (c == '"')  //escape "
+					t = "\\n \\\"";
+				else if (c == '\n') 
+					t = "\\n /n";
+				o.println(" \"" + n.uid + "\\n" + n.weight + "\" -> \"" + n.left.uid + "\\n" + n.left.weight + t + "\" [color=red, label=0]");
+				dotWriteRecursion(n.left, o);
+			}
+			if (n.right != null){ // has right kid
+				String t = "";
+				char c = n.right.ch;	
+				if (c != '\0' && c != ' ' && c != '"' && c != '\n') // regular characters
+					t = "\\n " + c;
+				else if (c == ' ')
+					t = "\\n blank"; 
+				else if (c == '"')  //escape
+					t = "\\n \\\"";
+				else if (c == '\n')
+					t = "\\n /n";
+				o.println(" \"" + n.uid + "\\" +"n" + n.weight + "\" -> \"" + n.right.uid + "\\n" + n.right.weight + t + "\" [color=blue, label=1]");
+				dotWriteRecursion(n.right, o);
+			}
+		}
+	}
+		
+	private void buildTree(){
+		buildMinHeap();  // Set all leaf nodes into MinHeap
+		node left, right;
+		while (! pq.isEmpty()){
+			left = pq.poll(); treeSize++;
+			if (pq.peek() != null){
+				right = pq.poll();  treeSize++;
+				root = new node('\0', left.weight + right.weight, left, right);
+			}
+			else{  // only left child. right=null
+				root = new node('\0', left.weight, left, null);
+			}
+			
+			if (pq.peek() != null){
+				pq.offer(root);
+			}
+			else{  // = Top root. Finished building the tree.
+				treeSize++;
+				break;
+			}
+		}
+	}
+	
+	private void buildMinHeap(){
+		for (Map.Entry<Character, Integer> entry: hmapWC.entrySet()){
+			Character ch = entry.getKey();
+	        Integer weight = entry.getValue();
+	        node n = new node(ch, weight, null, null);
+	        pq.offer(n);
+		}		
+	}
+	
+	private void countWord(){
+		Character ch;
+		Integer weight;
+		for (int i=0; i<orgStr.length(); i++){
+			ch = new Character(orgStr.charAt(i));
+			if (hmapWC.containsKey(ch) == false)
+				weight = new Integer(1);
+			else
+				weight = hmapWC.get(ch) + 1;
+			hmapWC.put(ch, weight);
+		}
+	}
+	
+	private boolean isLeaf(node n) {
+        return (n.left == null) && (n.right == null);
     }
-
-    private static void constroiCodigos(HuffmanNode no, String codigo, HashMap<Byte, String> codigos) {
-        if (no == null) {
-            return;
-        }
-
-        if (no.b != 0) {
-            codigos.put(no.b, codigo);
-        }
-
-        constroiCodigos(no.esquerdo, codigo + "0", codigos);
-        constroiCodigos(no.direito, codigo + "1", codigos);
-    }
-
-    // Versão buscando na tabela de códigos.
-    public static byte[] decodifica(String sequenciaCodificada, HashMap<Byte, String> codigos) {
-        ByteArrayOutputStream sequenciaDecodificada = new ByteArrayOutputStream();
-        StringBuilder codigoAtual = new StringBuilder();
-
-        for (int i = 0; i < sequenciaCodificada.length(); i++) {
-            codigoAtual.append(sequenciaCodificada.charAt(i));
-            for (byte b : codigos.keySet()) {
-                if (codigos.get(b).equals(codigoAtual.toString())) {
-                    sequenciaDecodificada.write(b);
-                    codigoAtual = new StringBuilder();
-                    break;
-                }
-            }
-        }
-        return sequenciaDecodificada.toByteArray();
-    }
-
-    public static void main(String[] args) {
-        String frase = "O sabiá não sabia que o sábio sabia que o sabiá não sabia assobiar.";
-        System.out.println("Frase original: " + frase);
-
-        HashMap<Byte, String> codigos = codifica(frase.getBytes());
-        System.out.println("Códigos: " + codigos);
-
-        // Codificação
-        VetorDeBits sequenciaCodificada = new VetorDeBits();
-        int i = 0;
-        for (byte b : frase.getBytes()) {
-            String codigo = codigos.get(b);
-            for(char c : codigo.toCharArray()) {
-                if(c=='0')
-                    sequenciaCodificada.clear(i++);
-                else
-                    sequenciaCodificada.set(i++);            }
-        }
-        byte[] vb = sequenciaCodificada.toByteArray();
-        System.out.println("\n"+sequenciaCodificada);
-        System.out.println("Tamanho original: "+frase.getBytes().length+" bytes");
-        System.out.println("Tamanho compactado: "+vb.length+" bytes");
-
-        // Decodificação
-        VetorDeBits sequenciaCodificada2 = new VetorDeBits(vb);
-        System.out.println("\nFrase decodificada: " + (new String(decodifica(sequenciaCodificada2.toString(), codigos))));
-    }
+	
+	public String encode(){
+		StringBuilder sb = new StringBuilder();
+		Character ch;
+		for(int i=0; i<orgStr.length(); i++){
+			ch = orgStr.charAt(i);
+			sb.append(hmapCode.get(ch));
+		}
+		encodedStr = sb.toString();
+		return encodedStr;
+	}
+	
+	public String decode(){
+		StringBuilder sb = new StringBuilder();
+		String t = "";
+		
+		for(int i=0; i<encodedStr.length(); i++){
+			t += encodedStr.charAt(i);
+			if (hmapCodeR.containsKey(t)){
+				sb.append(hmapCodeR.get(t));
+				t = "";
+			}
+		}
+		decodedStr = sb.toString();
+		return decodedStr;
+	}
+	
+	// Métodos estáticos para compressão de bytes
+	public static byte[] comprimirBytes(byte[] dados) throws Exception {
+		if (dados == null || dados.length == 0) {
+			return new byte[0];
+		}
+		
+		// Converte bytes para String
+		String texto = new String(dados, "ISO-8859-1");
+		
+		// Cria o objeto Huffman e comprime
+		Huffman huffman = new Huffman(texto, false, "");
+		String encodedStr = huffman.encode();
+		
+		// Serializa a tabela de códigos e os dados comprimidos
+		java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
+		java.io.DataOutputStream dos = new java.io.DataOutputStream(baos);
+		
+		// Salva a tabela de códigos
+		dos.writeInt(huffman.hmapCode.size());
+		for (Map.Entry<Character, String> entry : huffman.hmapCode.entrySet()) {
+			dos.writeChar(entry.getKey());
+			dos.writeUTF(entry.getValue());
+		}
+		
+		// Salva o tamanho original
+		dos.writeInt(dados.length);
+		
+		// Converte a string de bits para bytes
+		int numBits = encodedStr.length();
+		dos.writeInt(numBits);
+		
+		// Converte string de bits em bytes
+		int numBytes = (numBits + 7) / 8;
+		byte[] bitsComprimidos = new byte[numBytes];
+		for (int i = 0; i < numBits; i++) {
+			if (encodedStr.charAt(i) == '1') {
+				bitsComprimidos[i / 8] |= (1 << (7 - (i % 8)));
+			}
+		}
+		
+		dos.writeInt(bitsComprimidos.length);
+		dos.write(bitsComprimidos);
+		
+		dos.close();
+		return baos.toByteArray();
+	}
+	
+	public static byte[] descomprimirBytes(byte[] dadosComprimidos) throws Exception {
+		if (dadosComprimidos == null || dadosComprimidos.length == 0) {
+			return new byte[0];
+		}
+		
+		java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(dadosComprimidos);
+		java.io.DataInputStream dis = new java.io.DataInputStream(bais);
+		
+		// Lê a tabela de códigos
+		int tamanhoTabela = dis.readInt();
+		HashMap<String, Character> hmapCodeR = new HashMap<>();
+		for (int i = 0; i < tamanhoTabela; i++) {
+			char ch = dis.readChar();
+			String code = dis.readUTF();
+			hmapCodeR.put(code, ch);
+		}
+		
+		// Lê o tamanho original (não usado, mas necessário para leitura sequencial)
+		dis.readInt();
+		
+		// Lê os bits comprimidos
+		int numBits = dis.readInt();
+		int numBytes = dis.readInt();
+		byte[] bitsComprimidos = new byte[numBytes];
+		dis.read(bitsComprimidos);
+		
+		// Reconstrói a string de bits
+		StringBuilder encodedStr = new StringBuilder();
+		for (int i = 0; i < numBits; i++) {
+			int byteIndex = i / 8;
+			int bitIndex = 7 - (i % 8);
+			if ((bitsComprimidos[byteIndex] & (1 << bitIndex)) != 0) {
+				encodedStr.append('1');
+			} else {
+				encodedStr.append('0');
+			}
+		}
+		
+		// Decodifica usando a tabela
+		StringBuilder sb = new StringBuilder();
+		String t = "";
+		for (int i = 0; i < encodedStr.length(); i++) {
+			t += encodedStr.charAt(i);
+			if (hmapCodeR.containsKey(t)) {
+				sb.append(hmapCodeR.get(t));
+				t = "";
+			}
+		}
+		
+		dis.close();
+		return sb.toString().getBytes("ISO-8859-1");
+	}
+	
 }
