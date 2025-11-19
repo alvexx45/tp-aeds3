@@ -258,10 +258,10 @@ public class CompressaoManager {
             
             // Interpretação do resultado
             pw.println("d. Interpretação do resultado:");
-            if (taxaCompressao < 0.5) {
+            if (taxaCompressao < 0.6) {
                 pw.println("   ★★★ EXCELENTE: Compressão muito eficiente!");
                 pw.println("   O algoritmo " + algoritmo + " reduziu o tamanho para menos da metade.");
-            } else if (taxaCompressao < 0.7) {
+            } else if (taxaCompressao < 0.8) {
                 pw.println("   ★★☆ BOM: Compressão eficiente.");
                 pw.println("   O algoritmo " + algoritmo + " conseguiu uma redução significativa.");
             } else if (taxaCompressao < 1) {
