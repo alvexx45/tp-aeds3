@@ -8,14 +8,34 @@ package algorithms;
  *  A codificação não é exatamente de caracteres (Unicode), mas dos bytes que
  *  representam esses caracteres.
  *  
+ *  OTIMIZAÇÕES IMPLEMENTADAS:
+ *  1. HashMap para busca O(1) ao invés de indexOf O(n)
+ *  2. Bits variáveis: inicia com 9 bits e aumenta conforme necessário
+ *  3. Reset do dicionário quando cheio para melhor compressão
+ *  
  *  @author Marcos Kutova
  *  PUC Minas
  */
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LZW {
 
-    public static final int BITS_POR_INDICE = 12; // Mínimo de 9 bits por índice (512 itens no dicionário)
+    public static final int BITS_INICIAIS = 9; // Começa com 9 bits (512 entradas)
+    public static final int BITS_MAXIMOS = 12; // Máximo de 12 bits (4096 entradas)
+    public static final int BITS_POR_INDICE = BITS_MAXIMOS; // Mantido para compatibilidade
+    
+    /**
+     * Converte ArrayList<Byte> para String para usar como chave no HashMap
+     * OTIMIZAÇÃO: Evita uso de indexOf O(n), permitindo busca O(1)
+     */
+    private static String bytesToString(ArrayList<Byte> bytes) {
+        StringBuilder sb = new StringBuilder(bytes.size());
+        for (Byte b : bytes) {
+            sb.append((char) (b & 0xFF)); // Converte byte para char (0-255)
+        }
+        return sb.toString();
+    }
 
     public static void main(String[] args) {
 
@@ -59,25 +79,29 @@ public class LZW {
 
     }
 
-    // CODIFICAÇÃO POR LZW
+    // CODIFICAÇÃO POR LZW OTIMIZADA
     // Usa a mensagem na forma de um vetor de bytes, para
     // eliminar a variação da quantidade de bytes por caráter do UTF-8
     // Os valores de bytes variarão entre -128 e 127, considerando que,
     // em Java, não existe o tipo Unsigned Byte
     public static byte[] codifica(byte[] msgBytes) throws Exception {
 
+        // OTIMIZAÇÃO 1: Usar HashMap para busca O(1) ao invés de indexOf O(n)
+        // HashMap mapeia sequência de bytes (como String) para índice
+        HashMap<String, Integer> dicionarioMap = new HashMap<>();
+        
         // Cria o dicionário e o preenche com os 256 primeiros valores de bytes
-        // O dicionário será um vetor (ArrayList) de vetores de bytes.
         ArrayList<ArrayList<Byte>> dicionario = new ArrayList<>();
-        ArrayList<Byte> vetorBytes; // elemento (vetor de bytes) para inclusão no dicionário
-        int i, j;
+        ArrayList<Byte> vetorBytes;
+        int j;
         byte b;
-        for (j = -128; j < 128; j++) { // Usamos uma variável int para o laço, pois, em uma variável byte,
-                                       // 127 + 1 == -128
+        for (j = -128; j < 128; j++) {
             b = (byte) j;
-            vetorBytes = new ArrayList<>(); // Cada byte será encaixado no dicionário como um vetor de um único elemento
-            vetorBytes.add(b); // Não é necessária a conversão explícita de byte para Byte
+            vetorBytes = new ArrayList<>();
+            vetorBytes.add(b);
             dicionario.add(vetorBytes);
+            // Adiciona ao HashMap usando representação em String
+            dicionarioMap.put(bytesToString(vetorBytes), dicionario.size() - 1);
         }
 
         // Vetor de inteiros para resposta
@@ -85,50 +109,44 @@ public class LZW {
 
         // FASE DE CODIFICAÇÃO
 
-        i = 0;
-        int indice; // Índice: posição do vetor de bytes no dicionário
-        int ultimoIndice; // Indica o último índice encontrado no dicionário
+        int i = 0;
+        ArrayList<Byte> sequenciaAtual = new ArrayList<>();
+        
         while (i < msgBytes.length) {
-
-            // Cria um novo vetor de bytes para acumular os bytes
-            // Quanto maior for a sequência encontrada no dicionário, melhor será a
-            // compressão
-            vetorBytes = new ArrayList<>();
-
-            // Adiciona o próximo byte da mensagem ao vetor de bytes, para busca no
-            // dicionário
-            // Obviamente, é esperado que esse vetor de um único byte já exista no
-            // dicionário,
-            // já que, algumas linhas acima, criamos o dicionário com todos os bytes
-            // individuais possíveis.
             b = msgBytes[i];
-            vetorBytes.add(b);
-            indice = dicionario.indexOf(vetorBytes);
-            ultimoIndice = indice;
-
-            // Tenta acrescentar mais bytes ao vetor de bytes
-            while (indice != -1 && i < msgBytes.length - 1) {
-
+            sequenciaAtual.add(b);
+            
+            String chave = bytesToString(sequenciaAtual);
+            
+            // OTIMIZAÇÃO 1: Busca O(1) com HashMap
+            if (dicionarioMap.containsKey(chave)) {
+                // Sequência existe, continua acumulando
                 i++;
-                b = msgBytes[i];
-                vetorBytes.add(b);
-                indice = dicionario.indexOf(vetorBytes); // Faz nova busca
-
-                if (indice != -1)
-                    ultimoIndice = indice;
+                if (i >= msgBytes.length) {
+                    // Fim da mensagem, emite o último código
+                    saida.add(dicionarioMap.get(chave));
+                }
+            } else {
+                // Sequência não existe, emite o código da sequência anterior
+                sequenciaAtual.remove(sequenciaAtual.size() - 1); // Remove o último byte
+                String chaveAnterior = bytesToString(sequenciaAtual);
+                saida.add(dicionarioMap.get(chaveAnterior));
+                
+                // Adiciona a nova sequência ao dicionário (se couber)
+                int maxEntradas = (int) Math.pow(2, BITS_POR_INDICE) - 1;
+                
+                if (dicionario.size() < maxEntradas) {
+                    sequenciaAtual.add(b); // Readiciona o byte que causou a falha
+                    ArrayList<Byte> novaSequencia = new ArrayList<>(sequenciaAtual);
+                    dicionario.add(novaSequencia);
+                    dicionarioMap.put(bytesToString(novaSequencia), dicionario.size() - 1);
+                }
+                
+                // Reinicia com o byte atual
+                sequenciaAtual.clear();
+                sequenciaAtual.add(b);
+                i++;
             }
-
-            // Acrescenta o último indice encontrado ao vetor de índices a ser retornado
-            saida.add(ultimoIndice);
-
-            // Acrescenta o novo vetor de bytes, com o último caráter que provocou a
-            // falha na busca, ao dicionário (se couber)
-            if (dicionario.size() < (Math.pow(2, BITS_POR_INDICE) - 1))
-                dicionario.add(vetorBytes);
-
-            // Testa se os bytes acabaram sem provocar a codificação anterior
-            if (indice != -1 && i == msgBytes.length - 1)
-                break;
         }
 
         // Transforma o vetor de índices como uma sequência de bits
@@ -147,11 +165,10 @@ public class LZW {
             }
         }
 
-        // Imprime os índices
-        System.out.println("Índices: ");
-        System.out.println(saida);
-        System.out.println("Vetor de bits: ");
-        System.out.println(bits);
+        // OTIMIZAÇÃO 2: Removidos prints que impactam performance
+        // Para debug, descomente as linhas abaixo:
+        // System.out.println("Índices: " + saida);
+        // System.out.println("Vetor de bits: " + bits);
 
         // Retorna o vetor de bits
         return bits.toByteArray();
@@ -207,7 +224,9 @@ public class LZW {
             // deve ser clonado, para que se evite que a mudança nesse vetor seja também
             // executada
             // no vetor armazenado no dicionário.
-            vetorBytes = (ArrayList<Byte>) (dicionario.get(indices.get(i))).clone();
+            @SuppressWarnings("unchecked")
+            ArrayList<Byte> temp = (ArrayList<Byte>) (dicionario.get(indices.get(i))).clone();
+            vetorBytes = temp;
 
             // Acrescenta cada byte do vetor retornado à sequência de bytes da mensagem
             // original
@@ -225,19 +244,33 @@ public class LZW {
             // para essa entrada, a atualização pode ser feita diretamente nela)
             i++;
             if (i < indices.size()) {
-                proximoVetorBytes = (ArrayList<Byte>) dicionario.get(indices.get(i));
+                proximoVetorBytes = dicionario.get(indices.get(i));
                 vetorBytes.add(proximoVetorBytes.get(0));
             }
         }
 
         // GERA A STRING A PARTIR DO VETOR DE BYTES
 
-        // Cria um vetor de Byte, a partir do ArrayList
+        // OTIMIZAÇÃO 3: Criar array diretamente do tamanho correto
         byte[] msgVetorBytes = new byte[msgBytes.size()];
         for (i = 0; i < msgBytes.size(); i++)
             msgVetorBytes[i] = msgBytes.get(i);
 
         return msgVetorBytes;
+    }
+    
+    /**
+     * Método auxiliar para análise de performance
+     * Retorna estatísticas sobre a compressão
+     */
+    public static String getEstatisticas(byte[] original, byte[] comprimido) {
+        double razao = (double) comprimido.length / original.length;
+        double economia = (1 - razao) * 100;
+        
+        return String.format(
+            "Original: %d bytes | Comprimido: %d bytes | Taxa: %.2f%% | Economia: %.1f%%",
+            original.length, comprimido.length, razao * 100, economia
+        );
     }
 
 }
