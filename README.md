@@ -8,6 +8,12 @@ Sistema de gerenciamento de petshop desenvolvido em Java com interface gráfica 
 - **Maven 3.6** ou superior
 - **JavaFX** (gerenciado automaticamente pelo Maven)
 
+## Instalação do Maven:
+- Windows: baixar pelo seguinte link: https://maven.apache.org/download.cgi
+- Linux:
+  - sudo apt install maven (Debian)
+  - sudo pacman -S maven (Arch)
+
 ## 🚀 Como Executar
 
 Todos os comandos abaixo devem ser executados na pasta src
