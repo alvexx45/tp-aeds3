@@ -11,8 +11,8 @@ Sistema de gerenciamento de petshop desenvolvido em Java com interface gráfica 
 ## Instalação do Maven:
 - Windows: baixar pelo seguinte link: https://maven.apache.org/download.cgi
 - Linux:
-  - sudo apt install maven (Debian)
-  - sudo pacman -S maven (Arch)
+  - Debian/Ubuntu: sudo apt install maven
+  - Arch: sudo pacman -S maven
 
 ## 🚀 Como Executar
 
