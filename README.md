@@ -113,14 +113,14 @@ A opção **6** insere automaticamente:
 **Ano:** 2025
 
 **Tópicos cobertos:**
-- Estrutura de representação dos registros
+- Estruturas de Dados
 - Tratamento de atributos multivalorados
 - Implementação de exclusão lógica (lápide)
-- Tipos de chaves e índices utilizados
 - Persistência de índices em disco
-- Relacionamentos 1:N e N:N
-- Integridade referencial
-- Compressão de Dados
+- Modelagem de Entidades
+- Compressão de Dados com Huffman e LZW
+- Criptografia RSA
+- Hash Extensível e Árvore B+
 
 ## 📝 Licença
 
