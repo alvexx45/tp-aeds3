@@ -1,4 +1,4 @@
-# Petcare Manager - Fase IV
+# Petcare Manager - Fase V
 
 Sistema de gerenciamento de petshop desenvolvido em Java com interface gráfica JavaFX, implementando estruturas de dados avançadas (Hash Extensível e Árvore B+) para indexação e relacionamentos.
 
@@ -55,8 +55,9 @@ Ao iniciar, você verá 5 opções:
 2. **Gerenciar Pets** - CRUD com relacionamento 1:N via CPF do dono
 3. **Gerenciar Serviços** - CRUD de serviços oferecidos
 4. **Gerenciar Agendamentos** - CRUD com relacionamento N:N via idPet e idServico
-5. **Compressão de Dados** - Compressão e descompressão dos dados utilizando Huffman ou LZW
-6. **Executar Testes** - Popula o sistema com dados de exemplo
+5. **Pesquisar por Padrão** - Casamento de padrões com KMP ou Boyer-Moore (bad character)
+6. **Compressão de Dados** - Compressão e descompressão dos dados utilizando Huffman ou LZW
+7. **Executar Testes** - Popula o sistema com dados de exemplo
 
 ### Bateria de Testes
 
