@@ -26,6 +26,9 @@ public class MainController {
     private Button btnAgendamentos;
     
     @FXML
+    private Button btnBuscaPadrao;
+    
+    @FXML
     private Button btnCompressao;
     
     @FXML
@@ -67,6 +70,15 @@ public class MainController {
             abrirJanelaComTamanho("/view/AgendarView.fxml", "Gerenciar Agendamentos", 1500, 750);
         } catch (Exception e) {
             mostrarErro("Erro ao abrir tela de agendamentos", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void abrirBuscaPadrao() {
+        try {
+            abrirJanelaComTamanho("/view/BuscaPadraoView.fxml", "Busca por Padrão - KMP / Boyer-Moore", 900, 700);
+        } catch (Exception e) {
+            mostrarErro("Erro ao abrir tela de busca por padrão", e.getMessage());
         }
     }
 

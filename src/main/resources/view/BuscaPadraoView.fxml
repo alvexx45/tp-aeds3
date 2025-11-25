@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="controller.BuscaPadraoController" spacing="15" styleClass="container">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    
+    <!-- Título -->
+    <Label text="Busca por Padrão - Casamento de Padrões" styleClass="title">
+        <font>
+            <Font name="System Bold" size="20"/>
+        </font>
+    </Label>
+    
+    <Separator/>
+    
+    <!-- Seleção de Algoritmo -->
+    <VBox spacing="10">
+        <Label text="Selecione o Algoritmo:" styleClass="label-bold">
+            <font>
+                <Font name="System Bold" size="14"/>
+            </font>
+        </Label>
+        
+        <HBox spacing="20">
+            <RadioButton fx:id="radioKMP" text="KMP (Knuth-Morris-Pratt)" selected="true">
+                <toggleGroup>
+                    <ToggleGroup fx:id="algoritmoGroup"/>
+                </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="radioBoyerMoore" text="Boyer-Moore (Bad Character)" toggleGroup="$algoritmoGroup"/>
+        </HBox>
+    </VBox>
+    
+    <!-- Campo de Padrão -->
+    <VBox spacing="10">
+        <Label text="Informe o padrão de busca:" styleClass="label-bold">
+            <font>
+                <Font name="System Bold" size="14"/>
+            </font>
+        </Label>
+        
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <TextField fx:id="txtPadrao" promptText="Digite o padrão a buscar no nome do cliente" 
+                      HBox.hgrow="ALWAYS" prefWidth="400"/>
+            <Button fx:id="btnBuscar" text="Buscar" onAction="#buscarPorPadrao" 
+                   styleClass="btn-primary" prefWidth="120"/>
+        </HBox>
+        
+        <Label fx:id="lblInfo" text="" styleClass="info-label" wrapText="true"/>
+    </VBox>
+    
+    <Separator/>
+    
+    <!-- Tabela de Resultados -->
+    <VBox spacing="10" VBox.vgrow="ALWAYS">
+        <Label text="Resultados:" styleClass="label-bold">
+            <font>
+                <Font name="System Bold" size="14"/>
+            </font>
+        </Label>
+        
+        <TableView fx:id="tableResultados" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="100" sortable="false" resizable="false"/>
+                <TableColumn fx:id="colNome" text="Nome" prefWidth="500" sortable="false"/>
+            </columns>
+            <placeholder>
+                <Label text="Nenhum resultado encontrado. Digite um padrão e clique em Buscar."/>
+            </placeholder>
+        </TableView>
+        
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label fx:id="lblTotal" text="Total de registros: 0" styleClass="info-label"/>
+            <Label fx:id="lblTempo" text="" styleClass="info-label"/>
+        </HBox>
+    </VBox>
+    
+    <!-- Botões de Ação -->
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button fx:id="btnLimpar" text="Limpar" onAction="#limparResultados" prefWidth="100"/>
+        <Button fx:id="btnFechar" text="Fechar" onAction="#fechar" prefWidth="100"/>
+    </HBox>
+    
+</VBox>

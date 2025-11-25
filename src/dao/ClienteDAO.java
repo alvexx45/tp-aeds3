@@ -135,4 +135,11 @@ public class ClienteDAO {
     public Cliente buscarClientePorEmail(String email) throws Exception {
         return arqClientes.findBy(cliente -> cliente.getEmail().toLowerCase().equals(email.toLowerCase()));
     }
+    
+    /**
+     * Lista todos os clientes cadastrados (para busca por padrão)
+     */
+    public java.util.List<Cliente> listarTodos() throws Exception {
+        return arqClientes.findAll(cliente -> true);
+    }
 }
