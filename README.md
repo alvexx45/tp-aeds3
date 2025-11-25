@@ -1,4 +1,4 @@
-# Petcare Manager (Fase 3 implementada!!)
+# Petcare Manager - Fase IV
 
 Sistema de gerenciamento de petshop desenvolvido em Java com interface gráfica JavaFX, implementando estruturas de dados avançadas (Hash Extensível e Árvore B+) para indexação e relacionamentos.
 
@@ -7,6 +7,12 @@ Sistema de gerenciamento de petshop desenvolvido em Java com interface gráfica 
 - **Java 11** ou superior
 - **Maven 3.6** ou superior
 - **JavaFX** (gerenciado automaticamente pelo Maven)
+
+## Instalação do Maven:
+- Windows: baixar pelo seguinte link: https://maven.apache.org/download.cgi
+- Linux:
+  - Debian/Ubuntu: sudo apt install maven
+  - Arch: sudo pacman -S maven
 
 ## 🚀 Como Executar
 
@@ -107,14 +113,14 @@ A opção **6** insere automaticamente:
 **Ano:** 2025
 
 **Tópicos cobertos:**
-- Estrutura de representação dos registros
+- Estruturas de Dados
 - Tratamento de atributos multivalorados
 - Implementação de exclusão lógica (lápide)
-- Tipos de chaves e índices utilizados
 - Persistência de índices em disco
-- Relacionamentos 1:N e N:N
-- Integridade referencial
-- Compressão de Dados
+- Modelagem de Entidades
+- Compressão de Dados com Huffman e LZW
+- Criptografia RSA
+- Hash Extensível e Árvore B+
 
 ## 📝 Licença
 
