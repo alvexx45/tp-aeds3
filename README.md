@@ -18,15 +18,19 @@ Sistema de gerenciamento de petshop desenvolvido em Java com interface gráfica 
 
 Todos os comandos abaixo devem ser executados na pasta src
 
-### **Opção 1: Script Automático (Recomendado)**
+### **Opção 1: Script Automático (Bash)**
+
+Dar permissão de execução
+```bash
+sudo chmod +x run.sh
+```
 
 Limpa, compila e executa o projeto:
-
 ```bash
 ./run.sh
 ```
 
-### **Opção 2: Comandos Maven**
+### **Opção 2: Comandos Maven (Windows)**
 
 **Compilar o projeto:**
 ```bash
